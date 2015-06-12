@@ -37,18 +37,21 @@ squareSize = 100;
 .cube-wrapper {
   perspective:  500px;
   // transform-style: preserve-3d;
-  backface-visibility: hidden;
+  // backface-visibility: hidden;
   // transform: translateZ(150px)
   perspective-origin: 50% 10%;
+  border: 1px solid deeppink;
+  position: absolute;
+  width: (squareSize)px;
+  height: (squareSize)px;
+  left: 50%;
+  margin-left: -(squareSize/2)px;
+  top: -(1.2*squareSize)px;
 }
 
 .cube {
-  position: relative;
-  width: (squareSize)px;
   transform-style: preserve-3d;
   transform: rotateY(45deg) rotateX(-15deg) rotateZ(-15deg);
-  left: 50%;
-  margin-left: -(squareSize/2)px;
   z-index: 1;
   font-size: 0;
 }
@@ -109,7 +112,7 @@ shadowSize = squareSize+7;
   margin-left: -(shadowSize/2)px;
   top: (500+(shadowSize/2) - 12)px;
   z-index: 0;
-  transform: rotateX(128deg) rotateY(0deg) rotateZ(45deg);
+  transform: rotateX(127.5deg) rotateY(0deg) rotateZ(46deg);
 }
 
 .cube-shadow {
