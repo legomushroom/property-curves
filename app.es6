@@ -22,17 +22,19 @@ var timeline = new mojs.Timeline({
 
 var tr = new mojs.Transit({
   parent:       scene,
-  x: '50%',     y: 500,
-  type:         'circle',
-  delay:        2000,
+  x: '50%',     y: 600,
+  type:         'rect',
+  duration:     300,
+  delay:        1100,
   fill:         'transparent',
   stroke:       'white',
-  strokeWidth:  {2:0},
-  isRunLess:    true
+  strokeWidth:  {10:0},
+  radius:       {100: 200},
+  opacity:      .7
+  // isRunLess:    true
 });
 
-tr.setAttribute('class', 'transit');
-
+tr.el.setAttribute('class', 'transit');
 
 var tween = new mojs.Tween;
 tween.add(timeline);
