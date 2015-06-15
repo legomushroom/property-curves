@@ -26,7 +26,9 @@ var timeline = new mojs.Timeline({
     cubeSquash.style.transform = `scaleX(${1+squashProgress})
                                   scaleY(${1-squashProgress})`;
     shadow.style.opacity   = (bounceProgress)/2;
-    shadow.style.transform = `scale(${1+(scaleProgress)+squashProgress})`;
+    shadow.style.transform = `scale(${1+(scaleProgress)+squashProgress})
+                              rotateY(${-14*squashProgress}deg)
+                              rotateX(${14*squashProgress}deg)`;
   }
 });
 
