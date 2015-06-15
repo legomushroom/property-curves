@@ -35,21 +35,16 @@ var timeline = new mojs.Timeline({
   }
 });
 
-
-var burst = new mojs.Burst({
-  parent: scene,
+var burstOption = {
+  parent:      scene,
   x: '100%',   y: 600,
   shiftX:     {0: 300},
   shiftY:     {0: '-50'},
   type:       ['circle', 'rect', 'polygon'],
-  fill:       'white',
+  fill:       ['white', 'yellow', 'pink'],
   delay:      265*S,
   duration:   1400*S,
-  // stroke:     'white',
-  // strokeWidth: 2,
-  // radiusX:      {50: 200},
   radius:      {50: 150},
-  // radiusY:      {25: 60},
   degree:      200,
   count:       5,
   angle:       {0:'-25'},
@@ -58,55 +53,68 @@ var burst = new mojs.Burst({
   randomRadius:     .7,
   randomAngle:      .1,
   swirlFrequency:   5,
-  isRunLess: true
-});
+  isRunLess:        true,
+  opacity:          .75
+};
+
+var burst = new mojs.Burst(burstOption);
+var burst2Option = {
+  x: '-20%',    shiftX: {0: -300},
+  angle:       {0:'25'}
+}
+mojs.h.extend(burst2Option, burstOption);
+var burst2 = new mojs.Burst(burst2Option);
+var largeBurstTween = new mojs.Tween;
+largeBurstTween.add(burst.tween, burst2.tween);
 
 
-var burst2 = new mojs.Burst({
-  parent: scene,
-  x: '-20%',   y: 600,
-  shiftX:     {0: -300},
-  shiftY:     {0: '-50'},
-  type:       ['circle', 'rect', 'polygon'],
-  fill:       'white',
-  delay:      265*S,
-  duration:   1400*S,
-  // stroke:     'white',
-  // strokeWidth: 2,
-  // radiusX:      {50: 200},
-  radius:      {50: 150},
-  // radiusY:      {25: 60},
-  degree:      200,
-  count:       5,
-  angle:       {0:'25'},
-  easing:     'expo.out',
-  isSwirl:     true,
-  randomRadius:     .7,
-  randomAngle:      .1,
-  swirlFrequency:   5,
-  isRunLess: true
-});
+var burst3Option = {delay: 850*S, radius: {30: 60}, count: 3}
+var burst4Option = { x: '-20%', shiftX: {0: -300}, angle: {0:'25'} }
+mojs.h.extend(burst3Option, burstOption);
+mojs.h.extend(burst4Option, burst3Option);
+var burst3 = new mojs.Burst(burst3Option);
+var burst4 = new mojs.Burst(burst4Option);
+var large2BurstTween = new mojs.Tween;
+large2BurstTween.add(burst3.tween, burst4.tween);
 
-// var tr = new mojs.Transit({
-//   parent:       scene,
-//   x: '50%',     y: 600,
-//   type:         'rect',
-//   duration:     300,
-//   delay:        1100,
-//   fill:         'transparent',
-//   stroke:       'white',
-//   strokeWidth:  {10:0},
-//   radius:       {100: 200},
-//   opacity:      .7
-//   // isRunLess:    true
-// });
 
-// tr.el.setAttribute('class', 'transit');
+var burst5Option = {delay: 1250*S, radius: {15: 30}, count: 2, shiftX: {0: 150}, shiftY: {0: '-25'}}
+var burst6Option = { x: '-20%', shiftX: {0: -150}, angle: {0:'25'}, }
+mojs.h.extend(burst5Option, burstOption);
+mojs.h.extend(burst6Option, burst5Option);
+var burst5 = new mojs.Burst(burst5Option);
+var burst6 = new mojs.Burst(burst6Option);
+var large3BurstTween = new mojs.Tween;
+large3BurstTween.add(burst5.tween, burst6.tween);
+
+
+var burst7Option = {delay: 1550*S, radius: {5: 12}, count: 1, shiftX: {0: 80}, shiftY: {0: '-15'}}
+var burst8Option = { x: '-20%', shiftX: {0: -80}, angle: {0:'15'}, }
+mojs.h.extend(burst7Option, burstOption);
+mojs.h.extend(burst8Option, burst7Option);
+var burst7 = new mojs.Burst(burst7Option);
+var burst8 = new mojs.Burst(burst8Option);
+var large4BurstTween = new mojs.Tween;
+large4BurstTween.add(burst7.tween, burst8.tween);
+
+var burst9Option = {delay: 1800*S, radius: {5: 12}, count: 1, shiftX: {0: 60}, shiftY: {0: '-10'}, childOptions: {radius: {3:0}} }
+var burst10Option = { x: '-20%', shiftX: {0: -60}, angle: {0:'10'}, }
+mojs.h.extend(burst9Option, burstOption);
+mojs.h.extend(burst10Option, burst9Option);
+var burst9 = new mojs.Burst(burst9Option);
+var burst10 = new mojs.Burst(burst10Option);
+var large5BurstTween = new mojs.Tween;
+large5BurstTween.add(burst9.tween, burst10.tween);
 
 var tween = new mojs.Tween;
-tween.add(timeline);
+tween.add(
+  timeline,
+  largeBurstTween, large2BurstTween,
+  large3BurstTween, large4BurstTween,
+  large5BurstTween
+);
 
 tween.start();
 setInterval(function () {
-  tween.start(); burst.run(); burst2.run();
+  tween.start();
 }, ((duration*1000)+2000)*S)
