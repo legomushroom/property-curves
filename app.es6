@@ -22,7 +22,7 @@ var fall3Sound = new Howl({ urls: ['./sounds/fall-kick-1.wav'], rate: .8, volume
 var fall4Sound = new Howl({ urls: ['./sounds/fall-kick-1.wav'], rate: .7, volume: .4 });
 var fall5Sound = new Howl({ urls: ['./sounds/fall-kick-1.wav'], rate: .6, volume: .3 });
 
-var duration = 2
+var duration = 2, translateY = 500;
 var timeline = new mojs.Timeline({
   duration: duration*1000*S,
   // delay: 1000, 
@@ -32,7 +32,7 @@ var timeline = new mojs.Timeline({
         squashProgress = squashEasing(progress);
         // squashProgress = squashEasing(progress);
     // var bounceProgressCommon = mojs.easing.bounce.out(progress);
-    cube.style.transform = `translate3d(0, ${500*bounceProgress}px, 0)`;
+    cube.style.transform = `translate3d(0, ${translateY*bounceProgress}px, 0)`;
     cubeSquash.style.transform = `scaleX(${1+squashProgress})
                                   scaleY(${1-squashProgress})`;
     shadow.style.opacity   = (bounceProgress)/2;
@@ -137,7 +137,35 @@ var burst10 = new mojs.Burst(burst10Option);
 var large5BurstTween = new mojs.Tween;
 large5BurstTween.add(burst9.tween, burst10.tween);
 
-var tween = new mojs.Tween;
+
+var anticipationEasing = mojs.easing.path('M-0.033203125,100 C-0.033203125,100 15.6074219,-55.2309585 14.7695313,100 C14.7695313,101.017824 13.2785395,120.164045 26.953125,128.024416 C33.6923828,132.121096 65.6133582,130.778973 77.6015625,126.065432 C98.8678283,117.703926 99.956543,100 99.956543,100');
+var anticipatingTranslateEasing = mojs.easing.path('M0,99.8708664 C4.21746922,99.7372437 10.3541277,99.737239 15.2145981,99.7372416 C15.9513935,56.8790926 26.4565296,0.054296106 42.4745979,0.0542961084 C53.7859535,0.0542960547 100,0.0542961054 100,0.0542961054');
+var timeline2 = new mojs.Timeline({
+  delay:    0*S,
+  duration: 2000*S,
+  onComplete: function () { tween.start(); },
+  onUpdate: function (p) {
+    var anticipationProgress = anticipationEasing(p);
+    var anticipationTranslateProgress = 1-anticipatingTranslateEasing(p);
+
+    cube.style.transform = `translate3d(0, ${translateY-(600*(1-anticipationTranslateProgress))}px, 0)`;
+    cubeSquash.style.transform = `scaleX(${1+anticipationProgress})
+                                  scaleY(${1-anticipationProgress})`;
+
+    shadow.style.opacity   = (anticipationTranslateProgress*1.2)/2;
+
+    var scale = (anticipationProgress > 0) ? 1+anticipationProgress : 1-anticipationProgress;
+    shadow.style.transform = `scale(${scale})
+                              rotateY(${-18*anticipationProgress}deg)
+                              rotateX(${18*anticipationProgress}deg)`;
+  }
+});
+
+var tween2 = new mojs.Tween;
+
+tween2.add(timeline2);
+
+var tween = new mojs.Tween({ onComplete: function () { tween2.start(); } });
 tween.add(
   timeline,
   largeBurstTween, large2BurstTween,
@@ -146,6 +174,7 @@ tween.add(
 );
 
 tween.start();
-setInterval(function () {
-  tween.start();
-}, ((duration*1000)+2000)*S)
+
+// setInterval(function () {
+//   tween.start();
+// }, ((duration*1000*2)+1000)*S)
