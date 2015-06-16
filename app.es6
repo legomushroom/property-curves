@@ -18,9 +18,9 @@ var cube         = document.querySelector('#js-cube'),
 
 var fall1Sound = new Howl({ urls: ['./sounds/fall-kick-1.wav'] });
 var fall2Sound = new Howl({ urls: ['./sounds/fall-kick-1.wav'], rate: .9, volume: .8 });
-var fall3Sound = new Howl({ urls: ['./sounds/fall-kick-1.wav'], rate: .8, volume: .6 });
+var fall3Sound = new Howl({ urls: ['./sounds/fall-kick-1.wav'], rate: .8, volume: .5 });
 var fall4Sound = new Howl({ urls: ['./sounds/fall-kick-1.wav'], rate: .7, volume: .4 });
-var fall5Sound = new Howl({ urls: ['./sounds/fall-kick-1.wav'], rate: .6, volume: .4 });
+var fall5Sound = new Howl({ urls: ['./sounds/fall-kick-1.wav'], rate: .6, volume: .3 });
 
 var duration = 2
 var timeline = new mojs.Timeline({
@@ -61,7 +61,7 @@ var burstOption = {
   randomAngle:      .1,
   swirlFrequency:   5,
   isRunLess:        true,
-  opacity:          .75
+  opacity:          .5
 };
 
 var burst = new mojs.Burst(burstOption);
