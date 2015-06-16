@@ -1,4 +1,5 @@
 var mojs = require('mo-js');
+var Howl = require('howler').Howl;
 require('./css/styles.styl');
 
 const S = 1;
@@ -14,6 +15,12 @@ var cube         = document.querySelector('#js-cube'),
     // bouncyEasing = mojs.easing.path('M1.55708779e-14,100 C5.07689534,92.3484969 10.7347387,63.9733163 16.6678547,0.045125884 C16.6678547,-1.79459817 28.3767503,115.087994 44.1008572,0.045125884 C44.1008572,-0.762447191 52.2136908,56.4504771 63.0182497,0.045125884 C63.0182497,-0.96434046 68.5097621,29.249329 76.4643231,0.045125884 C76.4643231,0.045125884 80.5297451,16.5436594 85.8902733,0.045125884 C85.8902733,-0.762447191 88.2638161,9.66114053 92.132216,0.045125884 C92.132216,-0.156767385 94.1849839,4.47883522 96.918051,0.045125884 C96.918051,-0.156767385 98.7040751,1.93815588 100,0.045125884'),
     // scaleEasing  = mojs.easing.path('M0,0 C5.07689534,7.65150309 10.7347387,36.0266837 16.6678547,100 C16.6678547,101.794598 28.3767503,-15.0879941 44.1008572,100 C44.1008572,100.762447 52.2136908,43.5495229 63.0182497,100 C63.0182497,100.96434 68.5097621,70.750671 76.4643231,100 C76.4643231,100 80.5297451,83.4563406 85.8902733,100 C85.8902733,100.762447 88.2638161,90.3388595 92.132216,100 C92.132216,100.156767 94.1849839,95.5211648 96.918051,100 C96.918051,100.156767 98.7040751,98.0618441 100,100');
     // squashEasing = mojs.easing.path('M0,-2.84217094e-14 C5.07689534,3.82575155 16.6678547,49.9774371 16.6678547,49.9774371 C16.6678547,49.9774371 16.6678543,-189.108256 22.1277174,49.9774371 C25.358017,49.9774371 100,49.9774371 100,49.9774371');
+
+var fall1Sound = new Howl({ urls: ['./sounds/fall-kick-1.wav'] });
+var fall2Sound = new Howl({ urls: ['./sounds/fall-kick-1.wav'], rate: .9, volume: .8 });
+var fall3Sound = new Howl({ urls: ['./sounds/fall-kick-1.wav'], rate: .8, volume: .6 });
+var fall4Sound = new Howl({ urls: ['./sounds/fall-kick-1.wav'], rate: .7, volume: .4 });
+var fall5Sound = new Howl({ urls: ['./sounds/fall-kick-1.wav'], rate: .6, volume: .4 });
 
 var duration = 2
 var timeline = new mojs.Timeline({
@@ -60,8 +67,12 @@ var burstOption = {
 var burst = new mojs.Burst(burstOption);
 var burst2Option = {
   x: '-20%',    shiftX: {0: -300},
-  angle:       {0:'25'}
+  angle:       {0:'25'},
+  onStart: function () {
+    fall1Sound.play();
+  }
 }
+
 mojs.h.extend(burst2Option, burstOption);
 var burst2 = new mojs.Burst(burst2Option);
 var largeBurstTween = new mojs.Tween;
@@ -69,7 +80,12 @@ largeBurstTween.add(burst.tween, burst2.tween);
 
 
 var burst3Option = {delay: 850*S, radius: {30: 60}, count: 3}
-var burst4Option = { x: '-20%', shiftX: {0: -300}, angle: {0:'25'} }
+var burst4Option = {
+    x: '-20%', shiftX: {0: -300}, angle: {0:'25'},
+    onStart: function () {
+      fall2Sound.play();
+    }
+  }
 mojs.h.extend(burst3Option, burstOption);
 mojs.h.extend(burst4Option, burst3Option);
 var burst3 = new mojs.Burst(burst3Option);
@@ -78,8 +94,13 @@ var large2BurstTween = new mojs.Tween;
 large2BurstTween.add(burst3.tween, burst4.tween);
 
 
-var burst5Option = {delay: 1250*S, radius: {15: 30}, count: 2, shiftX: {0: 150}, shiftY: {0: '-25'}}
-var burst6Option = { x: '-20%', shiftX: {0: -150}, angle: {0:'25'}, }
+var burst5Option = {delay: 1275*S, radius: {15: 30}, count: 2, shiftX: {0: 150}, shiftY: {0: '-25'}}
+var burst6Option = {
+  x: '-20%', shiftX: {0: -150}, angle: {0:'25'},
+  onStart: function () {
+    fall3Sound.play();
+  }
+}
 mojs.h.extend(burst5Option, burstOption);
 mojs.h.extend(burst6Option, burst5Option);
 var burst5 = new mojs.Burst(burst5Option);
@@ -89,7 +110,12 @@ large3BurstTween.add(burst5.tween, burst6.tween);
 
 
 var burst7Option = {delay: 1550*S, radius: {5: 12}, count: 1, shiftX: {0: 80}, shiftY: {0: '-15'}}
-var burst8Option = { x: '-20%', shiftX: {0: -80}, angle: {0:'15'}, }
+var burst8Option = {
+  x: '-20%', shiftX: {0: -80}, angle: {0:'15'},
+  onStart: function () {
+    fall4Sound.play();
+  }
+}
 mojs.h.extend(burst7Option, burstOption);
 mojs.h.extend(burst8Option, burst7Option);
 var burst7 = new mojs.Burst(burst7Option);
@@ -97,8 +123,13 @@ var burst8 = new mojs.Burst(burst8Option);
 var large4BurstTween = new mojs.Tween;
 large4BurstTween.add(burst7.tween, burst8.tween);
 
-var burst9Option = {delay: 1800*S, radius: {5: 12}, count: 1, shiftX: {0: 60}, shiftY: {0: '-10'}, childOptions: {radius: {3:0}} }
-var burst10Option = { x: '-20%', shiftX: {0: -60}, angle: {0:'10'}, }
+var burst9Option = {delay: 1725*S, radius: {5: 12}, count: 1, shiftX: {0: 60}, shiftY: {0: '-10'}, childOptions: {radius: {3:0}} }
+var burst10Option = {
+  x: '-20%', shiftX: {0: -60}, angle: {0:'10'},
+  onStart: function () {
+    fall5Sound.play();
+  }
+}
 mojs.h.extend(burst9Option, burstOption);
 mojs.h.extend(burst10Option, burst9Option);
 var burst9 = new mojs.Burst(burst9Option);

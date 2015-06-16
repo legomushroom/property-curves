@@ -31,6 +31,7 @@
   "main": "",
   "dependencies": {
     "classlist-polyfill": "^1.0.0",
+    "howler": "^1.1.26",
     "mo-js": "^0.119.0"
   },
   "devDependencies": {
