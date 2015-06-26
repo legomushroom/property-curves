@@ -10,7 +10,7 @@ var cube = {
     this.vars();
     this.createTween();
     this.initChildScenes();
-    this.cubeMainTween.start();
+    // this.cubeMainTween.start();
   },
   vars: function () {
     this.cubeEl       = document.querySelector('#js-cube');

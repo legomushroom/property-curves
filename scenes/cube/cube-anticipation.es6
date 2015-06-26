@@ -13,8 +13,8 @@ var cubeFall = {
     this.anticipatingYEasing = mojs.easing.path('M0,100 C4.21746922,99.7372437 14.4689363,99.8708599 19.3294067,99.8708626 C26.7892036,15.1907717 46.8866348,19.6362701 46.8866348,19.6362701 L100,19.6362701');
   },
   createTween: function () {
-    this.cubeAnticipationTween = new mojs.Tween({
-      delay:    1000*this.s,
+    this.cubeAnticipationTween = new mojs.Timeline({
+      delay:    (this.duration+1000)*this.s,
       duration: this.duration*2.2*this.s,
       onComplete: ()=> { this.cubeMainTween.start(); },
       onUpdate: (p)=> {
@@ -42,8 +42,8 @@ var cubeFall = {
         );
       }
     });
-    this.proto.cubeAnticipationTween = this.cubeAnticipationTween;
-    // this.cubeMainTween.add(this.cubeAnticipationTween);
+    // this.proto.cubeAnticipationTween = this.cubeAnticipationTween;
+    this.cubeMainTween.add(this.cubeAnticipationTween);
   }
 }
 

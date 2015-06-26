@@ -4,9 +4,11 @@ require('./css/styles.styl');
 
 // SCENES
 var cube = require('./scenes/cube/cube')
+var mole = require('./scenes/mole/mole')
 
 var main = {
   s: 1 // global time coefficient
 }
 
 cube.init(main);
+mole.init(main);

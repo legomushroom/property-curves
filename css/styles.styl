@@ -1,8 +1,17 @@
+PX = (1/16)rem
+GS = 10*PX
+
+
+c-main-background = #50E3C2
+rect()
+  width  arguments
+  height arguments
 
 body {
   paddding:     0;
   margin:       0;
-  background:   #50E3C2;
+  background:   c-main-background;
+  font-size:    16px;
 }
 
 squareSize = 100;
@@ -130,4 +139,6 @@ shadowSize = squareSize+7;
   border-radius: 10px;
   opacity: 0;
 }
+
+@import './mole'
 

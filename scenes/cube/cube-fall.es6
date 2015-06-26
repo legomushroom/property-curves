@@ -24,9 +24,9 @@ var cubeFall = {
     this.cubeFallTween = new mojs.Timeline({
       duration: this.duration*this.s,
       delay:    this.delay*this.s,
-      onComplete: () => {
-        this.cubeAnticipationTween.start();
-      },
+      // onComplete: () => {
+      //   this.cubeAnticipationTween.start();
+      // },
       onUpdate: (progress) => {
         var bounceProgress = this.bouncyEasing(progress),
             scaleProgress  = this.scaleEasing(progress),
@@ -40,7 +40,7 @@ var cubeFall = {
     });
     tween.add(this.cubeFallTween);
     this.cubeMainTween.add(tween);
-    this.proto.cubeFallTween = tween;
+    // this.proto.cubeFallTween = tween;
   }
 }
 

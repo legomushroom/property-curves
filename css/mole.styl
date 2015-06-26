@@ -1,0 +1,42 @@
+@import './door'
+
+.mole-scene
+  position  absolute
+  left      50%
+  top       50%
+  transform translate(-50%, 0%)
+  &__ground
+    background #664001
+    position   absolute
+    z-index    0
+    // left       0
+    // top       -53*PX
+    width      209*PX
+    height     209*PX
+    border-bottom-left-radius 18*PX
+    border-top-left-radius 2*PX
+    transform  rotateX(68deg) rotateZ(48deg) translateX(-8.5*GS) translateY(-13.1*GS)
+    top -4*GS
+    // background url('../i/mole-ground.svg')
+  &__door
+    top         -3.56*GS
+    transform   rotateX(68deg) rotateZ(48deg) translateX(-12.4*GS) translateY(-11.6*GS)
+    transform-origin 0% 50%
+    position     absolute
+    z-index      1
+    transform-style preserve-3d
+    rect         208*PX
+  &__door-rotation
+    // display none
+    transform    rotateY(-135deg) scaleX(.85)
+    transition   all 1s linear
+    transform-origin 0% 50%
+    transform-style preserve-3d
+  &__mask
+    position relative
+    // outline 1px solid
+    width   301*PX
+    height  217*PX
+    background url('../i/mole-mask.svg')
+    z-index 1
+    
