@@ -10,6 +10,7 @@ var door = {
   vars: function () {
     this.doorEl       = document.querySelector('#js-door');
     this.doorShadowEl = document.querySelector('#js-door-shadow');
+    this.doorHandleShadowEl = document.querySelector('#js-door-handle-shadow');
     // this.cubeEl       = document.querySelector('#js-cube');
     // this.cubeSquashEl = document.querySelector('#js-cube-squash');
     // this.shadowEl     = document.querySelector('#js-shadow');
@@ -25,9 +26,14 @@ var door = {
       onUpdate: (p) => {
         var bounce = mojs.easing.bounce.out(p);
         mojs.h.setPrefixedStyle(this.doorEl, 'transform', `rotateY(${-125*bounce}deg) scaleX(${1-(.25*bounce)})`);
+        
         var shadowBounce = mojs.easing.cubic.in(bounce)
         mojs.h.setPrefixedStyle(this.doorShadowEl, 'transform', `scaleX(${shadowBounce})`);
         this.doorShadowEl.style.opacity = shadowBounce;
+        
+        mojs.h.setPrefixedStyle(this.doorHandleShadowEl, 'transform', `rotateZ(${-75*(1-bounce)}deg) scaleY(${bounce})`);
+        this.doorHandleShadowEl.style.opacity = bounce;
+
       }
     });
     tween.start()
