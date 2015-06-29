@@ -1,6 +1,6 @@
 var mojs     = require('mo-js');
 
-var mole = {
+var door = {
   init: function (proto) {
     Object.setPrototypeOf(this, proto);
     this.vars();
@@ -8,6 +8,8 @@ var mole = {
     // this.cubeMainTween.start();
   },
   vars: function () {
+    this.doorEl       = document.querySelector('#js-door');
+    this.doorShadowEl = document.querySelector('#js-door-shadow');
     // this.cubeEl       = document.querySelector('#js-cube');
     // this.cubeSquashEl = document.querySelector('#js-cube-squash');
     // this.shadowEl     = document.querySelector('#js-shadow');
@@ -16,8 +18,22 @@ var mole = {
     // this.duration     = 2000;
     // this.delay        = 0;
   },
-  createTween: function () { }
+  createTween: function () {
+    var tween = new mojs.Tween({
+      duration: 1500*this.s,
+      delay: 1400*this.s,
+      onUpdate: (p) => {
+        var bounce = mojs.easing.bounce.out(p);
+        mojs.h.setPrefixedStyle(this.doorEl, 'transform', `rotateY(${-125*bounce}deg) scaleX(${1-(.25*bounce)})`);
+        var shadowBounce = mojs.easing.cubic.in(bounce)
+        mojs.h.setPrefixedStyle(this.doorShadowEl, 'transform', `scaleX(${shadowBounce})`);
+        this.doorShadowEl.style.opacity = shadowBounce;
+      }
+    });
+    tween.start()
+
+  }
 }
 
 
-module.exports = mole;
+module.exports = door;
