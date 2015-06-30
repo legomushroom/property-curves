@@ -30,17 +30,19 @@
     rect         209*PX
   &__door-rotation
     // display none
-    // transform    rotateY(-135deg) scaleX(.85)
     // transition   all 1s linear
+    transform    translateX(8px) translateY(8px)
     transform-origin 0% 50%
     transform-style preserve-3d
   &__mask
-    position relative
+    position absolute
+    top 5*PX
+    left 2*PX
     // outline 1px solid
-    width   301*PX
-    height  217*PX
+    width   298*PX
+    height  191*PX
     background url('../i/mole-mask.svg')
-    background-position 0 14px
-    display none
-    z-index 1
+    // background-position 0 14px
+    // display none
+    z-index 2
     

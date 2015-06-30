@@ -24,8 +24,10 @@ var door = {
       duration: 1500*this.s,
       delay: 1400*this.s,
       onUpdate: (p) => {
+        // return;
         var bounce = mojs.easing.bounce.out(p);
-        mojs.h.setPrefixedStyle(this.doorEl, 'transform', `rotateY(${-125*bounce}deg) scaleX(${1-(.25*bounce)})`);
+        var pp = mojs.easing.cubic.out(mojs.easing.cubic.out(p));
+        mojs.h.setPrefixedStyle(this.doorEl, 'transform', `rotateY(${-125*bounce}deg) translateX(${8*(1-pp)}px) translateY(${8*(1-pp)}px) scaleX(${1-(.25*bounce)})`);
         
         var shadowBounce = mojs.easing.cubic.in(bounce)
         mojs.h.setPrefixedStyle(this.doorShadowEl, 'transform', `scaleX(${shadowBounce})`);

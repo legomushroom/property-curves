@@ -83,6 +83,30 @@ bgColorDark = darken(#F5A623, 8)
 [class*="cuboid"] .bm {
   top: 100%;
 }
+
+coverSize = 20;
+.door .bm {
+  overflow:       visible;
+  &:before,
+  &:after {
+    content:      '';
+    position:     absolute;
+    background:   inherit;
+    // outline:      PX solid deeppink;
+  }
+  &:before {
+    height:       (coverSize)px;
+    width:        110%;
+    top:         -(.8*coverSize)px;
+    left:        -(coverSize)px;
+  }
+  &:after {
+    width:        (coverSize)px;
+    height:       100%;
+    left:        -(coverSize)px;
+  }
+}
+
 /* .cub-1 styles */
 .cub-1 {
   transform:translate3D(0em, 0em, 0em) rotateX(90deg) rotateY(0deg) rotateZ(0deg);
