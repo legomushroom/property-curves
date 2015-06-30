@@ -1,0 +1,15 @@
+<svg width="71px" height="105px" viewBox="0 0 71 105" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="hat-copy" sketch:type="MSLayerGroup" transform="translate(28.000000, 15.000000)">
+            <path d="M7.51061462,23.3637202 C7.51061462,23.3637202 22.7868493,23.7575629 39.8425782,19.4673693 L28.0251954,0.780845873 L10.4978516,3.73201775 L7.51061462,23.3637202 Z" id="Path-11" fill="#EDDECB" sketch:type="MSShapeGroup"></path>
+            <path d="M28.0227727,0.709556811 L1.69415946,61.4346545 L10.7009954,3.69979119 L28.0227727,0.709556811 Z" id="Path-12" fill="#E7D9C8" sketch:type="MSShapeGroup"></path>
+            <path d="M18,23.1781824 L25.0099815,22.3564814 L28.059744,0.753061138 L18,23.1781824 Z" id="Path-12" opacity="0.0894939366" fill="#000000" sketch:type="MSShapeGroup"></path>
+            <g id="brush" transform="translate(2.637031, 60.484947) rotate(6.000000) translate(-2.637031, -60.484947) translate(0.637031, 56.984947)" sketch:type="MSShapeGroup">
+                <ellipse id="Oval-12" fill="#EDDECB" cx="2" cy="2" rx="2" ry="2"></ellipse>
+                <path d="M1.63253011,2.31567727 L0.568749033,5.41477281" id="Path-13" stroke="#EDDECB"></path>
+                <path d="M2.73057311,2.26927496 L3.47070603,5.46117512" id="Path-13-Copy" stroke="#EDDECB"></path>
+                <path d="M2.12652593,2.81665039 L2.12652595,6.39790583" id="Path-13-Copy-2" stroke="#EDDECB"></path>
+            </g>
+        </g>
+    </g>
+</svg>
