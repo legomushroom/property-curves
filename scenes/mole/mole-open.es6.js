@@ -15,6 +15,7 @@ var moleOpen = {
     this.moleHandLeftEl = document.querySelector('#js-mole-hand-left');
     this.moleGlassesEl  = document.querySelector('#js-mole-glasses');
     this.moleBodyEl     = document.querySelector('#js-mole-body');
+    this.moleConeEl     = document.querySelector('#js-mole-hat-cone');
     this.moleGlassesLeftEl = document.querySelector('#js-mole-glasses-left');
   },
   createTween: function () {
@@ -82,9 +83,11 @@ var moleOpen = {
       }
     });
 
+
     this.moleTween.add( mp.tween, handMP.tween,
                         handMPLeft.tween, handMPGlasses.tween,
-                        handMPGlassesLeft.tween, bodyTween);
+                        handMPGlassesLeft.tween,
+                        bodyTween);
   },
 
   initChildScenes: function () {
