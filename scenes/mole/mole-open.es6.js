@@ -89,7 +89,6 @@ var moleOpen = {
       duration: 1200*this.s,
       onUpdate: (p) => {
         var coneP = coneEasing(p);
-        // var ease  = mojs.easing.cubic.in(p);
         // transform rotateX(140deg) rotateY(-20deg) translateY(-6px)
         mojs.h.setPrefixedStyle(this.moleConeEl, 'transform', `rotateX(${140*coneP}deg) rotateY(${-20*coneP}deg) translateY(${-6*coneP}px)`);
       }
