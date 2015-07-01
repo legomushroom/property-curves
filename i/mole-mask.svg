@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="298px" height="191px" viewBox="0 0 298 191" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+<svg width="299px" height="380px" viewBox="0 0 299 380" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
     <!-- Generator: Sketch 3.3.2 (12043) - http://www.bohemiancoding.com/sketch -->
     <title>Untitled 8</title>
     <desc>Created with Sketch.</desc>
     <defs></defs>
     <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
-        <path d="M-2.22044605e-16,0 L137.941946,56.4292155 C140.494617,57.4734605 144.687573,57.6162303 147.307972,56.7478374 L290.888202,9.16574518 C291.937201,8.81810964 292.921967,7.6609066 293.091868,6.55415387 L293.467773,4.10546875 L297.208496,4.10546875 L297.208511,190.945462 L-2.22044605e-16,190.945465 L-2.22044605e-16,0 Z" id="Path-1" fill="#47E4C2" sketch:type="MSShapeGroup"></path>
+        <g id="mole-mask" sketch:type="MSLayerGroup" fill="#47E4C2">
+            <g id="Page-1" sketch:type="MSShapeGroup">
+                <path d="M138.941946,56.4292155 C141.494617,57.4734605 145.687573,57.6162303 148.307972,56.7478374 L291.888202,9.16574518 C292.937201,8.81810964 293.921967,7.6609066 294.091868,6.55415387 L294.467773,4.10546875 L298.208496,4.10546875 L298.208496,379.464264 L1,379.464264 L1,0 L138.941946,56.4292155 Z" id="Path-1"></path>
+            </g>
+        </g>
     </g>
 </svg>

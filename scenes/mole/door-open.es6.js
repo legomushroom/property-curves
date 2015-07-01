@@ -21,8 +21,8 @@ var door = {
   },
   createTween: function () {
     var tween = new mojs.Tween({
-      duration: 1500*this.s,
-      delay: 1400*this.s,
+      duration: 1000*this.s,
+      delay: this.delay*this.s,
       onUpdate: (p) => {
         // return;
         var bounce = mojs.easing.bounce.out(p);
@@ -38,7 +38,7 @@ var door = {
 
       }
     });
-    tween.start()
+    this.moleTween.add(tween);
 
   }
 }

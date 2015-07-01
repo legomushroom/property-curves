@@ -1,5 +1,5 @@
 mojs = require('mo-js');
-var effects = require('./cube-fall-effects');
+var effects = require('./cube-fall-effects.es6.js');
 
 var cubeFall = {
   init: function (proto) {

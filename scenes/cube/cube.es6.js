@@ -1,8 +1,8 @@
 var mojs     = require('mo-js');
 
 // SCENES
-var cubeFall         = require('./cube-fall'),
-    cubeAnticipation = require('./cube-anticipation');
+var cubeFall         = require('./cube-fall.es6.js'),
+    cubeAnticipation = require('./cube-anticipation.es6.js');
 
 var cube = {
   init: function (proto) {

@@ -4,11 +4,11 @@ module.exports = {
   watch: true,
   context: __dirname,
   entry: [
-    __dirname + '/app.es6'
+    __dirname + '/app.es6.js'
   ],
   module: {
     loaders: [
-      { test: /\.(jsx|es6)$/, exclude: /node_modules/, loaders: ['6to5-loader?optional=coreAliasing'] },
+      { test: /\.(jsx|es6|es6\.js)$/, exclude: /node_modules/, loaders: ['6to5-loader?optional=coreAliasing'] },
       { test: /\.coffee$/, exclude: /node_modules/, loaders: ['coffee-loader?bare=true'] },
       { test: /\.cjsx$/, loaders: ['coffee', 'cjsx']},
       { test: /\.jade$/, loaders: ['jade'] },
