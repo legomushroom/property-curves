@@ -32,9 +32,9 @@ var moleOpen = {
 
     var handMP = new mojs.MotionPath({
       delay:     (this.delay+225)*this.s,
-      duration:  300*this.s,
+      duration:  400*this.s,
       path:      {x: 0, y: -1},
-      curvature: {x: '5000%', y: '-15%'},
+      curvature: {x: '8000%', y: '-15%'},
       el:        this.moleHandEl,
       easing:    'expo.out',
       isRunLess: true
@@ -42,9 +42,9 @@ var moleOpen = {
 
     var handMPLeft = new mojs.MotionPath({
       delay:     (this.delay+225)*this.s,
-      duration:  300*this.s,
+      duration:  400*this.s,
       path:      {x: 0, y: -1},
-      curvature: {x: '5000%', y: '-15%'},
+      curvature: {x: '8000%', y: '-15%'},
       el:        this.moleHandLeftEl,
       easing:    'expo.out',
       isRunLess: true
