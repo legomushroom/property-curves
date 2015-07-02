@@ -17,7 +17,7 @@
     top         2.3*GS
     left        2.6*GS
     background  url('../i/mole-glasses.svg')
-    z-index     1
+    z-index     3
   &__glasses-left
     width       17*PX
     height      27*PX
@@ -32,7 +32,7 @@
     position    absolute
     left        8.6*GS
     top         4.7*GS
-    z-index     2
+    z-index     4
     // outline 1px solid deeppink
   &__body
     width       164*PX
@@ -84,19 +84,26 @@
     top         .1*GS
     background  url('../i/mole-hat-base.svg')
     // opacity .5
+  
   &__hat-cone
     width       27*PX
     height      79*PX
     position    absolute
     z-index     2
-    left       -1.3*GS
-    top        -.4*GS
-    // opacity 0
-    background  url('../i/mole-hat-cone.svg')
+    left        -1.2*GS
+    top         -.4*GS
+    background  url('../i/mole-hat-cone.svg') no-repeat
     transform   rotateX(40deg) rotateY(-28deg) rotateZ(16deg) translateX(4px)
   &__hat-cone-wrapper
-    // transform rotateX(140deg) rotateY(-20deg) translateY(-6px) !important
+    position    absolute
+    z-index     5
+    width       36*PX
+    height      25*PX
+    left        5.8*GS
+    top         .1*GS
+  &__hat-cone-rotator
     transform-origin center top 2px
+    
   &__hat-shadow
     width       22*PX
     height      23*PX

@@ -93,9 +93,8 @@ var moleOpen = {
         var coneP = coneEasing(p);
         this.moleShadowEl.style.opacity = 1 - coneP;
         // transform rotateX(140deg) rotateY(-20deg) translateY(-6px)
-        mojs.h.setPrefixedStyle(this.moleConeEl, 'transform', `rotateX(${140*coneP}deg) rotateY(${-20*coneP}deg) translateY(${-6*coneP}px)`);
+        mojs.h.setPrefixedStyle(this.moleConeEl,   'transform', `rotateX(${140*coneP}deg) rotateY(${-20*coneP}deg) translateY(${-6*coneP}px)`);
         mojs.h.setPrefixedStyle(this.moleShadowEl, 'transform', `scaleX(${1-mojs.easing.cubic.in(coneP)})`);
-
       }
     });
 
