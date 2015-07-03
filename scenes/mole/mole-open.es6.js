@@ -34,8 +34,8 @@ var moleOpen = {
     });
 
     var handMP = new mojs.MotionPath({
-      delay:     (this.delay+225)*this.s,
-      duration:  400*this.s,
+      delay:     (this.delay+250)*this.s,
+      duration:  450*this.s,
       path:      {x: 0, y: -1},
       curvature: {x: '8000%', y: '-15%'},
       el:        this.moleHandEl,
@@ -44,10 +44,10 @@ var moleOpen = {
     });
 
     var handMPLeft = new mojs.MotionPath({
-      delay:     (this.delay+225)*this.s,
-      duration:  400*this.s,
+      delay:     (this.delay+250)*this.s,
+      duration:  450*this.s,
       path:      {x: 0, y: -1},
-      curvature: {x: '8000%', y: '-15%'},
+      curvature: {x: '4000%', y: '-15%'},
       el:        this.moleHandLeftEl,
       easing:    'expo.out',
       isRunLess: true
@@ -98,7 +98,7 @@ var moleOpen = {
       }
     });
 
-    var stretchEasing = mojs.easing.path('M0,0 C0,0 49.5,55.0283203 75,0 C75,0 89.1054688,-49.4414063 100,0');
+    var stretchEasing = mojs.easing.path('M0,0 C0,0 52.6318359,27.5279318 75.7575758,0 C75.7575758,0 90.005524,-24.2220682 100,0');
     // var stretchEasing = mojs.easing.path('M0,0 C0,0 61.9794922,64.1833801 68.0356445,0.357204547 C68.0356445,0.357204547 72.7907199,-45.446506 82.2429907,0 C82.2831087,0.598512638 87.5584112,28.1076928 93.4812171,0.357205607 C93.4579439,0 96.8984736,-15.392795 100,0');
     var stretchTween = new mojs.Tween({
       delay:    (this.delay+0)*this.s,
@@ -110,11 +110,11 @@ var moleOpen = {
       }
     });
 
-
+    // stretchTween
     this.moleTween.add( mp.tween, handMP.tween,
                         handMPLeft.tween, handMPGlasses.tween,
                         handMPGlassesLeft.tween,
-                        coneTween, stretchTween);
+                        coneTween);
   },
 
   initChildScenes: function () {
