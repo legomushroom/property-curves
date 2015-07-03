@@ -29,7 +29,7 @@ var moleOpen = {
       curvature: {x: '140%', y: '-15%'},
       el:        this.moleEl,
       easing:    'expo.out',
-      // motionBlur: .2,
+      motionBlur: .1,
       isRunLess: true
     });
 
@@ -98,7 +98,8 @@ var moleOpen = {
       }
     });
 
-    var stretchEasing = mojs.easing.path('M0,0 C0,0 52.6318359,27.5279318 75.7575758,0 C75.7575758,0 90.005524,-24.2220682 100,0');
+    var stretchEasing = mojs.easing.path('M0,0 C0,0 31.4848633,29.7739254 55.2021484,-4.28613761e-07 C74.9160156,-20.18457 100,0 100,0');
+    // var stretchEasing = mojs.easing.path('M0,0 C0,0 52.6318359,27.5279318 75.7575758,0 C75.7575758,0 90.005524,-24.2220682 100,0');
     // var stretchEasing = mojs.easing.path('M0,0 C0,0 61.9794922,64.1833801 68.0356445,0.357204547 C68.0356445,0.357204547 72.7907199,-45.446506 82.2429907,0 C82.2831087,0.598512638 87.5584112,28.1076928 93.4812171,0.357205607 C93.4579439,0 96.8984736,-15.392795 100,0');
     var stretchTween = new mojs.Tween({
       delay:    (this.delay+0)*this.s,
@@ -110,11 +111,10 @@ var moleOpen = {
       }
     });
 
-    // stretchTween
     this.moleTween.add( mp.tween, handMP.tween,
                         handMPLeft.tween, handMPGlasses.tween,
                         handMPGlassesLeft.tween,
-                        coneTween);
+                        coneTween, stretchTween);
   },
 
   initChildScenes: function () {
