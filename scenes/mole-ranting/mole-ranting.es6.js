@@ -27,7 +27,7 @@ var moleRanting = {
   },
   initChildScenes: function () {
     moleRantingHand.init(this);
-    // this.moleRantingTween.start();
+    this.moleRantingTween.start();
   }
 }
 

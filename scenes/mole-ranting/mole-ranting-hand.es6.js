@@ -10,7 +10,7 @@ var moleRantingHand = {
     this.initChildScenes();
   },
   vars: function () {
-    this.s = 1;
+    // this.s = 10;
     this.delay = (this.s < 5) ? 1400 : 0;
     this.handAngle = -175;
   },
@@ -40,7 +40,7 @@ var moleRantingHand = {
     });
     // tween.start();
     tween.setProgress(1);
-    this.moleRantingTween.add(tween);
+    // this.moleRantingTween.add(tween);
   },
   initChildScenes: function () {
     tongue.init(this);
