@@ -50,11 +50,12 @@ var moleRantingTongue = {
         mojs.h.style(this.moleHandEl, 'transform', `rotate(${(this.handAngle*handP)+(30*noizeP)}deg)`);
         mojs.h.style(this.moleHandLeftEl, 'transform', `rotate(${(100*skewP)-(15*noizeP)}deg) translateY(${(-100*skewP)}px)`);
         mojs.h.style(this.moleMouthEl, 'transform', `scale(${mouthP+(3*noizeP)}) translate(${-30*skewP}px, 0)`);
+        // mojs.h.style(this.moleTongueEl, 'transform', `scale(${1/(mouthP+(3*noizeP))}) translate(${65*noizeP}px, 0)`);
         mojs.h.style(this.moleGlassesEl, 'transform', `translateY(${20*noizeP}px)`);
         mojs.h.style(this.moleGlassesLeftEl, 'transform', `translateY(${10*noizeP}px)`);
         mojs.h.style(this.moleConeEl, 'transform', `rotateZ(${20*noizeP}deg)`);
-
         // console.log(p);
+        this.moleTonguePath.setAttribute('d', `M0 30 Q 20 ${10+(450*noizeP)}, 30 25 T 50 30`);
       }
     });
     tween.start();

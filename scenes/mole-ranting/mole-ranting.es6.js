@@ -21,6 +21,8 @@ var moleRanting = {
     this.moleMouthInnerEl = document.querySelector('#js-mole-mouth-inner');
     this.moleMouthOuterEl = document.querySelector('#js-mole-mouth-outer');
     this.moleHandLeftEl   = document.querySelector('#js-mole-hand-left');
+    this.moleTongueEl     = document.querySelector('#js-mole-tongue');
+    this.moleTonguePath   = document.querySelector('#js-mole-tongue-path');
   },
   createTween: function () {
     this.moleRantingTween = new mojs.Tween();
