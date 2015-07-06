@@ -8,7 +8,7 @@ var mole        = require('./scenes/mole/mole.es6.js')
 var moleRanting = require('./scenes/mole-ranting/mole-ranting.es6.js')
 
 var main = {
-  s:      10, // global time coefficient
+  s:      1, // global time coefficient
   zHack:  ' translateZ(0) '
 }
 

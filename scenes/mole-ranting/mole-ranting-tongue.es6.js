@@ -55,7 +55,7 @@ var moleRantingTongue = {
         mojs.h.style(this.moleGlassesLeftEl, 'transform', `translateY(${10*noizeP}px)`);
         mojs.h.style(this.moleConeEl, 'transform', `rotateZ(${20*noizeP}deg)`);
         // console.log(p);
-        this.moleTonguePath.setAttribute('d', `M0 30 Q 20 ${10+(450*noizeP)}, 30 25 T 50 30`);
+        this.moleTonguePath.setAttribute('d', `M0 30 Q 20 ${10+(550*noizeP)}, 30 25 T 50 30`);
       }
     });
     tween.start();
