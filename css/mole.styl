@@ -45,22 +45,20 @@
     position absolute
     rect 100%
     transform-origin center bottom
-  &__mouth
-    background  #3A3535
+  
+  &__mouth-wrapper
     position    absolute
     right       3.2*GS
-    top         7.5*GS
+    top         7.4*GS
+    // outline     1px solid red
     circle      20*PX
-    transform   rotate(20deg)
+  &__mouth
+    position    absolute
+    background  #3A3535
+    circle      20*PX
     border-top-right-radius 0
     overflow    hidden
-    
-    // circle      4*PX
-    // border-top-right-radius 0
-    // right       4*GS
-    // top         8*GS
-
-
+    transform   rotate(20deg)
   &__mouth-inner
     background  #C9544A
     position    absolute
