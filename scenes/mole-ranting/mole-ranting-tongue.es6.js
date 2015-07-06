@@ -26,7 +26,7 @@ var moleRantingTongue = {
       isSwirl:      true,
       randomRadius: .75,
       radius:       {0:150},
-      count:        17,
+      count:        16,
       childOptions: {
         radius:     { 'rand(1,2)' : 0},
         duration:   300*this.s,
@@ -50,11 +50,11 @@ var moleRantingTongue = {
         mojs.h.style(this.moleHandEl, 'transform', `rotate(${(this.handAngle*handP)+(30*noizeP)}deg)`);
         mojs.h.style(this.moleHandLeftEl, 'transform', `rotate(${(100*skewP)-(15*noizeP)}deg) translateY(${(-100*skewP)}px)`);
         mojs.h.style(this.moleMouthEl, 'transform', `scale(${mouthP+(3*noizeP)}) translate(${-30*skewP}px, 0)`);
-        // mojs.h.style(this.moleTongueEl, 'transform', `scale(${1/(mouthP+(3*noizeP))}) translate(${65*noizeP}px, 0)`);
         mojs.h.style(this.moleGlassesEl, 'transform', `translateY(${20*noizeP}px)`);
         mojs.h.style(this.moleGlassesLeftEl, 'transform', `translateY(${10*noizeP}px)`);
         mojs.h.style(this.moleConeEl, 'transform', `rotateZ(${20*noizeP}deg)`);
         // console.log(p);
+        mojs.h.style(this.moleTongueEl, 'transform', `translate(${-140*skewP}px, 0)`);
         this.moleTonguePath.setAttribute('d', `M0 30 Q 20 ${10+(550*noizeP)}, 30 25 T 50 30`);
       }
     });
