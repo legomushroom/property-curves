@@ -9,9 +9,12 @@ var moleRanting = require('./scenes/mole-ranting/mole-ranting.es6.js')
 
 var main = {
   s:      1, // global time coefficient
-  zHack:  ' translateZ(0) '
+  zHack:  ' translateZ(0) ',
+  mainTween: new mojs.Tween
 }
 
 cube.init(main);
 mole.init(main);
 moleRanting.init(main);
+
+main.mainTween.start();

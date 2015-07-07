@@ -23,7 +23,8 @@ var mole = {
   initChildScenes: function () {
     doorOpen.init(this);
     moleOpen.init(this);
-    this.moleTween.setProgress(1);
+    this.mainTween.add(this.moleTween);
+    // this.moleTween.setProgress(1);
     // this.moleTween.start();
   }
 }
