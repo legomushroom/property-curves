@@ -24,6 +24,8 @@ var moleRanting = {
     this.moleHandLeftEl   = document.querySelector('#js-mole-hand-left');
     this.moleTongueEl     = document.querySelector('#js-mole-tongue');
     this.moleTonguePath   = document.querySelector('#js-mole-tongue-path');
+    this.moleEyeEl        = document.querySelector('#js-mole-eye');
+    this.moleEyeLashEl    = document.querySelector('#js-mole-eye-lash');
 
     this.handAngle = -175;
     this.handRantingDuration = 1500;

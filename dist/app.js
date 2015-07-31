@@ -74,7 +74,7 @@
 	  mainTween: new mojs.Timeline()
 	};
 
-	cube.init(main);
+	// cube.init(main);
 	mole.init(main);
 	moleRanting.init(main);
 
@@ -9380,7 +9380,7 @@
 	      onUpdate: function (p) {
 	        var coneP = coneEasing(p);
 	        mojs.h.style(_this.moleConeEl, "transform", "rotateX(" + 140 * coneP + "deg) rotateY(" + -20 * coneP + "deg) translateY(" + -6 * coneP + "px)");
-	        mojs.h.style(_this.moleMoutEl, "transform", "scale(" + mojs.easing.cubic.out(coneP) + ")");
+	        mojs.h.style(_this.moleMoutEl, "transform", "scale(" + coneP + ")");
 	        mojs.h.style(_this.moleShadowEl, {
 	          opacity: 1 - coneP,
 	          transform: "scaleX(" + (1 - mojs.easing.cubic["in"](coneP)) + ") translateZ(0)"
@@ -9448,6 +9448,8 @@
 	    this.moleHandLeftEl = document.querySelector("#js-mole-hand-left");
 	    this.moleTongueEl = document.querySelector("#js-mole-tongue");
 	    this.moleTonguePath = document.querySelector("#js-mole-tongue-path");
+	    this.moleEyeEl = document.querySelector("#js-mole-eye");
+	    this.moleEyeLashEl = document.querySelector("#js-mole-eye-lash");
 
 	    this.handAngle = -175;
 	    this.handRantingDuration = 1500;
@@ -9458,7 +9460,7 @@
 	  initChildScenes: function () {
 	    moleRantingHand.init(this);
 	    tongue.init(this);
-	    // this.mainTween.add(this.moleRantingTween);
+	    this.mainTween.add(this.moleRantingTween);
 	  }
 	};
 
@@ -9493,9 +9495,10 @@
 	  createTween: function () {
 	    var _this = this;
 	    var skewCurve = mojs.easing.path("M0,100 C0,100 18.1450901,69.0663515 24.0949898,99.9609384 C30.0448895,130.855525 100,100 100,100");
-	    var handCurve = mojs.easing.path("M0,0 C11.0084495,-40.8987056 24.0484163,-0.5744868 24.0484168,0.13721933 C24.0484163,99.5099897 24.0484163,123.534396 42.8134722,123.534393 C60.7645806,123.534393 100,116.783417 100,116.783417");
+	    var handCurve = mojs.easing.path("M0,-3.55271368e-14 C10.9545898,-40.8999024 23.9307575,-0.575683661 23.930758,0.136022468 C23.9307575,99.5087928 23.9307575,123.533199 42.6040039,123.533196 C47.594178,123.533196 54.2372213,123.00636 61.2202377,122.247035 C61.5346348,122.212848 63.3167217,121.96483 65.9540934,121.59172 C76.2346029,120.13733 99.5107422,116.78222 99.5107422,116.78222");
 	    var mouthCurve = mojs.easing.path("M0,0.300003052 C0,-118.289845 23.9999996,0.30000305 23.9999996,0.30000305 C23.9999996,0.30000305 28.9929691,57.0874986 31.8132816,63.7992219 C86.0328155,57.0874986 100,72.5585908 100,72.5585908");
 	    var noizeCurve = mojs.easing.path("M0,99.05 L24.2114672,99.1070023 L27.0786839,106.049107 L29.2555809,92.7589286 L32.0340385,103.220982 L35.3459816,94.0055804 L38.3783493,102.496652 L41.0513382,95.3588169 L43.7739944,106.049107 L45.6729927,96.3013392 L50,104.487165 L53.3504448,92.7589286 L57.7360497,103.220982 L60.8616066,95.3588169 L65.0345993,102.496652 L68.6997757,96.9146207 L71.6646194,101.435268 L75.0262299,95.3588169 L78.0089264,104.487165 L81.2276764,92.7589286 L84.390625,102.496652 L85.7360458,95.3588169 L88.4709854,101.435268 L90.9453125,96.3013392 L94.2198639,103.220982 L96.1110458,94.0055804 L100,99.05");
+
 	    var saliva = new mojs.Burst({
 	      parent: this.moleEl,
 	      type: "circle",
@@ -9518,6 +9521,7 @@
 	    saliva.el.style["z-index"] = 10;
 	    // console.log(this.handAngle);
 
+	    var squintCurve = mojs.easing.mix({ to: 0.25, value: 1 }, { to: 1, value: "expo.in" });
 	    mojs.h.style(this.moleMouthEl, "transform-origin", "right center");
 	    var tween = new mojs.Tween({
 	      delay: this.delay * this.s,
@@ -9537,13 +9541,23 @@
 	        mojs.h.style(_this.moleMouthEl, "transform", "scale(" + (mouthP + 3 * noizeP) + ") translate(" + -30 * skewP + "px, 0)");
 	        mojs.h.style(_this.moleGlassesEl, "transform", "translateY(" + 20 * noizeP + "px)");
 	        mojs.h.style(_this.moleGlassesLeftEl, "transform", "translateY(" + 10 * noizeP + "px)");
+
+	        mojs.h.style(_this.moleEyeEl, "transform", "");
+
 	        mojs.h.style(_this.moleConeEl, "transform", "rotateZ(" + 20 * noizeP + "deg)");
 	        mojs.h.style(_this.moleTongueEl, "transform", "translate(" + -140 * skewP + "px, 0)");
 	        _this.moleTonguePath.setAttribute("d", "M0 30 Q 20 " + (10 + 550 * noizeP) + ", 30 25 T 50 30");
+
+	        // SQUINT
+	        var squintP = squintCurve(p);
+	        var n_squintP = mojs.easing.inverse(squintP);
+	        _this.moleEyeLashEl.setAttribute("d", "M0,0 Q 6.5 " + 10 * squintP + ", 13 0");
+	        _this.moleEyeLashEl.setAttribute("stroke-width", 2 + 1.5 * n_squintP);
+	        mojs.h.style(_this.moleEyeEl, "transform", "rotate(" + 10 * n_squintP + "deg) translateX(" + 5 * n_squintP + "px)");
 	      }
 	    });
 	    // tween.start();
-	    this.mainTween.add(tween);
+	    this.moleRantingTween.add(tween);
 	  }
 	};
 
@@ -9578,6 +9592,7 @@
 	    var _this = this;
 	    var handAngleCurve = mojs.easing.path("M0,100 L3.13085938,99.9660558 C11.128418,-42.5141612 24.7357688,10.3389432 24.7357688,10.3389432 C24.7357688,10.3389432 35.4207115,6.43611673 35.420711,19.551763 C35.420711,19.551763 35.4207115,28.5204487 38.4679491,20.1010452 C45.9122391,-2.41706848 48.2480469,19.3280379 49.4205542,19.3280385 C49.4205546,6.88000841 55.0592461,-3.51334643 59,15.8785806 C60.6251608,22.5931723 56.8918457,-3.3408203 65.4951172,-3.3408203 C68.7340668,-3.54252346 69.730594,6.60260412 70.328125,14.0234368 C70.9301836,21.5004985 74.0961573,27.0302603 74.7888322,18.8316301 C77.5927734,-0.603027419 100,0 100,0");
 	    var handStretchCurve = mojs.easing.path("M1.13686838e-13,100.140658 C1.13686838e-13,100.140658 5.01160836,100.097038 8.74856937,100.270866 C15.1440434,57.219434 23.7860103,98.447299 23.7860103,100.097037 C30.2913574,71.1380541 36.1603623,98.3939125 36.160361,100.162142 C41.9325738,44.182975 49.1344299,98.9199542 49.1344299,100.053418 C53.6287224,80.2298508 59.2720971,99.9303714 59.2720971,99.9303714 C59.2720971,99.9303714 63.6972656,56.5605469 70.2742418,100.003578 C72.7851563,131.47461 74.5979385,101.614397 75,100.097038 C78.8691406,68.734375 82.3889542,100.577847 94.1109085,100.097038 L99.9962311,100.097038");
+	    // var handSearchCurve  = mojs.easing.path('M0,-3.55271368e-14 C10.9545898,-40.8999024 23.9307575,-0.575683661 23.930758,0.136022468 C23.9307575,99.5087928 23.9307575,123.533199 42.6040039,123.533196 C47.594178,123.533196 54.2372213,123.00636 61.2202377,122.247035 C61.5346348,122.212848 62.3540039,116.78222 62.3540039,116.78222 L67.1289062,121.552239 L71.6528698,121.105131 L71.6528702,113.889642 C71.6528702,113.889642 79.5930971,120.23681 80.4042803,120.096115 C86.7731009,118.991483 99.5107422,116.78222 99.5107422,116.78222');
 	    var tween = new mojs.Tween({
 	      delay: 1600 * this.s,
 	      duration: this.handRantingDuration * this.s,
@@ -9596,12 +9611,12 @@
 
 	        var bodyScale = 0.25 * handStretchP;
 	        mojs.h.style(_this.moleEl, "transform", "scaleY(" + (1 + bodyScale) + ") scaleX(" + (1 - bodyScale) + ") " + _this.zHack);
-	        mojs.h.style(_this.moleMouthEl, "transform", "scale(" + (1 - 5 * handStretchP) + ") translateX(" + -50 * handStretchShiftP + "px) " + _this.zHack);
+	        mojs.h.style(_this.moleMouthEl, "transform", "scale(" + Math.min(1 - 5 * handStretchP, 1.2) + ") translateX(" + Math.min(-50 * handStretchShiftP, 10) + "px) " + _this.zHack);
 	        mojs.h.style(_this.moleMouthInnerEl, "transform", "scale(" + (1 - 4 * handStretchP) + ") translateX(" + Math.min(-150 * handStretchP, 10) + "px) translateY(" + -20 * handStretchShiftP + "px) " + _this.zHack);
 	        mojs.h.style(_this.moleMouthOuterEl, "border-top-right-radius", "" + 200 * handStretchShiftP + "%");
 	      }
 	    });
-	    this.mainTween.add(tween);
+	    this.moleRantingTween.add(tween);
 	  },
 	  initChildScenes: function () {}
 	};

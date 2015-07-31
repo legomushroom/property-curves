@@ -39,6 +39,7 @@ var moleRantingTongue = {
     saliva.el.style['z-index'] = 10;
     // console.log(this.handAngle);
 
+    var squintCurve = mojs.easing.mix({ to: .25, value: 1 }, { to: 1, value: 'expo.in' });
     mojs.h.style(this.moleMouthEl, 'transform-origin', `right center`);
     var tween = new mojs.Tween({
       delay:    this.delay*this.s,
@@ -56,9 +57,19 @@ var moleRantingTongue = {
         mojs.h.style(this.moleMouthEl, 'transform', `scale(${mouthP+(3*noizeP)}) translate(${-30*skewP}px, 0)`);
         mojs.h.style(this.moleGlassesEl, 'transform', `translateY(${20*noizeP}px)`);
         mojs.h.style(this.moleGlassesLeftEl, 'transform', `translateY(${10*noizeP}px)`);
+
+        mojs.h.style(this.moleEyeEl, 'transform', ``);
+
         mojs.h.style(this.moleConeEl, 'transform', `rotateZ(${20*noizeP}deg)`);
         mojs.h.style(this.moleTongueEl, 'transform', `translate(${-140*skewP}px, 0)`);
         this.moleTonguePath.setAttribute('d', `M0 30 Q 20 ${10+(550*noizeP)}, 30 25 T 50 30`);
+
+        // SQUINT
+        var squintP   = squintCurve(p);
+        var n_squintP = mojs.easing.inverse(squintP);
+        this.moleEyeLashEl.setAttribute('d', `M0,0 Q 6.5 ${10*squintP}, 13 0`);
+        this.moleEyeLashEl.setAttribute('stroke-width', 2 + 1.5*n_squintP);
+        mojs.h.style(this.moleEyeEl, 'transform', `rotate(${10*n_squintP}deg) translateX(${5*n_squintP}px)`);
       }
     });
     // tween.start();
