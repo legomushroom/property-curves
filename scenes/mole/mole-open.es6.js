@@ -12,6 +12,7 @@ var moleOpen = {
     // this.delay        = 0;
     this.moleEl         = document.querySelector('#js-mole');
     this.moleHandEl     = document.querySelector('#js-mole-hand');
+    this.moleMoutEl     = document.querySelector('#js-mole-mouth');
     this.moleHandLeftEl = document.querySelector('#js-mole-hand-left');
     this.moleGlassesEl  = document.querySelector('#js-mole-glasses');
     this.moleBodyEl     = document.querySelector('#js-mole-body');
@@ -89,6 +90,7 @@ var moleOpen = {
       delay:    (this.delay+0)*this.s,
       duration: 1200*this.s,
       onUpdate: (p) => {
+        mojs.h.style(this.moleMoutEl, 'transform', `scale(${mojs.easing.cubic.out(p)})`);
         var coneP = coneEasing(p);
         mojs.h.style(this.moleConeEl,   'transform', `rotateX(${140*coneP}deg) rotateY(${-20*coneP}deg) translateY(${-6*coneP}px)`);
         mojs.h.style(this.moleShadowEl, {

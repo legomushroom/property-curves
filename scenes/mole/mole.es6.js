@@ -17,7 +17,7 @@ var mole = {
     this.delay = (this.s === 1) ? 1000 : 0;
   },
   createTween: function () {
-    this.moleTween = new mojs.Tween;
+    this.moleTween = new mojs.Timeline;
   },
 
   initChildScenes: function () {

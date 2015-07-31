@@ -8,7 +8,7 @@ var moleRantingTongue = {
     this.createTween();
     // this.initChildScenes();
   },
-  vars: function () { this.delay = 0; this.duration = 2000; },
+  vars: function () { this.delay = 1500+this.handRantingDuration-250; this.duration = 1800; },
   createTween: function () {
     var skewCurve  = mojs.easing.path('M0,100 C0,100 18.1450901,69.0663515 24.0949898,99.9609384 C30.0448895,130.855525 100,100 100,100');
     var handCurve  = mojs.easing.path('M0,0 C11.0084495,-40.8987056 24.0484163,-0.5744868 24.0484168,0.13721933 C24.0484163,99.5099897 24.0484163,123.534396 42.8134722,123.534393 C60.7645806,123.534393 100,116.783417 100,116.783417');
@@ -20,7 +20,7 @@ var moleRantingTongue = {
       fill:         'white',
       duration:     (this.duration/1.3)*this.s,
       x: 145,       y: 105,
-      delay:        `stagger(${(this.delay+(this.duration/4))*this.s}, rand(50, 100))`,
+      delay:        `stagger(${(this.duration/4)*this.s}, rand(50, 100))`,
       degree:       0,
       angle:        {75: 150},
       isSwirl:      true,
@@ -29,16 +29,17 @@ var moleRantingTongue = {
       count:        16,
       isRunLess:    true,
       childOptions: {
-        radius:     { 'rand(1,2)' : 0},
+        radius:     { 'rand(.5,2)' : 0},
         duration:   300*this.s,
         // opacity:    {.7: .25},
       }
     });
 
     saliva.el.style['z-index'] = 10;
+    // console.log(this.handAngle);
 
     mojs.h.style(this.moleMouthEl, 'transform-origin', `right center`);
-    var tween = new mojs.Timeline({
+    var tween = new mojs.Tween({
       delay:    this.delay*this.s,
       duration: this.duration*this.s,
       onStart: function () { saliva.run(); },
@@ -55,13 +56,12 @@ var moleRantingTongue = {
         mojs.h.style(this.moleGlassesEl, 'transform', `translateY(${20*noizeP}px)`);
         mojs.h.style(this.moleGlassesLeftEl, 'transform', `translateY(${10*noizeP}px)`);
         mojs.h.style(this.moleConeEl, 'transform', `rotateZ(${20*noizeP}deg)`);
-        // console.log(p);
         mojs.h.style(this.moleTongueEl, 'transform', `translate(${-140*skewP}px, 0)`);
         this.moleTonguePath.setAttribute('d', `M0 30 Q 20 ${10+(550*noizeP)}, 30 25 T 50 30`);
       }
     });
     // tween.start();
-    this.moleRantingTween.append(tween);
+    this.mainTween.add(tween);
   }
 }
 

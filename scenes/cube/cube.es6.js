@@ -21,7 +21,7 @@ var cube = {
     this.duration     = 2000;
     this.delay        = 0;
   },
-  createTween: function () { this.cubeMainTween = new mojs.Tween; },
+  createTween: function () { this.cubeMainTween = new mojs.Timeline; },
 
   initChildScenes: function () {
     cubeFall.init(this);

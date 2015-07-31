@@ -1,4 +1,5 @@
 var mojs     = require('mo-js');
+var tongue   = require('./mole-ranting-tongue.es6.js');
 
 var moleRantingHand = require('./mole-ranting-hand.es6.js');
 
@@ -23,15 +24,17 @@ var moleRanting = {
     this.moleHandLeftEl   = document.querySelector('#js-mole-hand-left');
     this.moleTongueEl     = document.querySelector('#js-mole-tongue');
     this.moleTonguePath   = document.querySelector('#js-mole-tongue-path');
+
+    this.handAngle = -175;
+    this.handRantingDuration = 1500;
   },
   createTween: function () {
-    this.moleRantingTween = new mojs.Tween();
+    this.moleRantingTween = new mojs.Timeline;
   },
   initChildScenes: function () {
     moleRantingHand.init(this);
-    // should append
-    this.mainTween.add(this.moleRantingTween);
-    // this.moleRantingTween.start();
+    tongue.init(this);
+    // this.mainTween.add(this.moleRantingTween);
   }
 }
 

@@ -20,7 +20,7 @@ var cubeFall = {
     // this.squashEasing = mojs.easing.path('M0,-2.84217094e-14 C5.07689534,3.82575155 16.6678547,49.9774371 16.6678547,49.9774371 C16.6678547,49.9774371 16.6678543,-189.108256 22.1277174,49.9774371 C25.358017,49.9774371 100,49.9774371 100,49.9774371');
   },
   createTween: function () {
-    var tween = new mojs.Tween;
+    var tween = new mojs.Timeline;
     this.cubeFallTween = new mojs.Timeline({
       duration: this.duration*this.s,
       delay:    this.delay*this.s,
