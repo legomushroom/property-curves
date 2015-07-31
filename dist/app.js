@@ -9378,9 +9378,9 @@
 	      delay: (this.delay + 0) * this.s,
 	      duration: 1200 * this.s,
 	      onUpdate: function (p) {
-	        mojs.h.style(_this.moleMoutEl, "transform", "scale(" + mojs.easing.cubic.out(p) + ")");
 	        var coneP = coneEasing(p);
 	        mojs.h.style(_this.moleConeEl, "transform", "rotateX(" + 140 * coneP + "deg) rotateY(" + -20 * coneP + "deg) translateY(" + -6 * coneP + "px)");
+	        mojs.h.style(_this.moleMoutEl, "transform", "scale(" + mojs.easing.cubic.out(coneP) + ")");
 	        mojs.h.style(_this.moleShadowEl, {
 	          opacity: 1 - coneP,
 	          transform: "scaleX(" + (1 - mojs.easing.cubic["in"](coneP)) + ") translateZ(0)"

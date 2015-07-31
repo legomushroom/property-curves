@@ -13,7 +13,7 @@ var main = {
   mainTween: new mojs.Timeline
 }
 
-cube.init(main);
+// cube.init(main);
 mole.init(main);
 moleRanting.init(main);
 
