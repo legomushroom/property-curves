@@ -9670,21 +9670,23 @@
 
 	    var e = mojs.easing;
 	    // var handAngleCurve = e.path('M0,0.0557234763 L7.9453125,0.158137605 L7.9453125,-62.2096335 L27.0139179,-62.2096335 L27.0139179,66.661464 L45.9410019,66.661464 L45.9410012,-0.27805839 L45.9410019,-94.524739 L100.009766,-94.524739');
-	    var bodySkewC = e.path("M0.506500786,99.4107635 C0.506500786,99.4107635 5.85142524,99.4107621 7.9810887,99.4107621 C7.9810887,66.899765 18.5815826,-9.81235939 32.5697561,49.5905614 C34.3447271,56.1428608 40.36649,56.1939167 41.0047155,49.5905613 C42.965489,30.0062046 44.1572271,-22.244141 59.113501,-7.025553 C62.059815,-3.8203124 60.6154791,0.141451938 64.710198,0.141452075 C65.4163407,0.141452071 66.1289969,0.141452067 66.8462524,0.141452063 C82.5602506,0.141451987 100.481854,0.14145211 100.481854,0.14145211");
-	    var doorAngleC = e.mix({ to: 0.5, value: 1 }, { to: 1, value: bodySkewC });
+	    var bodySkewC = e.path("M0.506500786,99.4107635 C0.506500786,99.4107635 5.85142524,99.4107621 7.9810887,99.4107621 C7.9810887,66.899765 14.0576168,-39.8300779 32.375588,23.1162121 C34.150559,29.6685115 40.0307601,29.7045647 40.8105474,23.116212 C49.0488287,-46.488282 57.7949224,0.14145211 66.8462524,0.141452063 C79.10852,0.14145202 100.481854,0.14145211 100.481854,0.14145211");
+	    var riseC = e.path("M0.504882812,99.4550781 L8.29748693,99.4550781 C19.3574219,34.4345703 32.1187229,99.4550794 32.1187235,99.4550781 C32.1187235,99.4550781 37.9296875,122.487303 43.1708984,99.4550794 C51.9283709,10.3408208 63.429554,94.8232407 63.4295529,99.4550781 C67.7822266,127.167966 76.9882812,99.4550793 76.9882812,99.4550793 L100.110353,99.4550781");
+	    var doorAngleC = e.mix({ to: 0.45, value: 1 }, { to: 1, value: bodySkewC });
 	    var tween = new mojs.Tween({
 	      delay: 200 * this.s,
-	      duration: 1300 * this.s,
+	      duration: 1100 * this.s,
 	      onUpdate: function (p) {
+	        var riseP = riseC(p);
 	        var bodySkewP = bodySkewC(p);
-	        mojs.h.style(_this.moleEl, "transform", "skewX(" + 9 * bodySkewP + "deg) scale(" + (1 - 0.01 * bodySkewP) + ", " + (1 + 0.01 * bodySkewP) + ") translateX(" + -7 * bodySkewP + "px) rotateY(" + -10 * bodySkewP + "deg)");
+	        mojs.h.style(_this.moleEl, "transform", "skewX(" + 12 * bodySkewP + "deg) scale(" + (1 - 0.1 * riseP) + ", " + (1 + 0.1 * riseP) + ") translate(" + -7 * bodySkewP + "px, " + -17 * riseP + "px) rotateY(" + -10 * bodySkewP + "deg)");
 	        mojs.h.style(_this.moleHandEl, "transform", "rotate(" + (33 + 60 * bodySkewP) + "deg) scaleY(" + (1 + 0.07 * bodySkewP) + ")");
 	        mojs.h.style(_this.moleHandLeftEl, "transform", "rotate(" + 20 * bodySkewP + "deg) translate(" + 24 * bodySkewP + "px, " + -10 * bodySkewP + "px)");
 
 
 	        var doorAngleP = doorAngleC(p);
-	        mojs.h.setPrefixedStyle(_this.doorEl, "transform", "rotateY(" + (-125 + 40 * e.inverse(doorAngleP)) + "deg) scaleX(.75) " + _this.zHack);
-	        mojs.h.setPrefixedStyle(_this.doorShadowEl, "transform", "scaleX(" + (1 - 0.5 * e.inverse(doorAngleP)) + ") " + _this.zHack);
+	        mojs.h.setPrefixedStyle(_this.doorEl, "transform", "rotateY(" + (-125 + 60 * e.inverse(doorAngleP)) + "deg) scaleX(.75) " + _this.zHack);
+	        mojs.h.setPrefixedStyle(_this.doorShadowEl, "transform", "scaleX(" + (1 - 0.35 * e.inverse(doorAngleP)) + ") " + _this.zHack);
 	      }
 	    });
 
