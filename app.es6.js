@@ -10,11 +10,17 @@ var moleRanting = require('./scenes/mole-ranting/mole-ranting.es6.js')
 var main = {
   s:         1, // global time coefficient
   zHack:     ' translateZ(0) ',
-  mainTween: new mojs.Timeline
+  mainTween: new mojs.Timeline,
+  init() {
+    this.vars();
+    mole.init(this);
+    moleRanting.init(this);
+    this.mainTween.start();
+  },
+  vars() {
+    this.moleEl         = document.querySelector('#js-mole');
+    this.moleHandEl     = document.querySelector('#js-mole-hand');
+  }
 }
 
-// cube.init(main);
-mole.init(main);
-moleRanting.init(main);
-
-main.mainTween.start();
+main.init();

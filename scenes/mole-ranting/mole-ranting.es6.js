@@ -1,7 +1,8 @@
 var mojs     = require('mo-js');
 var tongue   = require('./mole-ranting-tongue.es6.js');
 
-var moleRantingHand = require('./mole-ranting-hand.es6.js');
+var moleRantingHand   = require('./mole-ranting-hand.es6.js');
+var moleRantingSearch = require('./mole-ranting-search.es6.js');
 
 // SCENES
 var moleRanting = {
@@ -36,6 +37,7 @@ var moleRanting = {
   initChildScenes: function () {
     moleRantingHand.init(this);
     tongue.init(this);
+    moleRantingSearch.init(this);
     this.mainTween.add(this.moleRantingTween);
   }
 }

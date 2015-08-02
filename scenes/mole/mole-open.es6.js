@@ -10,9 +10,7 @@ var moleOpen = {
   },
   vars: function () {
     // this.delay        = 0;
-    this.moleEl         = document.querySelector('#js-mole');
-    this.moleHandEl     = document.querySelector('#js-mole-hand');
-    this.moleMoutEl     = document.querySelector('#js-mole-mouth');
+    this.moleMouthEl    = document.querySelector('#js-mole-mouth');
     this.moleHandLeftEl = document.querySelector('#js-mole-hand-left');
     this.moleGlassesEl  = document.querySelector('#js-mole-glasses');
     this.moleBodyEl     = document.querySelector('#js-mole-body');
@@ -20,6 +18,8 @@ var moleOpen = {
     this.moleShadowEl   = document.querySelector('#js-mole-hat-shadow');
     this.moleInnerEl    = document.querySelector('#js-mole-inner');
     this.moleGlassesLeftEl = document.querySelector('#js-mole-glasses-left');
+
+    mojs.h.style(this.moleMouthEl, 'transform', 'scale(0.25)');
   },
   createTween: function () {
 
@@ -92,7 +92,6 @@ var moleOpen = {
       onUpdate: (p) => {
         var coneP = coneEasing(p);
         mojs.h.style(this.moleConeEl,   'transform', `rotateX(${140*coneP}deg) rotateY(${-20*coneP}deg) translateY(${-6*coneP}px)`);
-        mojs.h.style(this.moleMoutEl, 'transform', `scale(${coneP})`);
         mojs.h.style(this.moleShadowEl, {
           opacity:   1 - coneP,
           transform: `scaleX(${1-mojs.easing.cubic.in(coneP)}) translateZ(0)`
@@ -100,14 +99,14 @@ var moleOpen = {
       }
     });
 
-    var stretchEasing = mojs.easing.path('M0,0 C0,0 31.4848633,29.7739254 55.2021484,-4.28613761e-07 C74.9160156,-20.18457 100,0 100,0');
-    // var stretchEasing = mojs.easing.path('M0,0 C0,0 52.6318359,27.5279318 75.7575758,0 C75.7575758,0 90.005524,-24.2220682 100,0');
-    // var stretchEasing = mojs.easing.path('M0,0 C0,0 61.9794922,64.1833801 68.0356445,0.357204547 C68.0356445,0.357204547 72.7907199,-45.446506 82.2429907,0 C82.2831087,0.598512638 87.5584112,28.1076928 93.4812171,0.357205607 C93.4579439,0 96.8984736,-15.392795 100,0');
+    var stretchCurve = mojs.easing.path('M0,0 C0,0 31.4848633,29.7739254 55.2021484,-4.28613761e-07 C74.9160156,-20.18457 100,0 100,0');
+    // var stretchCurve = mojs.easing.path('M0,0 C0,0 52.6318359,27.5279318 75.7575758,0 C75.7575758,0 90.005524,-24.2220682 100,0');
+    // var stretchCurve = mojs.easing.path('M0,0 C0,0 61.9794922,64.1833801 68.0356445,0.357204547 C68.0356445,0.357204547 72.7907199,-45.446506 82.2429907,0 C82.2831087,0.598512638 87.5584112,28.1076928 93.4812171,0.357205607 C93.4579439,0 96.8984736,-15.392795 100,0');
     var stretchTween = new mojs.Tween({
       delay:    (this.delay+0)*this.s,
       duration: 500*this.s,
       onUpdate: (p) => {
-        var stretchP = stretchEasing(p);
+        var stretchP = stretchCurve(p);
         var inv = 1+(1-stretchP);
         mojs.h.setPrefixedStyle(this.moleInnerEl, 'transform', `scaleX(${stretchP}) scaleY(${inv}) translateZ(0)`);
       }
