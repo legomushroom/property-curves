@@ -51,12 +51,12 @@ var moleRantingTongue = {
         var mouthP = mouthCurve(p);
         var noizeP = noizeCurve(p);
 
-        mojs.h.style(this.moleEl, 'transform', `skewX(${(75*skewP)-(5*noizeP)}deg) skewY(${15*noizeP}deg)`);
-        mojs.h.style(this.moleHandEl, 'transform', `rotate(${(this.handAngle*handP)+(30*noizeP)}deg)`);
-        mojs.h.style(this.moleHandLeftEl, 'transform', `rotate(${(100*skewP)-(15*noizeP)}deg) translateY(${(-100*skewP)}px)`);
-        mojs.h.style(this.moleMouthEl, 'transform', `scale(${mouthP+(3*noizeP)}) translate(${-30*skewP}px, 0)`);
-        mojs.h.style(this.moleGlassesEl, 'transform', `translateY(${20*noizeP}px)`);
-        mojs.h.style(this.moleGlassesLeftEl, 'transform', `translateY(${10*noizeP}px)`);
+        mojs.h.style(this.moleEl,           'transform', `skewX(${(75*skewP)-(5*noizeP)}deg) skewY(${15*noizeP}deg)`);
+        mojs.h.style(this.moleHandEl,       'transform', `rotate(${(this.handAngle*handP)+(30*noizeP)}deg)`);
+        mojs.h.style(this.moleHandLeftEl,   'transform', `rotate(${(100*skewP)-(15*noizeP)}deg) translateY(${(-100*skewP)}px)`);
+        mojs.h.style(this.moleMouthEl,      'transform', `scale(${mouthP+(3*noizeP)}) translate(${-30*skewP}px, 0)`);
+        mojs.h.style(this.moleGlassesEl,    'transform', `translateY(${20*noizeP}px)`);
+        mojs.h.style(this.moleGlassesLeftEl,'transform', `translateY(${10*noizeP}px)`);
 
         mojs.h.style(this.moleEyeEl, 'transform', ``);
 

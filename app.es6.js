@@ -16,10 +16,18 @@ var main = {
     mole.init(this);
     moleRanting.init(this);
     this.mainTween.start();
+    // this.mainTween.setProgress(1);
   },
   vars() {
-    this.moleEl         = document.querySelector('#js-mole');
-    this.moleHandEl     = document.querySelector('#js-mole-hand');
+    this.moleEl            = document.querySelector('#js-mole');
+    this.moleHandEl        = document.querySelector('#js-mole-hand');
+    this.moleConeEl        = document.querySelector('#js-mole-hat-cone');
+    this.moleGlassesEl     = document.querySelector('#js-mole-glasses');
+    this.moleGlassesLeftEl = document.querySelector('#js-mole-glasses-left');
+    this.moleMouthEl       = document.querySelector('#js-mole-mouth');
+    this.moleMouthInnerEl  = document.querySelector('#js-mole-mouth-inner');
+    this.moleMouthOuterEl  = document.querySelector('#js-mole-mouth-outer');
+    this.moleHandLeftEl    = document.querySelector('#js-mole-hand-left');
   }
 }
 

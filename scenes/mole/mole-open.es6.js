@@ -12,12 +12,9 @@ var moleOpen = {
     // this.delay        = 0;
     this.moleMouthEl    = document.querySelector('#js-mole-mouth');
     this.moleHandLeftEl = document.querySelector('#js-mole-hand-left');
-    this.moleGlassesEl  = document.querySelector('#js-mole-glasses');
     this.moleBodyEl     = document.querySelector('#js-mole-body');
-    this.moleConeEl     = document.querySelector('#js-mole-hat-cone');
     this.moleShadowEl   = document.querySelector('#js-mole-hat-shadow');
     this.moleInnerEl    = document.querySelector('#js-mole-inner');
-    this.moleGlassesLeftEl = document.querySelector('#js-mole-glasses-left');
 
     mojs.h.style(this.moleMouthEl, 'transform', 'scale(0.25)');
   },
