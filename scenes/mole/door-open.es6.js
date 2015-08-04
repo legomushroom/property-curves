@@ -8,9 +8,6 @@ var door = {
     // this.cubeMainTween.start();
   },
   vars: function () {
-    this.doorEl             = document.querySelector('#js-door');
-    this.doorShadowEl       = document.querySelector('#js-door-shadow');
-    this.doorHandleShadowEl = document.querySelector('#js-door-handle-shadow');
   },
   createTween: function () {
     var tween = new mojs.Tween({

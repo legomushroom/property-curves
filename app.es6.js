@@ -22,14 +22,17 @@ var main = {
   },
   vars() {
     this.moleEl            = document.querySelector('#js-mole');
-    this.moleHandEl        = document.querySelector('#js-mole-hand');
     this.moleConeEl        = document.querySelector('#js-mole-hat-cone');
     this.moleGlassesEl     = document.querySelector('#js-mole-glasses');
     this.moleGlassesLeftEl = document.querySelector('#js-mole-glasses-left');
     this.moleMouthEl       = document.querySelector('#js-mole-mouth');
     this.moleMouthInnerEl  = document.querySelector('#js-mole-mouth-inner');
     this.moleMouthOuterEl  = document.querySelector('#js-mole-mouth-outer');
+    this.moleHandEl        = document.querySelector('#js-mole-hand');
     this.moleHandLeftEl    = document.querySelector('#js-mole-hand-left');
+    this.doorEl             = document.querySelector('#js-door');
+    this.doorShadowEl       = document.querySelector('#js-door-shadow');
+    this.doorHandleShadowEl = document.querySelector('#js-door-handle-shadow');
   }
 }
 
