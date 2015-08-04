@@ -6,6 +6,7 @@ require('./css/styles.styl');
 var cube        = require('./scenes/cube/cube.es6.js')
 var mole        = require('./scenes/mole/mole.es6.js')
 var moleRanting = require('./scenes/mole-ranting/mole-ranting.es6.js')
+var close       = require('./scenes/close/close.es6.js')
 
 var main = {
   s:         1, // global time coefficient
@@ -15,8 +16,9 @@ var main = {
     this.vars();
     mole.init(this);
     moleRanting.init(this);
-    this.mainTween.start();
-    // this.mainTween.setProgress(1);
+    close.init(this);
+    // this.mainTween.start();
+    this.mainTween.setProgress(1);
   },
   vars() {
     this.moleEl            = document.querySelector('#js-mole');

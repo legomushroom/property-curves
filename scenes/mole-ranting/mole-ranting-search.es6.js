@@ -36,7 +36,7 @@ var moleRantingSearch = {
         var bodySkewP = bodySkewC(p);
         mojs.h.style(this.moleEl, 'transform', `skewX(${9*bodySkewP}deg) scale(${1-.15*riseP}, ${1+.15*riseP}) translate(0, ${-17*riseP}px)`);
         mojs.h.style(this.moleHandEl, 'transform', `rotate(${29.5 + 65*bodySkewP}deg) scaleY(${1+.1*bodySkewP}) translateY(${-15*riseP}px)`);
-        mojs.h.style(this.moleHandLeftEl, 'transform', `rotate(${20*bodySkewP}deg) translate(${50*bodySkewP}px, ${-10*bodySkewP - 10*riseP}px)`);
+        mojs.h.style(this.moleHandLeftEl, 'transform', `rotate(${20*bodySkewP}deg) translate(${30*bodySkewP}px, ${-10*bodySkewP - 10*riseP}px)`);
 
         this.moleEyeLashEl.setAttribute('d', `M0,0 Q ${6.5 - 13*riseP} ${10-30*Math.max(riseP, 0)}, 13 0`);
         this.moleEyeLashEl.setAttribute('stroke-width', 2 + 2.5*riseP);
@@ -53,8 +53,8 @@ var moleRantingSearch = {
 
         var riseP = riseC(p);
         mojs.h.setPrefixedStyle(this.moleConeEl,        'transform', `rotateX(${210*riseP}deg)` );
-        mojs.h.setPrefixedStyle(this.moleGlassesEl,     'transform', `translateY(${-35*riseP}px)` );
-        mojs.h.setPrefixedStyle(this.moleGlassesLeftEl, 'transform', `translateY(${-35*riseP}px)` );
+        mojs.h.setPrefixedStyle(this.moleGlassesEl,     'transform', `translateY(${-25*riseP}px)` );
+        mojs.h.setPrefixedStyle(this.moleGlassesLeftEl, 'transform', `translateY(${-25*riseP}px)` );
 
       }
     });
