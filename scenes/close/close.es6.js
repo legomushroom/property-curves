@@ -20,14 +20,15 @@ var close = {
     var positionC  = mojs.easing.path('M2.9811531e-09,99.6281242 C2.9811531e-09,50.1196289 26.1806641,50 26.1806641,50 C26.1806641,50 81.1894531,44.8525391 100,425');
     // var doorAngleC = mojs.easing.path('M0.304199219,100 C0.304199219,100 16,132.709961 31,100 C31,100 37.6191406,84.2036133 68,89.3833008 C70.0009766,89.3833008 93.6054688,100 100,50');
     var tween = new mojs.Tween({
-      duration: 800*this.s,
+      duration: 600*this.s,
       onUpdate: (p) => {
         var squashP   = squashC(p);
         var positionP = positionC(p);
         // mojs.h.style( this.moleInnerEl, 'transform', `skewX(${9*(1-p)}deg) scale(${ 1 - .35*squashP }, ${ 1 + .35*squashP })` );
         // mojs.h.style( this.moleEl, 'transform', `translate(${25}px, ${-240 - 70*positionP}px)` );
-        mojs.h.style( this.moleEl, 'transform', `translate(${25}px, ${-240 + 240*e.cubic.in(p)}px) scaleX(${ 1 - .35*e.cubic.in(p) })` );
-        mojs.h.style( this.moleHandEl, 'transform', `rotate(${94.5 + 94.5*e.quad.in(p)}deg) scaleY(1.1)` );
+        mojs.h.style( this.moleEl, 'transform', `translate(${25}px, ${-240 + 260*e.cubic.in(p)}px) scale(${ 1 - .2*e.cubic.in(p) }, ${ 1 + .2*e.cubic.in(p) })` );
+        mojs.h.style( this.moleHandEl, 'transform', `rotate(${94.5 + 100.5*e.quad.in(p)}deg) scaleY(1.1)` );
+        mojs.h.style( this.moleHandLeftEl, 'transform', `rotate(${20 - 20*e.quad.in(p)}deg) translate(${30 - 35*e.quad.in(p)}px, ${-10 - 25*e.quad.in(p)}px)` );
 
         // var doorAngleP = doorAngleC(p);
         
