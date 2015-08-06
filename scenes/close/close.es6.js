@@ -25,12 +25,12 @@ var close = {
         var expoInP  = e.expo.in(p);
 
         h.style( this.moleEl, 'transform', `translate(${25}px, ${-240 + 360*cubicInP}px)` );
-        this.moleEl.style['z-index'] = 2 - 2*p;
+        (p === 1) && (this.moleEl.style['z-index'] = 0);
 
         h.style( this.moleInnerEl, 'transform', `skewX(${9*(1-p)}deg) scale(${ 1 - .2*cubicInP }, ${ 1 + .2*cubicInP })` );
         
-        h.style( this.moleHandEl, 'transform', `rotate(${94.5 + 100.5*quadInP}deg) scaleY(${1.1 - .1*quadInP})` );
-        h.style( this.moleHandLeftEl, 'transform', `rotate(${20 - 20*quadInP}deg) translate(${30 - 35*quadInP}px, ${-10 - 25*quadInP}px)` );
+        h.style( this.moleHandEl, 'transform', `rotate(${94.5 + 100.5*quadInP}deg) scaleY(${1.1 - .1*quadInP}) translateY(${70*quadInP}px)` );
+        h.style( this.moleHandLeftEl, 'transform', `rotate(${20 - 20*quadInP}deg) translate(${30 - 35*quadInP}px, ${-10 - 70*quadInP}px)` );
 
         h.style( this.doorEl, 'transform', `rotateY(${ -125 + 125*cubicInP }deg) scaleX(${.75 + .25*expoInP}) translate(${8*expoInP}px, ${8*expoInP}px)` );
         h.style( this.doorShadowEl, 'transform', `scaleX(${1 - 1.65*cubicInP})` );
@@ -42,8 +42,6 @@ var close = {
 
         h.style( this.moleGlassesEl,     'transform', `translateY(${-85*expoInP}px)` );
         h.style( this.moleGlassesLeftEl, 'transform', `translateY(${-85*expoInP}px)` );
-
-
 
       }
     });
