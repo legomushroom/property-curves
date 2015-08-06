@@ -22,6 +22,7 @@ var main = {
   },
   vars() {
     this.moleEl             = document.querySelector('#js-mole');
+    this.moleHatEl          = document.querySelector('#js-mole-hat');
     this.moleConeEl         = document.querySelector('#js-mole-hat-cone');
     this.moleConeShadowEl   = document.querySelector('#js-mole-hat-shadow');
     this.moleGlassesEl      = document.querySelector('#js-mole-glasses');
