@@ -84,6 +84,7 @@
 	  vars: function vars() {
 	    this.moleEl = document.querySelector("#js-mole");
 	    this.moleConeEl = document.querySelector("#js-mole-hat-cone");
+	    this.moleConeShadowEl = document.querySelector("#js-mole-hat-shadow");
 	    this.moleGlassesEl = document.querySelector("#js-mole-glasses");
 	    this.moleGlassesLeftEl = document.querySelector("#js-mole-glasses-left");
 	    this.moleMouthEl = document.querySelector("#js-mole-mouth");
@@ -9312,9 +9313,8 @@
 	  vars: function () {
 	    // this.delay        = 0;
 	    this.moleMouthEl = document.querySelector("#js-mole-mouth");
-	    this.moleHandLeftEl = document.querySelector("#js-mole-hand-left");
+	    // this.moleHandLeftEl = document.querySelector('#js-mole-hand-left');
 	    this.moleBodyEl = document.querySelector("#js-mole-body");
-	    this.moleShadowEl = document.querySelector("#js-mole-hat-shadow");
 	    this.moleInnerEl = document.querySelector("#js-mole-inner");
 
 	    mojs.h.style(this.moleMouthEl, "transform", "scale(0.25)");
@@ -9392,7 +9392,7 @@
 	      onUpdate: function (p) {
 	        var coneP = coneEasing(p);
 	        mojs.h.style(_this.moleConeEl, "transform", "rotateX(" + 140 * coneP + "deg) rotateY(" + -20 * coneP + "deg) translateY(" + -6 * coneP + "px)");
-	        mojs.h.style(_this.moleShadowEl, {
+	        mojs.h.style(_this.moleConeShadowEl, {
 	          opacity: 1 - coneP,
 	          transform: "scaleX(" + (1 - mojs.easing.cubic["in"](coneP)) + ") translateZ(0)"
 	        });
@@ -9757,7 +9757,8 @@
 	  createTween: function () {
 	    var _this = this;
 	    var delay = this.s > 1 ? 0 : 1500;
-	    var e = mojs.easing;
+	    var e = mojs.easing,
+	        h = mojs.h;
 	    this.closeTimeline = new mojs.Timeline({ delay: delay * this.s });
 
 	    var tween = new mojs.Tween({
@@ -9767,14 +9768,20 @@
 	        var quadInP = e.quad["in"](p);
 	        var expoInP = e.expo["in"](p);
 
-	        mojs.h.style(_this.moleInnerEl, "transform", "skewX(" + 9 * (1 - p) + "deg) scale(" + (1 - 0.2 * cubicInP) + ", " + (1 + 0.2 * cubicInP) + ")");
-	        mojs.h.style(_this.moleEl, "transform", "translate(" + 25 + "px, " + (-240 + 260 * cubicInP) + "px)");
+	        h.style(_this.moleInnerEl, "transform", "skewX(" + 9 * (1 - p) + "deg) scale(" + (1 - 0.2 * cubicInP) + ", " + (1 + 0.2 * cubicInP) + ")");
+	        h.style(_this.moleEl, "transform", "translate(" + 25 + "px, " + (-240 + 260 * cubicInP) + "px)");
 	        _this.moleEl.style["z-index"] = 2 - 2 * p;
-	        mojs.h.style(_this.moleHandEl, "transform", "rotate(" + (94.5 + 100.5 * quadInP) + "deg) scaleY(" + (1.1 - 0.1 * quadInP) + ")");
-	        mojs.h.style(_this.moleHandLeftEl, "transform", "rotate(" + (20 - 20 * quadInP) + "deg) translate(" + (30 - 35 * quadInP) + "px, " + (-10 - 25 * quadInP) + "px)");
+	        h.style(_this.moleHandEl, "transform", "rotate(" + (94.5 + 100.5 * quadInP) + "deg) scaleY(" + (1.1 - 0.1 * quadInP) + ")");
+	        h.style(_this.moleHandLeftEl, "transform", "rotate(" + (20 - 20 * quadInP) + "deg) translate(" + (30 - 35 * quadInP) + "px, " + (-10 - 25 * quadInP) + "px)");
 
-	        mojs.h.style(_this.doorEl, "transform", "rotateY(" + (-125 + 125 * cubicInP) + "deg) scaleX(" + (0.75 + 0.25 * expoInP) + ") translate(" + 8 * expoInP + "px, " + 8 * expoInP + "px)");
-	        mojs.h.style(_this.doorShadowEl, "transform", "scaleX(" + (1 - 1.65 * cubicInP) + ")");
+	        h.style(_this.doorEl, "transform", "rotateY(" + (-125 + 125 * cubicInP) + "deg) scaleX(" + (0.75 + 0.25 * expoInP) + ") translate(" + 8 * expoInP + "px, " + 8 * expoInP + "px)");
+	        h.style(_this.doorShadowEl, "transform", "scaleX(" + (1 - 1.65 * cubicInP) + ")");
+
+	        h.style(_this.moleConeEl, "transform", "rotateX(" + 130 * quadInP + "deg)");
+	        _this.moleConeShadowEl.style.opacity = 1 - p;
+
+	        h.style(_this.moleGlassesEl, "transform", "translateY(" + -35 * expoInP + "px)");
+	        h.style(_this.moleGlassesLeftEl, "transform", "translateY(" + -35 * expoInP + "px)");
 
 	      }
 	    });

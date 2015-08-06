@@ -11,9 +11,8 @@ var moleOpen = {
   vars: function () {
     // this.delay        = 0;
     this.moleMouthEl    = document.querySelector('#js-mole-mouth');
-    this.moleHandLeftEl = document.querySelector('#js-mole-hand-left');
+    // this.moleHandLeftEl = document.querySelector('#js-mole-hand-left');
     this.moleBodyEl     = document.querySelector('#js-mole-body');
-    this.moleShadowEl   = document.querySelector('#js-mole-hat-shadow');
     this.moleInnerEl    = document.querySelector('#js-mole-inner');
 
     mojs.h.style(this.moleMouthEl, 'transform', 'scale(0.25)');
@@ -89,7 +88,7 @@ var moleOpen = {
       onUpdate: (p) => {
         var coneP = coneEasing(p);
         mojs.h.style(this.moleConeEl,   'transform', `rotateX(${140*coneP}deg) rotateY(${-20*coneP}deg) translateY(${-6*coneP}px)`);
-        mojs.h.style(this.moleShadowEl, {
+        mojs.h.style(this.moleConeShadowEl, {
           opacity:   1 - coneP,
           transform: `scaleX(${1-mojs.easing.cubic.in(coneP)}) translateZ(0)`
         });
