@@ -35,6 +35,8 @@ var main = {
     this.doorEl             = document.querySelector('#js-door');
     this.doorShadowEl       = document.querySelector('#js-door-shadow');
     this.doorHandleShadowEl = document.querySelector('#js-door-handle-shadow');
+    this.moleEyeEl          = document.querySelector('#js-mole-eye');
+    this.moleEyeLashEl      = document.querySelector('#js-mole-eye-lash');
   }
 }
 

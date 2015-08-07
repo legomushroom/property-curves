@@ -43,6 +43,11 @@ var close = {
         h.style( this.moleGlassesEl,     'transform', `translateY(${-85*expoInP}px)` );
         h.style( this.moleGlassesLeftEl, 'transform', `translateY(${-85*expoInP}px)` );
 
+        var n_p = 1-p;
+        this.moleEyeLashEl.setAttribute('d', `M0,0 Q 6.5 ${10*p}, 13 0`);
+        this.moleEyeLashEl.setAttribute('stroke-width', 2 + 1.5*p);
+        mojs.h.style(this.moleEyeEl, 'transform', `translate(${7*p}px, ${-5*p}px) scaleX(${1-.4*p})`);
+
       }
     });
 
