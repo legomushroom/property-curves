@@ -43,18 +43,45 @@ var close = {
         h.style( this.moleGlassesEl,     'transform', `translateY(${-85*expoInP}px)` );
         h.style( this.moleGlassesLeftEl, 'transform', `translateY(${-85*expoInP}px)` );
 
-        var n_p = 1-p;
         this.moleEyeLashEl.setAttribute('d', `M0,0 Q 6.5 ${10*p}, 13 0`);
         this.moleEyeLashEl.setAttribute('stroke-width', 2 + 1.5*p);
         mojs.h.style(this.moleEyeEl, 'transform', `translate(${7*p}px, ${-5*p}px) scaleX(${1-.4*p})`);
 
+        mojs.h.style(this.moleMouthInnerEl, 'transform', `scale(${.3 - .3*p})`);
+
       }
     });
+    
+    var burst = new mojs.Burst({
+      x: 125,          y: 75,
+      parent:         this.moleSceneEl,
+      degree:         50,
+      randomRadius:   .85,
+      angle:         -25,
+      isRunLess:      true,
+      fill:           'white'
+    });
+    var burst2 = new mojs.Burst({
+      x: 125,          y: 75,
+      parent:         this.moleSceneEl,
+      degree:         50,
+      randomRadius:   .85,
+      angle:         -25,
+      isRunLess:      true,
+      fill:           'white'
+    });
+    burst.el.style['z-index']  = 3;
+    burst2.el.style['z-index'] = 3;
 
 
     this.closeTimeline.add(tween);
+    this.closeTimeline.append(burst);
 
     this.closeTimeline.start();
+
+    console.log(burst.tween.props.startTime)
+    console.log(burst2.tween.props.startTime)
+
 
     // this.mainTween.append(this.closeTimeline);
   },

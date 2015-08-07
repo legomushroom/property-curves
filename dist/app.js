@@ -98,6 +98,7 @@
 	    this.doorHandleShadowEl = document.querySelector("#js-door-handle-shadow");
 	    this.moleEyeEl = document.querySelector("#js-mole-eye");
 	    this.moleEyeLashEl = document.querySelector("#js-mole-eye-lash");
+	    this.moleSceneEl = document.querySelector("#js-mole-scene");
 	  }
 	};
 
@@ -9788,19 +9789,44 @@
 	        h.style(_this.moleGlassesEl, "transform", "translateY(" + -85 * expoInP + "px)");
 	        h.style(_this.moleGlassesLeftEl, "transform", "translateY(" + -85 * expoInP + "px)");
 
-	        var n_p = 1 - p;
 	        _this.moleEyeLashEl.setAttribute("d", "M0,0 Q 6.5 " + 10 * p + ", 13 0");
 	        _this.moleEyeLashEl.setAttribute("stroke-width", 2 + 1.5 * p);
 	        mojs.h.style(_this.moleEyeEl, "transform", "translate(" + 7 * p + "px, " + -5 * p + "px) scaleX(" + (1 - 0.4 * p) + ")");
+
+	        mojs.h.style(_this.moleMouthInnerEl, "transform", "scale(" + (0.3 - 0.3 * p) + ")");
 	      }
 	    });
 
+	    var burst = new mojs.Burst({
+	      x: 125, y: 75,
+	      parent: this.moleSceneEl,
+	      degree: 50,
+	      randomRadius: 0.85,
+	      angle: -25,
+	      isRunLess: true,
+	      fill: "white"
+	    });
+	    var burst2 = new mojs.Burst({
+	      x: 125, y: 75,
+	      parent: this.moleSceneEl,
+	      degree: 50,
+	      randomRadius: 0.85,
+	      angle: -25,
+	      isRunLess: true,
+	      fill: "white"
+	    });
+	    burst.el.style["z-index"] = 3;
+	    burst2.el.style["z-index"] = 3;
+
 
 	    this.closeTimeline.add(tween);
+	    this.closeTimeline.append(burst);
 
 	    this.closeTimeline.start();
 
-	    // this.mainTween.append(this.closeTimeline);
+	    console.log(burst.tween.props.startTime);
+	    console.log(burst2.tween.props.startTime);
+
 	  },
 
 	  initChildScenes: function () {}
@@ -9808,6 +9834,7 @@
 
 
 	module.exports = close;
+	// this.mainTween.append(this.closeTimeline);
 
 /***/ }
 /******/ ]);
