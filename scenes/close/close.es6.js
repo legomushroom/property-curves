@@ -52,38 +52,37 @@ var close = {
       }
     });
     
-    var burst = new mojs.Burst({
-      x: 125,          y: 75,
+    var burstStagger = new mojs.Stagger(mojs.Burst)({
+      quantifier:     4,
+      // opacity:        [1, .9, .9, .8],
       parent:         this.moleSceneEl,
+      x:              [145, 295, 50, 175],
+      y:              [75,  25,  25, 0],
+      shiftY:         [{0: -65}, {0: -50}, {0: -50}, {0: -35}],
       degree:         50,
-      randomRadius:   .85,
+      randomRadius:   1,
+      randomAngle:    .2,
       angle:         -25,
       isRunLess:      true,
-      fill:           'white'
+      fill:           'white',
+      count:          'rand(3,5)',
+      childOptions:   { radius: {'rand(2, 5)': 0} }
     });
-    var burst2 = new mojs.Burst({
-      x: 125,          y: 75,
-      parent:         this.moleSceneEl,
-      degree:         50,
-      randomRadius:   .85,
-      angle:         -25,
-      isRunLess:      true,
-      fill:           'white'
-    });
-    burst.el.style['z-index']  = 3;
-    burst2.el.style['z-index'] = 3;
 
+    for (module of burstStagger.childModules) { module.el.style['z-index'] = 3; }
+
+    var tween2 = new mojs.Tween({
+      duration: 400*this.s,
+      onUpdate: (p) => {
+        mojs.h.style(this.doorWaveEl, 'transform', `scale(${1.1 + 2*e.cubic.out(p)}) ${this.zHack}`);
+        this.doorWaveEl.style.opacity = 1 - e.expo.out(p);
+      }
+    });
 
     this.closeTimeline.add(tween);
-    this.closeTimeline.append(burst);
-
+    this.closeTimeline.append([burstStagger.timeline, tween2]);
     this.closeTimeline.start();
 
-    console.log(burst.tween.props.startTime)
-    console.log(burst2.tween.props.startTime)
-
-
-    // this.mainTween.append(this.closeTimeline);
   },
 
   initChildScenes: function () {

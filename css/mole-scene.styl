@@ -29,6 +29,22 @@
     z-index      1
     transform-style preserve-3d
     rect         209*PX
+  &__door-wave
+    border 5px solid white
+    width  120px
+    height 120px
+    position absolute
+    z-index  12
+    left  0
+    top   0
+    border-radius 20px
+    opacity       0
+    transform scale(0) translateZ(0)
+  &__door-wave-wrapper
+    position absolute
+    transform rotateX(70deg) rotateZ(48deg) translate(35px, -180px)
+    z-index 6
+    opacity .75 
   &__door-rotation
     // display none
     // transition   all 1s linear

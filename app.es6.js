@@ -38,6 +38,7 @@ var main = {
     this.moleEyeEl          = document.querySelector('#js-mole-eye');
     this.moleEyeLashEl      = document.querySelector('#js-mole-eye-lash');
     this.moleSceneEl        = document.querySelector('#js-mole-scene');
+    this.doorWaveEl         = document.querySelector('#js-door-wave');
   }
 }
 
