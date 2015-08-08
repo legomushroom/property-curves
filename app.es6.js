@@ -21,6 +21,7 @@ var main = {
     this.mainTween.setProgress(1);
   },
   vars() {
+    this.sceneEl            = document.querySelector('#js-mole-scene');
     this.moleEl             = document.querySelector('#js-mole');
     this.moleHatEl          = document.querySelector('#js-mole-hat');
     this.moleConeEl         = document.querySelector('#js-mole-hat-cone');
