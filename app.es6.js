@@ -17,8 +17,8 @@ var main = {
     mole.init(this);
     moleRanting.init(this);
     close.init(this);
-    // this.mainTween.start();
-    this.mainTween.setProgress(1);
+    this.mainTween.start();
+    // this.mainTween.setProgress(1);
   },
   vars() {
     this.sceneEl            = document.querySelector('#js-mole-scene');
@@ -33,6 +33,7 @@ var main = {
     this.moleMouthOuterEl   = document.querySelector('#js-mole-mouth-outer');
     this.moleHandEl         = document.querySelector('#js-mole-hand');
     this.moleHandLeftEl     = document.querySelector('#js-mole-hand-left');
+    this.moleHandCircleEl   = document.querySelector('#js-mole-hand-circle');
     this.doorEl             = document.querySelector('#js-door');
     this.doorShadowEl       = document.querySelector('#js-door-shadow');
     this.doorHandleShadowEl = document.querySelector('#js-door-handle-shadow');

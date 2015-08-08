@@ -12,12 +12,16 @@ var close = {
     this.s = 1;
   },
   createTween: function () {
-    var delay = (this.s > 1) ? 0 : 1500 ;
+    var delay = 5500;
     var e = mojs.easing, h = mojs.h;
     this.closeTimeline = new mojs.Timeline({ delay: delay*this.s });
 
     var moveDownTween = new mojs.Tween({
       duration: 600*this.s,
+      onStart: () => { this.moleHandCircleEl.style.opacity = 1; },
+      onComplete: () => {
+        this.moleEl.style['z-index'] = 0; this.moleHandCircleEl.style.opacity = 0;
+      },
       onUpdate: (p) => {
 
         var cubicInP = e.cubic.in(p);
@@ -25,7 +29,7 @@ var close = {
         var expoInP  = e.expo.in(p);
 
         h.style( this.moleEl, 'transform', `translate(${25}px, ${-240 + 360*cubicInP}px)` );
-        (p === 1) && (this.moleEl.style['z-index'] = 0);
+        // (p === 1) && (this.moleEl.style['z-index'] = 0);
 
         h.style( this.moleInnerEl, 'transform', `skewX(${9*(1-p)}deg) scale(${ 1 - .2*cubicInP }, ${ 1 + .2*cubicInP })` );
         
@@ -87,10 +91,11 @@ var close = {
       }
     });
 
-    this.closeTimeline.add(moveDownTween);
-    this.closeTimeline.append([burstStagger.timeline, doorWaveTween, noiseTween]);
-    this.closeTimeline.append();
-    this.closeTimeline.start();
+    this.closeTimeline
+      .add(moveDownTween)
+      .append([burstStagger.timeline, doorWaveTween, noiseTween]);
+    this.mainTween.add(this.closeTimeline)
+    // this.closeTimeline.start();
 
   },
 
