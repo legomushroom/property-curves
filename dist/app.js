@@ -9769,7 +9769,7 @@
 	        h = mojs.h;
 	    this.closeTimeline = new mojs.Timeline({ delay: delay * this.s });
 
-	    var tween = new mojs.Tween({
+	    var moveDownTween = new mojs.Tween({
 	      duration: 600 * this.s,
 	      onUpdate: function (p) {
 	        var cubicInP = e.cubic["in"](p);
@@ -9825,7 +9825,7 @@
 	      module.el.style["z-index"] = 3;
 	    }
 
-	    var tween2 = new mojs.Tween({
+	    var doorWaveTween = new mojs.Tween({
 	      duration: 400 * this.s,
 	      onUpdate: function (p) {
 	        mojs.h.style(_this.doorWaveEl, "transform", "scale(" + (1.1 + 2 * e.cubic.out(p)) + ") " + _this.zHack);
@@ -9837,12 +9837,12 @@
 	    var noiseTween = new mojs.Tween({
 	      duration: 200 * this.s,
 	      onUpdate: function (p) {
-	        mojs.h.style(_this.sceneEl, "transform", "translate(" + noiseCurve(p) * 40 + "px, " + -noiseCurve(p) * 20 + "px)");
+	        mojs.h.style(_this.sceneEl, "transform", "translate(" + noiseCurve(p) * 40 + "px, " + -noiseCurve(p) * 20 + "px) " + _this.zHack);
 	      }
 	    });
 
-	    this.closeTimeline.add(tween);
-	    this.closeTimeline.append([burstStagger.timeline, tween2, noiseTween]);
+	    this.closeTimeline.add(moveDownTween);
+	    this.closeTimeline.append([burstStagger.timeline, doorWaveTween, noiseTween]);
 	    this.closeTimeline.append();
 	    this.closeTimeline.start();
 	  },
