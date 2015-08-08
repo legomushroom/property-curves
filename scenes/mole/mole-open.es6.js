@@ -6,12 +6,9 @@ var moleOpen = {
     this.vars();
     this.createTween();
     this.initChildScenes();
-    // this.cubeMainTween.start();
   },
   vars: function () {
-    // this.delay        = 0;
     this.moleMouthEl    = document.querySelector('#js-mole-mouth');
-    // this.moleHandLeftEl = document.querySelector('#js-mole-hand-left');
     this.moleBodyEl     = document.querySelector('#js-mole-body');
     this.moleInnerEl    = document.querySelector('#js-mole-inner');
 
@@ -108,7 +105,7 @@ var moleOpen = {
       }
     });
 
-    this.moleTween.add( mp.tween, handMP.tween,
+    this.moleTimeline.add( mp.tween, handMP.tween,
                         handMPLeft.tween, handMPGlasses.tween,
                         handMPGlassesLeft.tween,
                         coneTween, stretchTween);

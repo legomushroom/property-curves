@@ -4,28 +4,33 @@ var mojs     = require('mo-js');
 var doorOpen         = require('./door-open.es6.js');
 var moleOpen         = require('./mole-open.es6.js');
 
+var moleRanting = require('./mole-ranting/mole-ranting.es6.js');
+var close       = require('./close/close.es6.js');
+
 var mole = {
-  init: function (proto) {
+  init(proto) {
     Object.setPrototypeOf(this, proto);
     this.vars();
     this.createTween();
     this.initChildScenes();
+    this.initChildParts();
+    this.mainTween.append(this.moleTimeline);
   },
-  vars: function () {
+  vars() {
     this.scene = document.querySelector('#js-mole-scene');
-    this.s = 1;
-    this.delay = (this.s === 1) ? 1000 : 0;
   },
-  createTween: function () {
-    this.moleTween = new mojs.Timeline;
+  createTween() {
+    this.moleTimeline = new mojs.Timeline;
   },
 
-  initChildScenes: function () {
+  initChildScenes() {
     doorOpen.init(this);
     moleOpen.init(this);
-    this.mainTween.add(this.moleTween);
-    // this.moleTween.setProgress(1);
-    // this.moleTween.start();
+  },
+
+  initChildParts() {
+    moleRanting.init(this);
+    close.init(this);
   }
 }
 

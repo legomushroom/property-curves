@@ -3,22 +3,19 @@ var Howl = require('howler').Howl;
 require('./css/styles.styl');
 
 // SCENES
-var cube        = require('./scenes/cube/cube.es6.js')
-var mole        = require('./scenes/mole/mole.es6.js')
-var moleRanting = require('./scenes/mole-ranting/mole-ranting.es6.js')
-var close       = require('./scenes/close/close.es6.js')
+var cube        = require('./scenes/cube/cube.es6.js');
+var mole        = require('./scenes/mole/mole.es6.js');
 
 var main = {
   s:         1, // global time coefficient
   zHack:     ' translateZ(0) ',
   mainTween: new mojs.Timeline,
+  delay:     0,
   init() {
     this.vars();
+    cube.init(this)
     mole.init(this);
-    moleRanting.init(this);
-    close.init(this);
     this.mainTween.start();
-    // this.mainTween.setProgress(1);
   },
   vars() {
     this.sceneEl            = document.querySelector('#js-mole-scene');

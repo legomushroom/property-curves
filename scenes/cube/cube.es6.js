@@ -26,6 +26,7 @@ var cube = {
   initChildScenes: function () {
     cubeFall.init(this);
     cubeAnticipation.init(this);
+    this.mainTween.add(this.cubeMainTween);
   }
 }
 

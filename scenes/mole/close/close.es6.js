@@ -94,7 +94,7 @@ var close = {
     this.closeTimeline
       .add(moveDownTween)
       .append([burstStagger.timeline, doorWaveTween, noiseTween]);
-    this.mainTween.add(this.closeTimeline)
+    this.moleTimeline.add(this.closeTimeline);
     // this.closeTimeline.start();
 
   },

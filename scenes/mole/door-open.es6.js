@@ -28,7 +28,7 @@ var door = {
 
       }
     });
-    this.moleTween.add(tween);
+    this.moleTimeline.add(tween);
 
   }
 }

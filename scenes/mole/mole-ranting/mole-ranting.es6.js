@@ -15,11 +15,6 @@ var moleRanting = {
   vars: function () {
     this.scene          = document.querySelector('#js-mole-scene');
     this.moleEl         = document.querySelector('#js-mole-inner');
-    // this.moleHandEl     = document.querySelector('#js-mole-hand');
-    // this.moleConeEl     = document.querySelector('#js-mole-hat-cone');
-    // this.moleGlassesEl  = document.querySelector('#js-mole-glasses');
-    // this.moleGlassesLeftEl = document.querySelector('#js-mole-glasses-left');
-    // this.moleHandLeftEl   = document.querySelector('#js-mole-hand-left');
     this.moleTongueEl     = document.querySelector('#js-mole-tongue');
     this.moleTonguePath   = document.querySelector('#js-mole-tongue-path');
 
@@ -33,7 +28,8 @@ var moleRanting = {
     moleRantingHand.init(this);
     tongue.init(this);
     moleRantingSearch.init(this);
-    this.mainTween.add(this.moleRantingTween);
+    this.moleTimeline.add(this.moleRantingTween);
+    // this.mainTween.add(this.moleRantingTween);
   }
 }
 
