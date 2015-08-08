@@ -19,9 +19,7 @@ var mole = {
   vars() {
     this.scene = document.querySelector('#js-mole-scene');
   },
-  createTween() {
-    this.moleTimeline = new mojs.Timeline;
-  },
+  createTween() { this.moleTimeline = new mojs.Timeline; },
 
   initChildScenes() {
     doorOpen.init(this);
