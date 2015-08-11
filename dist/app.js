@@ -9452,7 +9452,7 @@
 	    // this.initChildScenes();
 	  },
 	  vars: function () {
-	    this.delay = 1500 + this.handRantingDuration - 250;this.duration = 1800;
+	    this.delay = this.handRantingDuration + 200;this.duration = 1800;
 	  },
 	  createTween: function () {
 	    var _this = this;
@@ -9646,7 +9646,7 @@
 	    });
 
 	    var tween2 = new mojs.Tween({
-	      delay: (delay + 150) * this.s,
+	      delay: (delay + 100) * this.s,
 	      duration: duration * this.s,
 	      onUpdate: function (p) {
 	        var riseP = riseC(p);
@@ -9657,7 +9657,7 @@
 	    });
 
 	    var tween3 = new mojs.Tween({
-	      delay: (delay + 200) * this.s,
+	      delay: (delay + 150) * this.s,
 	      duration: duration * this.s,
 	      onUpdate: function (p) {
 	        var doorAngleP = doorAngleC(p);
@@ -9704,7 +9704,7 @@
 	  },
 	  createTween: function () {
 	    var _this = this;
-	    var delay = 5500;
+	    var delay = 4400;
 	    var e = mojs.easing,
 	        h = mojs.h;
 	    this.closeTimeline = new mojs.Timeline({ delay: delay * this.s });

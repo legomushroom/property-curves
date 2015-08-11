@@ -8,7 +8,7 @@ var moleRantingTongue = {
     this.createTween();
     // this.initChildScenes();
   },
-  vars: function () { this.delay = 1500+this.handRantingDuration-250; this.duration = 1800; },
+  vars: function () { this.delay = this.handRantingDuration+200; this.duration = 1800; },
   createTween: function () {
     var skewCurve  = mojs.easing.path('M0,100 C0,100 18.1450901,69.0663515 24.0949898,99.9609384 C30.0448895,130.855525 100,100 100,100');
     var handCurve  = mojs.easing.path('M0,-3.55271368e-14 C10.9545898,-40.8999024 23.9307575,-0.575683661 23.930758,0.136022468 C23.9307575,99.5087928 23.9307575,123.533199 42.6040039,123.533196 C47.594178,123.533196 54.2372213,123.00636 61.2202377,122.247035 C61.5346348,122.212848 63.3167217,121.96483 65.9540934,121.59172 C76.2346029,120.13733 99.5107422,116.78222 99.5107422,116.78222');

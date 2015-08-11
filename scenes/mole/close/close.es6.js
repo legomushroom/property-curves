@@ -12,7 +12,7 @@ var close = {
     this.s = 1;
   },
   createTween: function () {
-    var delay = 5500;
+    var delay = 4400;
     var e = mojs.easing, h = mojs.h;
     this.closeTimeline = new mojs.Timeline({ delay: delay*this.s });
 

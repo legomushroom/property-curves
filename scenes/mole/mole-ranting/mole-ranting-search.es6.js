@@ -47,7 +47,7 @@ var moleRantingSearch = {
     });
 
     var tween2 = new mojs.Tween({
-      delay:    (delay+150)*this.s,
+      delay:    (delay+100)*this.s,
       duration: duration*this.s,
       onUpdate: (p) => {
 
@@ -60,7 +60,7 @@ var moleRantingSearch = {
     });
 
     var tween3 = new mojs.Tween({
-      delay:    (delay+200)*this.s,
+      delay:    (delay+150)*this.s,
       duration: duration*this.s,
       onUpdate: (p) => {
 
