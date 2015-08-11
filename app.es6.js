@@ -11,6 +11,7 @@ var main = {
   zHack:     ' translateZ(0) ',
   mainTween: new mojs.Timeline,
   delay:     0,
+  cubeDuration: 3900,
   init() {
     this.vars();
     cube.init(this)

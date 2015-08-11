@@ -15,8 +15,8 @@ var moleRanting = {
   vars: function () {
     this.scene          = document.querySelector('#js-mole-scene');
     this.moleEl         = document.querySelector('#js-mole-inner');
-    this.moleTongueEl     = document.querySelector('#js-mole-tongue');
-    this.moleTonguePath   = document.querySelector('#js-mole-tongue-path');
+    this.moleTongueEl   = document.querySelector('#js-mole-tongue');
+    this.moleTonguePath = document.querySelector('#js-mole-tongue-path');
 
     this.handAngle = -175;
     this.handRantingDuration = 1500;

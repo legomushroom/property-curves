@@ -14,12 +14,12 @@ var mole = {
     this.createTween();
     this.initChildScenes();
     this.initChildParts();
-    this.mainTween.append(this.moleTimeline);
+    this.mainTween.add(this.moleTimeline);
   },
   vars() {
     this.scene = document.querySelector('#js-mole-scene');
   },
-  createTween() { this.moleTimeline = new mojs.Timeline; },
+  createTween() { this.moleTimeline = new mojs.Timeline({ delay: this.cubeDuration }); },
 
   initChildScenes() {
     doorOpen.init(this);

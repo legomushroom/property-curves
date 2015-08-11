@@ -72,6 +72,7 @@
 	  zHack: " translateZ(0) ",
 	  mainTween: new mojs.Timeline(),
 	  delay: 0,
+	  cubeDuration: 3900,
 	  init: function init() {
 	    this.vars();
 	    cube.init(this);
@@ -9229,13 +9230,13 @@
 	    this.createTween();
 	    this.initChildScenes();
 	    this.initChildParts();
-	    this.mainTween.append(this.moleTimeline);
+	    this.mainTween.add(this.moleTimeline);
 	  },
 	  vars: function vars() {
 	    this.scene = document.querySelector("#js-mole-scene");
 	  },
 	  createTween: function createTween() {
-	    this.moleTimeline = new mojs.Timeline();
+	    this.moleTimeline = new mojs.Timeline({ delay: this.cubeDuration });
 	  },
 
 	  initChildScenes: function initChildScenes() {
