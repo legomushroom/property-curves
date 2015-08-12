@@ -1,4 +1,4 @@
-mojs = require('mo-js');
+var mojs = require('mo-js');
 var effects = require('./cube-fall-effects.es6.js');
 
 var cubeFall = {
@@ -24,9 +24,6 @@ var cubeFall = {
     this.cubeFallTween = new mojs.Tween({
       duration: this.duration*this.s,
       delay:    this.delay*this.s,
-      // onComplete: () => {
-      //   this.cubeAnticipationTween.start();
-      // },
       onUpdate: (progress) => {
         var bounceProgress = this.bouncyEasing(progress),
             scaleProgress  = this.scaleEasing(progress),
@@ -38,9 +35,7 @@ var cubeFall = {
         this.shadowEl.style.opacity  = Math.max((bounceProgress)/2, .1 );
       }
     });
-    // tween.add(this.cubeFallTween);
     this.cubeMainTween.add(this.cubeFallTween);
-    // this.proto.cubeFallTween = tween;
   }
 }
 

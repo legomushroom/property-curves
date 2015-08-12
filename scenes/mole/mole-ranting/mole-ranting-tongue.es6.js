@@ -1,4 +1,5 @@
 var mojs     = require('mo-js');
+var {Howl}   = require('howler');
 
 // SCENES
 var moleRantingTongue = {
@@ -8,7 +9,12 @@ var moleRantingTongue = {
     this.createTween();
     // this.initChildScenes();
   },
-  vars: function () { this.delay = this.handRantingDuration+200; this.duration = 1800; },
+  vars: function () {
+    this.delay = this.handRantingDuration+275; this.duration = 1800;
+    this.salivaSound1 = new Howl({ urls: [ 'sounds/saliva-1.wav' ] });
+    this.salivaSound2 = new Howl({ urls: [ 'sounds/saliva-2.wav' ] });
+    this.sighSound1   = new Howl({ urls: [ 'sounds/sigh-1.wav' ], rate: 1.8 });
+  },
   createTween: function () {
     var skewCurve  = mojs.easing.path('M0,100 C0,100 18.1450901,69.0663515 24.0949898,99.9609384 C30.0448895,130.855525 100,100 100,100');
     var handCurve  = mojs.easing.path('M0,-3.55271368e-14 C10.9545898,-40.8999024 23.9307575,-0.575683661 23.930758,0.136022468 C23.9307575,99.5087928 23.9307575,123.533199 42.6040039,123.533196 C47.594178,123.533196 54.2372213,123.00636 61.2202377,122.247035 C61.5346348,122.212848 63.3167217,121.96483 65.9540934,121.59172 C76.2346029,120.13733 99.5107422,116.78222 99.5107422,116.78222');
@@ -32,19 +38,24 @@ var moleRantingTongue = {
       childOptions: {
         radius:     { 'rand(.5,2)' : 0},
         duration:   300*this.s,
-        // opacity:    {.7: .25},
       }
     });
 
     saliva.el.style['z-index'] = 10;
-    // console.log(this.handAngle);
+
+    var salivaLauncher = new mojs.Tween({
+      delay: 435*this.s,
+      onStart: () => {
+        this[`salivaSound${Math.round(mojs.h.rand(1,2))}`].play();
+      }
+    });
 
     var squintCurve = mojs.easing.mix({ to: .25, value: 1 }, { to: 1, value: 'cubic.in' });
     mojs.h.style(this.moleMouthEl, 'transform-origin', `right center`);
     var tween = new mojs.Tween({
       delay:    this.delay*this.s,
       duration: this.duration*this.s,
-      onStart: function () { saliva.run(); },
+      onStart: ()=> { saliva.run(); salivaLauncher.run(); this.sighSound1.play(); },
       onUpdate: (p)=> {
         var skewP  = skewCurve(p);
         var handP  = handCurve(p);

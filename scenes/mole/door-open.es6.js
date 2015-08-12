@@ -1,4 +1,5 @@
 var mojs     = require('mo-js');
+var {Howl}   = require('howler')
 
 var door = {
   init: function (proto) {
@@ -8,11 +9,15 @@ var door = {
     // this.cubeMainTween.start();
   },
   vars: function () {
+    this.doorOpenSound = new Howl({ urls: ['sounds/door-open-1.wav'], rate: 2.5 });
   },
   createTween: function () {
     var tween = new mojs.Tween({
       duration: 1000*this.s,
       delay: this.delay*this.s,
+      onStart: () => {
+        this.doorOpenSound.play();
+      },
       onUpdate: (p) => {
         // return;
         var bounce = mojs.easing.bounce.out(p);

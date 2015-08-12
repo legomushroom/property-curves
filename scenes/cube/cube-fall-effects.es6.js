@@ -1,4 +1,5 @@
-mojs = require('mo-js');
+var mojs = require('mo-js');
+var {Howl} = require('howler');
 
 var cubeFallEffects = {
   init: function (proto) {

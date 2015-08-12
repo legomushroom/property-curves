@@ -32,7 +32,7 @@
   "dependencies": {
     "classlist-polyfill": "^1.0.0",
     "howler": "^1.1.26",
-    "mo-js": "^0.125.0"
+    "mo-js": "^0.146.7"
   },
   "devDependencies": {
     "6to5-loader": "^2.0.0",

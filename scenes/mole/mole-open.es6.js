@@ -20,7 +20,7 @@ var moleOpen = {
 
     var s = this.s;
     var moleOpenMotionPath = new motionPathStagger({
-      motionBlur: [.2, null, null, null, null],
+      // motionBlur: [.2, null, null, null, null],
       delay:      [(this.delay+100)*s, (this.delay+250)*s, (this.delay+250)*s, (this.delay+225)*s, (this.delay+225)*s],
       duration:   [500*s, 450*s, 450*s, 300*s, 300*s],
       path:       [{x: 25, y: -240}, {x: 0, y: -1}, {x: 0, y: -1}, {x: 0, y: -1}, {x: 0, y: -1}],

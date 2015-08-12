@@ -1,5 +1,4 @@
 var mojs = require('mo-js');
-var Howl = require('howler').Howl;
 require('./css/styles.styl');
 
 // SCENES
@@ -7,16 +6,19 @@ var cube        = require('./scenes/cube/cube.es6.js');
 var mole        = require('./scenes/mole/mole.es6.js');
 
 var main = {
-  s:         1, // global time coefficient
-  zHack:     ' translateZ(0) ',
-  mainTween: new mojs.Timeline,
-  delay:     0,
+  s:            1, // global time coefficient
+  zHack:        ' translateZ(0) ',
+  mainTween:    new mojs.Timeline({ repeat: 999999, delay: 1000 }),
+  delay:        0,
   cubeDuration: 3900,
   init() {
     this.vars();
     cube.init(this)
     mole.init(this);
     this.mainTween.start();
+    // setInterval(()=> {
+    //   this.mainTween.start();
+    // }, 15000*this.s)
   },
   vars() {
     this.sceneEl            = document.querySelector('#js-mole-scene');

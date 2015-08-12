@@ -1,4 +1,5 @@
 var mojs     = require('mo-js');
+var {Howl}   = require('howler');
 
 var close = {
   init: function (proto) {
@@ -7,20 +8,37 @@ var close = {
     this.createTween();
     // this.initChildScenes();
   },
-  vars: function () {
+  vars() {
     this.moleInnerEl = document.querySelector('#js-mole-inner');
-    this.s = 1;
+    this.doorCloseSound = new Howl({ urls: ['sounds/door-close-1.wav'], rate: 1.5 });
   },
-  createTween: function () {
+
+  resetParts() {
+    // this.moleEl.style['z-index'] = 0;
+  },
+
+  createTween() {
     var delay = 4400;
     var e = mojs.easing, h = mojs.h;
     this.closeTimeline = new mojs.Timeline({ delay: delay*this.s });
 
     var moveDownTween = new mojs.Tween({
       duration: 600*this.s,
-      onStart: () => { this.moleHandCircleEl.style.opacity = 1; },
+      onStart: () => {
+        this.moleHandCircleEl.style.opacity = 1;
+        this.doorCloseSound.play();
+      },
       onComplete: () => {
-        this.moleEl.style['z-index'] = 0; this.moleHandCircleEl.style.opacity = 0;
+        this.resetParts();
+        this.moleHandCircleEl.style.opacity = 0;
+        h.style( this.moleHandEl, 'transform', '' );
+        h.style( this.moleHatEl,  'transform', '' );
+        this.moleHatEl.style['z-index'] = 4;
+        this.moleEyeLashEl.setAttribute('d', `M0,0 Q 6.5 10, 13 0`);
+        this.moleEyeLashEl.setAttribute('stroke-width', 2);
+        mojs.h.style(this.moleEyeEl, 'transform', '');
+        h.style( this.moleGlassesEl,     'transform', '' );
+        h.style( this.moleGlassesLeftEl, 'transform', '' );
       },
       onUpdate: (p) => {
 
@@ -95,7 +113,6 @@ var close = {
       .add(moveDownTween)
       .append([burstStagger.timeline, doorWaveTween, noiseTween]);
     this.moleTimeline.add(this.closeTimeline);
-    // this.closeTimeline.start();
 
   },
 
