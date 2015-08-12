@@ -9571,6 +9571,10 @@
 	var _core = _interopRequire(__webpack_require__(2));
 
 	var mojs = __webpack_require__(3);
+	var _require = __webpack_require__(48);
+
+	var Howl = _require.Howl;
+
 
 	// SCENES
 	var moleRantingHand = {
@@ -9580,7 +9584,11 @@
 	    this.createTween();
 	    this.initChildScenes();
 	  },
-	  vars: function () {},
+	  vars: function () {
+	    this.rantSound1 = new Howl({ urls: ["sounds/rant-1-1.wav"], rate: 1.25, volume: 1 });
+	    this.rantSound2 = new Howl({ urls: ["sounds/rant-1-2.wav"], rate: 1.25, volume: 1 });
+	    this.rantSound3 = new Howl({ urls: ["sounds/rant-1-3.wav"], rate: 1.25, volume: 1 });
+	  },
 	  createTween: function () {
 	    var _this = this;
 	    var handAngleCurve = mojs.easing.path("M0,100 L3.13085938,99.9660558 C11.128418,-42.5141612 24.7357688,10.3389432 24.7357688,10.3389432 C24.7357688,10.3389432 35.4207115,6.43611673 35.420711,19.551763 C35.420711,19.551763 35.4207115,28.5204487 38.4679491,20.1010452 C45.9122391,-2.41706848 48.2480469,19.3280379 49.4205542,19.3280385 C49.4205546,6.88000841 55.0592461,-3.51334643 59,15.8785806 C60.6251608,22.5931723 56.8918457,-3.3408203 65.4951172,-3.3408203 C68.7340668,-3.54252346 69.730594,6.60260412 70.328125,14.0234368 C70.9301836,21.5004985 74.0961573,27.0302603 74.7888322,18.8316301 C77.5927734,-0.603027419 100,0 100,0");
@@ -9588,6 +9596,9 @@
 	    var tween = new mojs.Tween({
 	      delay: 500 * this.s,
 	      duration: this.handRantingDuration * this.s,
+	      onStart: function () {
+	        _this["rantSound" + Math.round(mojs.h.rand(1, 3))].play();
+	      },
 	      onUpdate: function (p) {
 	        var handP = handAngleCurve(p);
 	        var handStretchP = handStretchCurve(p);
@@ -9749,11 +9760,17 @@
 	        h = mojs.h;
 	    this.closeTimeline = new mojs.Timeline({ delay: delay * this.s });
 
+	    var closeSoundLauncher = new mojs.Tween({
+	      delay: 200 * this.s,
+	      onStart: function () {
+	        _this.doorCloseSound.play();
+	      }
+	    });
+
 	    var moveDownTween = new mojs.Tween({
 	      duration: 600 * this.s,
 	      onStart: function () {
 	        _this.moleHandCircleEl.style.opacity = 1;
-	        _this.doorCloseSound.play();
 	      },
 	      onComplete: function () {
 	        _this.resetParts();
@@ -9837,7 +9854,7 @@
 	      }
 	    });
 
-	    this.closeTimeline.add(moveDownTween).append([burstStagger.timeline, doorWaveTween, noiseTween]);
+	    this.closeTimeline.add(moveDownTween, closeSoundLauncher).append([burstStagger.timeline, doorWaveTween, noiseTween]);
 	    this.moleTimeline.add(this.closeTimeline);
 	  },
 

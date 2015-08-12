@@ -22,11 +22,15 @@ var close = {
     var e = mojs.easing, h = mojs.h;
     this.closeTimeline = new mojs.Timeline({ delay: delay*this.s });
 
+    var closeSoundLauncher = new mojs.Tween({
+      delay: 200*this.s,
+      onStart: ()=> { this.doorCloseSound.play(); }
+    });
+
     var moveDownTween = new mojs.Tween({
       duration: 600*this.s,
       onStart: () => {
         this.moleHandCircleEl.style.opacity = 1;
-        this.doorCloseSound.play();
       },
       onComplete: () => {
         this.resetParts();
@@ -110,7 +114,7 @@ var close = {
     });
 
     this.closeTimeline
-      .add(moveDownTween)
+      .add(moveDownTween, closeSoundLauncher)
       .append([burstStagger.timeline, doorWaveTween, noiseTween]);
     this.moleTimeline.add(this.closeTimeline);
 
