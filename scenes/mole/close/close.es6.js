@@ -10,7 +10,7 @@ var close = {
   },
   vars() {
     this.moleInnerEl = document.querySelector('#js-mole-inner');
-    this.doorCloseSound = new Howl({ urls: ['sounds/door-close-1.wav'], rate: 1.5 });
+    this.doorCloseSound = new Howl({ urls: ['sounds/door-close-1.wav'], rate: 1.5, volume: .65 });
     this.boomSound = new Howl({ urls: [ './sounds/fall-kick-1.wav' ], rate: .5 });
   },
 
@@ -24,8 +24,8 @@ var close = {
     this.closeTimeline = new mojs.Timeline({ delay: delay*this.s });
 
     var closeSoundLauncher = new mojs.Tween({
-      duration: 1,
-      delay: 200*this.s,
+      duration: 50,
+      delay: 150*this.s,
       onStart: ()=> { this.doorCloseSound.play(); }
     });
 

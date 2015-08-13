@@ -9655,8 +9655,8 @@
 	    this.doorShadowEl = document.querySelector("#js-door-shadow");
 	    this.doorHandleShadowEl = document.querySelector("#js-door-handle-shadow");
 	    this.doorOpenSoundSmall = new Howl({ urls: ["sounds/door-open-small-1.wav"], rate: 1.9, volume: 0.6 });
-	    this.wehSound1 = new Howl({ urls: ["sounds/weh-1.wav"], volume: 0.55 });
-	    this.wehSound2 = new Howl({ urls: ["sounds/weh-1.wav"], volume: 0.55, rate: 1.1 });
+	    this.wehSound1 = new Howl({ urls: ["sounds/ugh-2.wav"], volume: 0.55, rate: 1.25 });
+	    this.wehSound2 = new Howl({ urls: ["sounds/ugh-1.wav"], volume: 0.55, rate: 1.35 });
 	  },
 	  createTween: function () {
 	    var _this = this;
@@ -9762,7 +9762,7 @@
 	  },
 	  vars: function vars() {
 	    this.moleInnerEl = document.querySelector("#js-mole-inner");
-	    this.doorCloseSound = new Howl({ urls: ["sounds/door-close-1.wav"], rate: 1.5 });
+	    this.doorCloseSound = new Howl({ urls: ["sounds/door-close-1.wav"], rate: 1.5, volume: 0.65 });
 	    this.boomSound = new Howl({ urls: ["./sounds/fall-kick-1.wav"], rate: 0.5 });
 	  },
 
@@ -9776,8 +9776,8 @@
 	    this.closeTimeline = new mojs.Timeline({ delay: delay * this.s });
 
 	    var closeSoundLauncher = new mojs.Tween({
-	      duration: 1,
-	      delay: 200 * this.s,
+	      duration: 50,
+	      delay: 150 * this.s,
 	      onStart: function () {
 	        _this.doorCloseSound.play();
 	      }
