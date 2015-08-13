@@ -16,9 +16,6 @@ var main = {
     cube.init(this)
     mole.init(this);
     this.mainTween.start();
-    // setInterval(()=> {
-    //   this.mainTween.start();
-    // }, 15000*this.s)
   },
   vars() {
     this.sceneEl            = document.querySelector('#js-mole-scene');

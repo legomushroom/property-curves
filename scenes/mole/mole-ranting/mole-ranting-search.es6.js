@@ -14,13 +14,26 @@ var moleRantingSearch = {
     this.doorShadowEl       = document.querySelector('#js-door-shadow');
     this.doorHandleShadowEl = document.querySelector('#js-door-handle-shadow');
     this.doorOpenSoundSmall = new Howl({ urls: ['sounds/door-open-small-1.wav'], rate: 1.9, volume: .6 });
+    this.wehSound1 = new Howl({ urls: ['sounds/weh-1.wav'], volume: .55 });
+    this.wehSound2 = new Howl({ urls: ['sounds/weh-1.wav'], volume: .55, rate: 1.1 });
   },
   createTween: function () {
     var timeLine = new mojs.Timeline;
     var duration = 1000;
+    
     var doorSound1Tween = new mojs.Tween({
       delay: 510*this.s,
       onStart: () => { this.doorOpenSoundSmall.play(); }
+    });
+
+    var wehSound1Tween = new mojs.Tween({
+      delay: 120*this.s,
+      onStart: () => { this.wehSound1.play(); }
+    });
+
+    var wehSound2Tween = new mojs.Tween({
+      delay: 400*this.s,
+      onStart: () => { this.wehSound2.play(); }
     });
     
     var e = mojs.easing;
@@ -65,7 +78,7 @@ var moleRantingSearch = {
       }
     });
 
-    timeLine.add(tween, tween2, tween3, doorSound1Tween);
+    timeLine.add(tween, wehSound1Tween, wehSound2Tween, tween2, tween3, doorSound1Tween);
     this.moleRantingTween.append(timeLine);
   },
   initChildScenes: function () {}
