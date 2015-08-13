@@ -11,6 +11,7 @@ var close = {
   vars() {
     this.moleInnerEl = document.querySelector('#js-mole-inner');
     this.doorCloseSound = new Howl({ urls: ['sounds/door-close-1.wav'], rate: 1.5 });
+    this.boomSound = new Howl({ urls: [ './sounds/fall-kick-1.wav' ], rate: .5 });
   },
 
   resetParts() {
@@ -23,6 +24,7 @@ var close = {
     this.closeTimeline = new mojs.Timeline({ delay: delay*this.s });
 
     var closeSoundLauncher = new mojs.Tween({
+      duration: 1,
       delay: 200*this.s,
       onStart: ()=> { this.doorCloseSound.play(); }
     });
@@ -108,6 +110,7 @@ var close = {
     var noiseCurve = mojs.easing.path('M0.259486607,100.071429 C0.259486607,100.071429 4.27680653,83.4402907 6.90123802,100.071429 C9.52566951,116.702566 13.5373987,100.071429 13.5373987,100.071429 C13.5373987,100.071429 16.7628232,87.9112723 21.6735437,100.071429 C26.5842642,112.231585 30.9212118,100.071429 30.9212118,100.071429 C30.9212118,100.071429 37.4556606,76.8219874 36.8193484,100.071429 C36.1830363,123.32087 44.2583534,100.071429 44.2583534,100.071429 C44.2583534,100.071429 52.7238326,76.230468 58.7731881,100.071429 C64.8225436,123.912389 71.8496108,100.071429 71.8496108,100.071429 C71.8496108,100.071429 76.8389838,84.6718743 77.5101727,100.071429 C78.1813616,115.470983 86.7695435,100.071429 86.7695435,100.071429 C86.7695435,100.071429 90.9161334,91.365514 92.5121951,100.071429 C94.1082567,108.777343 97.4553275,100.071429 97.4553275,100.071429 C97.4553275,100.071429 98.5630678,96.4871648 100.000003,100.071429');
     var noiseTween = new mojs.Tween({
       duration: 200*this.s,
+      onStart: () => { this.boomSound.play(); },
       onUpdate: (p)=> {
         mojs.h.style(this.sceneEl, 'transform', `translate(${noiseCurve(p)*40}px, ${-noiseCurve(p)*20}px) ${this.zHack}`);
       }
