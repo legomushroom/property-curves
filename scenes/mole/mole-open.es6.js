@@ -14,7 +14,7 @@ var moleOpen = {
     this.moleInnerEl    = document.querySelector('#js-mole-inner');
     mojs.h.style(this.moleMouthEl, 'transform', 'scale(0.25)');
 
-    this.whooshSound1 = new Howl({ urls: ['sounds/whoosh-1.wav'], volume: .5, rate: 1.4 });
+    this.whooshSound1 = new Howl({ urls: ['sounds/whoosh-1.wav'], volume: .4, rate: 1.4 });
   },
   createTween: function () {
 

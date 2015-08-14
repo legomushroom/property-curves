@@ -14,8 +14,8 @@ var moleRantingSearch = {
     this.doorShadowEl       = document.querySelector('#js-door-shadow');
     this.doorHandleShadowEl = document.querySelector('#js-door-handle-shadow');
     this.doorOpenSoundSmall = new Howl({ urls: ['sounds/door-open-small-1.wav'], rate: 1.9, volume: .6 });
-    this.wehSound1 = new Howl({ urls: ['sounds/ugh-2.wav'], volume: .55, rate: 1.25 });
-    this.wehSound2 = new Howl({ urls: ['sounds/ugh-1.wav'], volume: .55, rate: 1.35 });
+    this.wehSound1 = new Howl({ urls: ['sounds/ugh-2.wav'], volume: .35, rate: 1.25 });
+    this.wehSound2 = new Howl({ urls: ['sounds/ugh-1.wav'], volume: .35, rate: 1.35 });
   },
   createTween: function () {
     var timeLine = new mojs.Timeline;

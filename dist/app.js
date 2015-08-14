@@ -7576,7 +7576,7 @@
 	    this.shadowEl = document.querySelector("#js-shadow");
 	    this.cubeSceneEl = document.querySelector("#js-cube-scene");
 	    this.translateY = 500;
-	    this.duration = 2000;
+	    this.fallDuration = 2000;
 	    this.delay = 0;
 	  },
 	  createTween: function () {
@@ -7631,7 +7631,7 @@
 	    var _this = this;
 	    // var tween = new mojs.Timeline;
 	    this.cubeFallTween = new mojs.Tween({
-	      duration: this.duration * this.s,
+	      duration: this.fallDuration * this.s,
 	      delay: this.delay * this.s,
 	      onUpdate: function (progress) {
 	        var bounceProgress = _this.bouncyEasing(progress),
@@ -9183,14 +9183,15 @@
 	    this.createTween();
 	  },
 	  vars: function () {
-	    this.anticipationEasing = mojs.easing.path("M0,0 C0,0 17.1742287,-107.268176 19.3167114,-0.633646433 C24.0739231,112.218223 100,100 100,100");
-	    this.anticipatingYEasing = mojs.easing.path("M0,100 C4.21746922,99.7372437 14.4689363,99.8708599 19.3294067,99.8708626 C26.7892036,15.1907717 46.8866348,19.6362701 46.8866348,19.6362701 L100,19.6362701");
+	    this.anticipationEasing = mojs.easing.path("M0,0 C0,0 17.1742287,-107.268176 19.3167114,-0.633646433 C19.3167114,55.7683836 100,100 100,100");
+	    this.anticipatingYEasing = mojs.easing.path("M0,100 C4.21746922,99.7372437 14.4689363,99.8708599 19.3294067,99.8708626 C26.5066376,7.56216386 46.8866348,19.6362701 46.8866348,19.6362701 L100,19.6362701");
+	    this.s = 1;
 	  },
 	  createTween: function () {
 	    var _this = this;
 	    this.cubeAnticipationTween = new mojs.Tween({
-	      delay: 0 * this.s,
-	      duration: this.duration * this.s,
+	      delay: (this.fallDuration + 200) * this.s,
+	      duration: 1 * this.fallDuration * this.s,
 	      // onComplete: ()=> { mojs.h.style(this.cubeEl, 'transform', ''); },
 	      onUpdate: function (p) {
 	        var anticipationProgress = _this.anticipationEasing(p),
@@ -9205,14 +9206,14 @@
 	              rotateX = 1 - anticipationProgress;
 	        } else {
 	          var scale = nAnticipationProgress,
-	              rotateX = 0;
+	              rotateX = 0.2 * mojs.easing.cubic.out(p);
 	        }
 	        mojs.h.style(_this.shadowEl, "transform", "scale(" + scale + ")\n                                  translateX(" + 2 * anticipationProgress + "px)\n                                  translateY(" + 2 * anticipationProgress + "px)\n                                  rotateX(" + -17 * rotateX + "deg)\n                                  rotateY(" + 17 * rotateX + "deg)");
 
-	        _this.shadowEl.style.opacity = anticipationYProgress / 2 - 0.1 * mojs.easing.cubic.out(p);
+	        _this.shadowEl.style.opacity = anticipationYProgress / 2 - 0.3 * (1 - anticipationProgress);
 	      }
 	    });
-	    this.cubeMainTween.append(this.cubeAnticipationTween);
+	    this.cubeMainTween.add(this.cubeAnticipationTween);
 	  }
 	};
 
@@ -9252,7 +9253,8 @@
 	    this.scene = document.querySelector("#js-mole-scene");
 	  },
 	  createTween: function createTween() {
-	    this.moleTimeline = new mojs.Timeline({ delay: this.cubeDuration /**this.s*/ });
+	    console.log(this.cubeDuration);
+	    this.moleTimeline = new mojs.Timeline({ delay: (this.cubeDuration - 1000) * this.s });
 	  },
 
 	  initChildScenes: function initChildScenes() {
@@ -9300,7 +9302,7 @@
 	    this.moleInnerEl = document.querySelector("#js-mole-inner");
 	    mojs.h.style(this.moleMouthEl, "transform", "scale(0.25)");
 
-	    this.whooshSound1 = new Howl({ urls: ["sounds/whoosh-1.wav"], volume: 0.5, rate: 1.4 });
+	    this.whooshSound1 = new Howl({ urls: ["sounds/whoosh-1.wav"], volume: 0.4, rate: 1.4 });
 	  },
 	  createTween: function () {
 	    var _this = this;
@@ -9673,8 +9675,8 @@
 	    this.doorShadowEl = document.querySelector("#js-door-shadow");
 	    this.doorHandleShadowEl = document.querySelector("#js-door-handle-shadow");
 	    this.doorOpenSoundSmall = new Howl({ urls: ["sounds/door-open-small-1.wav"], rate: 1.9, volume: 0.6 });
-	    this.wehSound1 = new Howl({ urls: ["sounds/ugh-2.wav"], volume: 0.55, rate: 1.25 });
-	    this.wehSound2 = new Howl({ urls: ["sounds/ugh-1.wav"], volume: 0.55, rate: 1.35 });
+	    this.wehSound1 = new Howl({ urls: ["sounds/ugh-2.wav"], volume: 0.35, rate: 1.25 });
+	    this.wehSound2 = new Howl({ urls: ["sounds/ugh-1.wav"], volume: 0.35, rate: 1.35 });
 	  },
 	  createTween: function () {
 	    var _this = this;

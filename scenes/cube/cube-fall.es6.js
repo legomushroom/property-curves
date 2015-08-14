@@ -22,7 +22,7 @@ var cubeFall = {
   createTween: function () {
     // var tween = new mojs.Timeline;
     this.cubeFallTween = new mojs.Tween({
-      duration: this.duration*this.s,
+      duration: this.fallDuration*this.s,
       delay:    this.delay*this.s,
       onUpdate: (progress) => {
         var bounceProgress = this.bouncyEasing(progress),

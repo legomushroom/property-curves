@@ -9,14 +9,14 @@ var cubeFall = {
     this.createTween();
   },
   vars: function () {
-
-    this.anticipationEasing  = mojs.easing.path('M0,0 C0,0 17.1742287,-107.268176 19.3167114,-0.633646433 C24.0739231,112.218223 100,100 100,100');
-    this.anticipatingYEasing = mojs.easing.path('M0,100 C4.21746922,99.7372437 14.4689363,99.8708599 19.3294067,99.8708626 C26.7892036,15.1907717 46.8866348,19.6362701 46.8866348,19.6362701 L100,19.6362701');
+    this.anticipationEasing  = mojs.easing.path('M0,0 C0,0 17.1742287,-107.268176 19.3167114,-0.633646433 C19.3167114,55.7683836 100,100 100,100');
+    this.anticipatingYEasing = mojs.easing.path('M0,100 C4.21746922,99.7372437 14.4689363,99.8708599 19.3294067,99.8708626 C26.5066376,7.56216386 46.8866348,19.6362701 46.8866348,19.6362701 L100,19.6362701');
+    this.s = 1;
   },
   createTween: function () {
     this.cubeAnticipationTween = new mojs.Tween({
-      delay:    0*this.s,
-      duration: this.duration*this.s,
+      delay:    (this.fallDuration + 200)*this.s,
+      duration: (1*this.fallDuration)*this.s,
       // onComplete: ()=> { mojs.h.style(this.cubeEl, 'transform', ''); },
       onUpdate: (p)=> {
         var anticipationProgress = this.anticipationEasing(p),
@@ -29,7 +29,7 @@ var cubeFall = {
         if (anticipationProgress > 1) {
           var scale   = anticipationProgress, rotateX = 1-anticipationProgress;
         } else {
-          var scale   = nAnticipationProgress, rotateX = 0;
+          var scale   = nAnticipationProgress, rotateX = .2*mojs.easing.cubic.out(p);
         }
         mojs.h.style(this.shadowEl, 'transform', `scale(${scale})
                                   translateX(${2*anticipationProgress}px)
@@ -38,10 +38,10 @@ var cubeFall = {
                                   rotateY(${17*rotateX}deg)`
         );
         
-        this.shadowEl.style.opacity = (anticipationYProgress/2) - .1*mojs.easing.cubic.out(p);
+        this.shadowEl.style.opacity = (anticipationYProgress/2) - .3*(1-anticipationProgress);
       }
     });
-    this.cubeMainTween.append(this.cubeAnticipationTween);
+    this.cubeMainTween.add(this.cubeAnticipationTween);
   }
 }
 

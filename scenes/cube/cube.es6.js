@@ -19,7 +19,7 @@ var cube = {
     this.shadowEl     = document.querySelector('#js-shadow');
     this.cubeSceneEl  = document.querySelector('#js-cube-scene');
     this.translateY   = 500;
-    this.duration     = 2000;
+    this.fallDuration = 2000;
     this.delay        = 0;
   },
   createTween: function () { this.cubeMainTween = new mojs.Timeline; },
