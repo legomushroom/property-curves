@@ -12,6 +12,7 @@ var close = {
     this.moleInnerEl = document.querySelector('#js-mole-inner');
     this.doorCloseSound = new Howl({ urls: ['sounds/door-close-1.wav'], rate: 1.5, volume: .65 });
     this.boomSound = new Howl({ urls: [ './sounds/fall-kick-1.wav' ], rate: .5 });
+    this.fallingSound = new Howl({ urls: [ './sounds/falling-1.wav' ], rate: 4.5, volume: .05 });
   },
 
   resetParts() {
@@ -26,14 +27,12 @@ var close = {
     var closeSoundLauncher = new mojs.Tween({
       duration: 50,
       delay: 150*this.s,
-      onStart: ()=> { this.doorCloseSound.play(); }
+      onStart: ()=> { this.doorCloseSound.play(); this.fallingSound.play(); }
     });
 
     var moveDownTween = new mojs.Tween({
       duration: 600*this.s,
-      onStart: () => {
-        this.moleHandCircleEl.style.opacity = 1;
-      },
+      onStart: () => { this.moleHandCircleEl.style.opacity = 1; },
       onComplete: () => {
         this.resetParts();
         this.moleHandCircleEl.style.opacity = 0;
