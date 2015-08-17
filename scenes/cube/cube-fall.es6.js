@@ -29,9 +29,9 @@ var cubeFall = {
             scaleProgress  = this.scaleEasing(progress),
             squashProgress = this.squashEasing(progress);
         
-        mojs.h.setPrefixedStyle(this.cubeEl, 'transform', `translate3d(0, ${this.translateY*bounceProgress}px, 0)`);
+        mojs.h.setPrefixedStyle(this.cubeEl, 'transform', `translate3d(0, ${- this.translateY + this.translateY*bounceProgress}px, 0)`);
         mojs.h.setPrefixedStyle(this.cubeSquashEl, 'transform', `scaleX(${1+squashProgress}) scaleY(${1-squashProgress})`);
-        mojs.h.setPrefixedStyle(this.shadowEl, 'transform', `scale(${1+(scaleProgress)+squashProgress}) rotateY(${-14*squashProgress}deg) rotateX(${14*squashProgress}deg)`);
+        mojs.h.setPrefixedStyle(this.shadowEl, 'transform', `scale(${1+(scaleProgress)+squashProgress}) rotateX(${-28*squashProgress}deg) rotateY(${28*squashProgress}deg)`);
         this.shadowEl.style.opacity  = Math.max((bounceProgress)/2, .1 );
       }
     });

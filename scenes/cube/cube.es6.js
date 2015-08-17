@@ -14,19 +14,18 @@ var cube = {
     // this.cubeMainTween.start();
   },
   vars: function () {
-    this.cubeEl       = document.querySelector('#js-cube');
-    this.cubeSquashEl = document.querySelector('#js-cube-squash');
-    this.shadowEl     = document.querySelector('#js-shadow');
-    this.cubeSceneEl  = document.querySelector('#js-cube-scene');
-    this.translateY   = 500;
-    this.fallDuration = 2000;
-    this.delay        = 0;
+    this.cubeEl             = document.querySelector('#js-cube');
+    this.cubeSquashEl       = document.querySelector('#js-cube-squash');
+    this.shadowEl           = document.querySelector('#js-shadow');
+    this.cubeSceneEl        = document.querySelector('#js-cube-scene');
+    this.translateY         = 700;
+    this.fallDuration       = 2000;
+    this.delay              = 0;
   },
   createTween: function () { this.cubeMainTween = new mojs.Timeline; },
 
   initChildScenes: function () {
     cubeFall.init(this);
-    // cubeFallEffects.init(this);
     cubeAnticipation.init(this);
     this.mainTween.add(this.cubeMainTween);
   }

@@ -9,94 +9,117 @@
 
     <!-- <div class="square" id="js-square"></div> -->
     <div class="mole-scene" id="js-mole-scene">
-        <div class="mole mole-scene__mole" id="js-mole">
-          <div class="mole__inner" id="js-mole-inner">
 
-            <div id="js-mole-hat" class="mole__hat">
-              <div class="mole__hat-base">
-                <div class="mole__hat-shadow" id="js-mole-hat-shadow"></div>
-              </div>
-              <div class="mole__hat-cone-wrapper">
-                <div class="mole__hat-cone-rotator" id="js-mole-hat-cone">
-                  <div class="mole__hat-cone"></div>
-                </div>
-              </div>
-            </div>
-
-            <div class="mole__head">
-              <div class="mole-mouth">
-                <div class="mole-mouth__inner" id="js-mole-tongue">
-                  <svg viewBox="0 0 60 60" style="max-width: 20px;">
-                    <path id="js-mole-tongue-path" d="M0 30 Q 20 10, 30 25 T 50 30" stroke="#C95549" fill="none" stroke-width="18" stroke-linecap="round">
-                  </svg>
-                </div>
-              </div>
-              <div class="mole__mouth-wrapper" id="js-mole-mouth">
-                <div class="mole__mouth" id="js-mole-mouth-outer">
-                  <div class="mole__mouth-inner" id="js-mole-mouth-inner"></div>
-                </div>
-              </div>
-            </div>
-            <div class="mole__eye" id="js-mole-eye">
-              <svg width="13px" height="6px" viewBox="0 0 13 6" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
-                  <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
-                      <path d="M0,0 Q 6.5 10, 13 0" id="js-mole-eye-lash" stroke="#4C4040" stroke-width="2"></path>
-                  </g>
-              </svg>
-            </div>
-            <div class="mole__glasses" id="js-mole-glasses"></div>
-            <div class="mole__glasses-left" id="js-mole-glasses-left"></div>
-            <div class="mole__body" id="js-mole-body"></div>
-            <div class="mole__hand" id="js-mole-hand">
-              <div class="mole__hand-circle" id="js-mole-hand-circle"></div>
-            </div>
-            <div class="mole__hand-left" id="js-mole-hand-left"></div>  
-          </div>
+      <div id="js-cube-scene" class="cube-wrapper">
+        <div class="cube-shadow-wrapper" id="js-shadow-wrapper">
+          <div class="cube-shadow" id="js-shadow"></div>
         </div>
-
-        <div class="mole-scene__door">
-          <div class="door-shadow">
-            <div class="door-shadow__el" id="js-door-shadow"></div>
-          </div>
-          <div class="mole-scene__door-rotation" id="js-door">
-            <div class="shape cuboid-1 cub-1 door">
-              <div class="face ft"></div>
-              <div class="face bk"></div>
-              <div class="face rt"></div>
-              <div class="face lt"></div>
-              <div class="face bm"></div>
-              <div class="face tp">
-                <div class="door-handle">
-                  <div class="door-handle__shadow">
-                    <div class="door-handle__shadow-inner" id="js-door-handle-shadow"></div>
-                  </div>
-                  <div class="door-handle__part door-handle__part--bottom"></div>
-                  <div class="door-handle__part door-handle__part--top"></div>
-                </div>
-              </div>
-              <div class="cr cr-0">
-                <div class="face side s0"></div>
-                <div class="face side s1"></div>
-                <div class="face side s2"></div>
-              </div>
-              <div class="cr cr-1">
-                <div class="face side s0"></div>
-                <div class="face side s1"></div>
-                <div class="face side s2"></div>
-              </div>
-              <!-- <div class="cr cr-2">
-                <div class="face side s0"></div>
-                <div class="face side s1"></div>
-                <div class="face side s2"></div>
-              </div> -->
-              <div class="cr cr-3">
-                <div class="face side s0"></div>
-                <div class="face side s1"></div>
-                <div class="face side s2"></div>
-              </div>
+        
+        <div id="js-cube">
+          <div id="js-cube-squash" class="cube__squash">
+            <div class="cube">
+              <div class="cube__side cube__side--front"><!-- front --></div>
+              <div class="cube__side cube__side--back"><!-- back --></div>
+              <div class="cube__side cube__side--top"><!-- top --></div>
+              <div class="cube__side cube__side--bottom"><!-- bottom --></div>
+              <div class="cube__side cube__side--left"><!-- left --></div>
+              <div class="cube__side cube__side--right"><!-- right --></div>
             </div>
           </div>
         </div>
+      </div>
+
+
+
+      <div class="mole mole-scene__mole" id="js-mole">
+        <div class="mole__inner" id="js-mole-inner">
+
+          <div id="js-mole-hat" class="mole__hat">
+            <div class="mole__hat-base">
+              <div class="mole__hat-shadow" id="js-mole-hat-shadow"></div>
+            </div>
+            <div class="mole__hat-cone-wrapper">
+              <div class="mole__hat-cone-rotator" id="js-mole-hat-cone">
+                <div class="mole__hat-cone"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mole__head">
+            <div class="mole-mouth">
+              <div class="mole-mouth__inner" id="js-mole-tongue">
+                <svg viewBox="0 0 60 60" style="max-width: 20px;">
+                  <path id="js-mole-tongue-path" d="M0 30 Q 20 10, 30 25 T 50 30" stroke="#C95549" fill="none" stroke-width="18" stroke-linecap="round">
+                </svg>
+              </div>
+            </div>
+            <div class="mole__mouth-wrapper" id="js-mole-mouth">
+              <div class="mole__mouth" id="js-mole-mouth-outer">
+                <div class="mole__mouth-inner" id="js-mole-mouth-inner"></div>
+              </div>
+            </div>
+          </div>
+          <div class="mole__eye" id="js-mole-eye">
+            <svg width="13px" height="6px" viewBox="0 0 13 6" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+                <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+                    <path d="M0,0 Q 6.5 10, 13 0" id="js-mole-eye-lash" stroke="#4C4040" stroke-width="2"></path>
+                </g>
+            </svg>
+          </div>
+          <div class="mole__glasses" id="js-mole-glasses"></div>
+          <div class="mole__glasses-left" id="js-mole-glasses-left"></div>
+          <div class="mole__body" id="js-mole-body"></div>
+          <div class="mole__hand" id="js-mole-hand">
+            <div class="mole__hand-circle" id="js-mole-hand-circle"></div>
+          </div>
+          <div class="mole__hand-left" id="js-mole-hand-left"></div>  
+        </div>
+      </div>
+
+      <div class="mole-scene__door">
+        <div class="door-shadow">
+          <div class="door-shadow__el" id="js-door-shadow"></div>
+        </div>
+        <div class="mole-scene__door-rotation" id="js-door">
+          <div class="shape cuboid-1 cub-1 door">
+            <div class="face ft"></div>
+            <div class="face bk"></div>
+            <div class="face rt"></div>
+            <div class="face lt"></div>
+            <div class="face bm"></div>
+            <div class="face tp">
+              <div class="door-handle">
+                <div class="door-handle__shadow">
+                  <div class="door-handle__shadow-inner" id="js-door-handle-shadow"></div>
+                </div>
+                <div class="door-handle__part door-handle__part--bottom"></div>
+                <div class="door-handle__part door-handle__part--top"></div>
+              </div>
+            </div>
+            <div class="cr cr-0">
+              <div class="face side s0"></div>
+              <div class="face side s1"></div>
+              <div class="face side s2"></div>
+            </div>
+            <div class="cr cr-1">
+              <div class="face side s0"></div>
+              <div class="face side s1"></div>
+              <div class="face side s2"></div>
+            </div>
+            <!-- <div class="cr cr-2">
+              <div class="face side s0"></div>
+              <div class="face side s1"></div>
+              <div class="face side s2"></div>
+            </div> -->
+            <div class="cr cr-3">
+              <div class="face side s0"></div>
+              <div class="face side s1"></div>
+              <div class="face side s2"></div>
+            </div>
+
+          </div>
+        </div>
+      </div>
 
         <!-- <div class="mole-door__inner">
           <div class="mole-door__face"></div>
@@ -108,24 +131,6 @@
         <div class="mole-scene__door-wave" id="js-door-wave"></div>
       </div>
       <div class="mole-scene__mask"></div>
-    </div>
-
-    <div id="js-cube-scene" class="cube-wrapper">
-      <div class="cube-shadow-wrapper">
-        <div class="cube-shadow" id="js-shadow"></div>
-      </div>
-      <div id="js-cube">
-        <div id="js-cube-squash" class="cube__squash">
-          <div class="cube">
-            <div class="cube__side cube__side--front"><!-- front --></div>
-            <div class="cube__side cube__side--back"><!-- back --></div>
-            <div class="cube__side cube__side--top"><!-- top --></div>
-            <div class="cube__side cube__side--bottom"><!-- bottom --></div>
-            <div class="cube__side cube__side--left"><!-- left --></div>
-            <div class="cube__side cube__side--right"><!-- right --></div>
-          </div>
-        </div>
-      </div>
     </div>
 
     <!-- <div class="shadow-wrapper" id="js-shadow">

@@ -36,9 +36,9 @@ squareSize = 100;
   height: (squareSize)px;
   position: absolute;
   z-index: 0;
-  top:  (500+squareSize)px;
-  left: 50%;
-  margin-left: -(squareSize/2)px;
+  // top:  (500+squareSize)px;
+  // left: 50%;
+  margin-left: (squareSize)px;
 }
 
 .shadow {
@@ -48,19 +48,19 @@ squareSize = 100;
 }
 
 .cube-wrapper {
-  perspective:  500px;
+  // perspective:  500px;
   // transform-style: preserve-3d;
   // backface-visibility: hidden;
   // transform: translateZ(150px)
-  perspective-origin: 50% 10%;
+  // perspective-origin: 50% 10%;
   z-index: 10;
   // border: 1px solid deeppink;
   position: absolute;
   width: (squareSize)px;
   height: (squareSize)px;
   left: 50%;
-  margin-left: -(squareSize/2)px;
-  top: -(1.5*squareSize)px;
+  margin-left: (squareSize)px;
+  top: -(squareSize)px;
 }
 
 .cube {
@@ -106,7 +106,6 @@ squareSize = 100;
     &:after{
       background: rgba(0,0,0,.02);
     }
-    // background: red;
   }
   &--bottom {
     transform: rotateX(90deg) translateY((squareSize/2)px);
@@ -128,9 +127,9 @@ shadowSize = squareSize+7;
   position: absolute;
   left: 50%;
   margin-left: -(shadowSize/2)px;
-  top: (500+(shadowSize/2) - 12)px;
+  top: (.42*squareSize)px;
   z-index: 0;
-  transform: rotateX(127.5deg) rotateZ(46deg);
+  transform: rotateX(112deg) rotateZ(45deg);
 }
 
 .transit {

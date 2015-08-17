@@ -12,7 +12,7 @@ var cubeFallEffects = {
   vars: function () {
     this.burstOption = {
       parent:     this.cubeSceneEl,
-      x: '100%',  y: 600,
+      x: '100%',  y: 100,
       shiftX:     {0: 300},
       shiftY:     {0: '-50'},
       type:       ['circle', 'rect', 'polygon'],

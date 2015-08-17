@@ -16,12 +16,12 @@ var cubeFall = {
   createTween: function () {
     this.cubeAnticipationTween = new mojs.Tween({
       delay:    (this.fallDuration + 200)*this.s,
-      duration: (1*this.fallDuration)*this.s,
+      duration: (.85*this.fallDuration)*this.s,
       // onComplete: ()=> { mojs.h.style(this.cubeEl, 'transform', ''); },
       onUpdate: (p)=> {
         var anticipationProgress = this.anticipationEasing(p),
             anticipationYProgress = 1-this.anticipatingYEasing(p);
-        mojs.h.style(this.cubeEl, 'transform', `translate3d(0, ${this.translateY-(700*(1-anticipationYProgress))}px, 0)`);
+        mojs.h.style(this.cubeEl, 'transform', `translate3d(0, ${-this.translateY*(1-anticipationYProgress)}px, 0)`);
 
         var nAnticipationProgress = 1+(1-anticipationProgress);
         mojs.h.style(this.cubeSquashEl, 'transform', `scaleX(${anticipationProgress}) scaleY(${nAnticipationProgress})`);
@@ -34,8 +34,8 @@ var cubeFall = {
         mojs.h.style(this.shadowEl, 'transform', `scale(${scale})
                                   translateX(${2*anticipationProgress}px)
                                   translateY(${2*anticipationProgress}px)
-                                  rotateX(${-17*rotateX}deg)
-                                  rotateY(${17*rotateX}deg)`
+                                  rotateX(${27*rotateX}deg)
+                                  rotateY(${-27*rotateX}deg)`
         );
         
         this.shadowEl.style.opacity = (anticipationYProgress/2) - .3*(1-anticipationProgress);
