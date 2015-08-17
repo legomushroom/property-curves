@@ -21,7 +21,7 @@ var mole = {
   },
   createTween() {
     console.log(this.cubeDuration);
-    this.moleTimeline = new mojs.Timeline({ delay: (this.cubeDuration-1000)*this.s }); },
+    this.moleTimeline = new mojs.Timeline({ delay: (this.cubeDuration-1100)*this.s }); },
 
   initChildScenes() {
     doorOpen.init(this);
