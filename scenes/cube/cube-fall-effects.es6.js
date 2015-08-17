@@ -50,7 +50,7 @@ var cubeFallEffects = {
     var burst2Option = {
         x: '-20%',   shiftX: {0: -300},
         angle:       {0:'25'},
-        onStart: ()=> { this.fall1Sound.play(); }
+        onStart: ()=> { this.isSound && this.fall1Sound.play(); }
       }
     mojs.h.extend(burst2Option, this.burstOption);
     var burst1 = new mojs.Burst(this.burstOption),
@@ -63,7 +63,7 @@ var cubeFallEffects = {
     var burst1Option = {delay: (this.delay+850)*this.s, radius: {30: 60}, count: 3}
     var burst2Option = {
           x: '-20%', shiftX: {0: -300}, angle: {0:'25'},
-          onStart: ()=> { this.fall2Sound.play(); }
+          onStart: ()=> { this.isSound && this.fall2Sound.play(); }
         }
 
     mojs.h.extend(burst1Option, this.burstOption);
@@ -78,7 +78,7 @@ var cubeFallEffects = {
     var burst1Option = {delay: (this.delay+1275)*this.s, radius: {15: 30}, count: 2, shiftX: {0: 150}, shiftY: {0: '-25'}}
     var burst2Option = {
             x: '-20%', shiftX: {0: -150}, angle: {0:'25'},
-            onStart: () => { this.fall3Sound.play(); }
+            onStart: () => { this.isSound && this.fall3Sound.play(); }
           }
 
     mojs.h.extend(burst1Option, this.burstOption);
@@ -93,7 +93,7 @@ var cubeFallEffects = {
     var burst1Option = {delay: (this.delay+1550)*this.s, radius: {5: 12}, count: 1, shiftX: {0: 80}, shiftY: {0: '-15'}}
     var burst2Option = {
             x: '-20%', shiftX: {0: -80}, angle: {0:'15'},
-            onStart: () => { this.fall4Sound.play(); }
+            onStart: () => { this.isSound && this.fall4Sound.play(); }
           }
 
     mojs.h.extend(burst1Option, this.burstOption);
@@ -108,7 +108,7 @@ var cubeFallEffects = {
     var burst1Option = {delay: (this.delay+1725)*this.s, radius: {5: 12}, count: 1, shiftX: {0: 60}, shiftY: {0: '-10'}, childOptions: {radius: {3:0}} }
     var burst2Option = {
             x: '-20%', shiftX: {0: -60}, angle: {0:'10'},
-            onStart: () => { this.fall5Sound.play(); }
+            onStart: () => { this.isSound && this.fall5Sound.play(); }
           }
 
     mojs.h.extend(burst1Option, this.burstOption);

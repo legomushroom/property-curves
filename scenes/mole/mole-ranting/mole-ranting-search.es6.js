@@ -23,17 +23,17 @@ var moleRantingSearch = {
     
     var doorSound1Tween = new mojs.Tween({
       delay: 510*this.s,
-      onStart: () => { this.doorOpenSoundSmall.play(); }
+      onStart: () => { this.isSound && this.doorOpenSoundSmall.play(); }
     });
 
     var wehSound1Tween = new mojs.Tween({
       delay: 120*this.s,
-      onStart: () => { this.wehSound1.play(); }
+      onStart: () => { this.isSound && this.wehSound1.play(); }
     });
 
     var wehSound2Tween = new mojs.Tween({
       delay: 400*this.s,
-      onStart: () => { this.wehSound2.play(); }
+      onStart: () => { this.isSound && this.wehSound2.play(); }
     });
     
     var e = mojs.easing;

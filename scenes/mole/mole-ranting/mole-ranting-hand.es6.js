@@ -21,7 +21,7 @@ var moleRantingHand = {
       delay:    500*this.s,
       duration: this.handRantingDuration*this.s,
       onStart: () => {
-        this[`rantSound${Math.round(mojs.h.rand(1,3))}`].play();
+        this.isSound && this[`rantSound${Math.round(mojs.h.rand(1,3))}`].play();
       },
       onUpdate: (p)=> {
         var handP        = handAngleCurve(p);

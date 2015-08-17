@@ -46,7 +46,7 @@ var moleRantingTongue = {
     var salivaLauncher = new mojs.Tween({
       delay: 435*this.s,
       onStart: () => {
-        this[`salivaSound${Math.round(mojs.h.rand(1,2))}`].play();
+        this.isSound && this[`salivaSound${Math.round(mojs.h.rand(1,2))}`].play();
       }
     });
 
@@ -55,7 +55,7 @@ var moleRantingTongue = {
     var tween = new mojs.Tween({
       delay:    this.delay*this.s,
       duration: this.duration*this.s,
-      onStart: ()=> { saliva.run(); salivaLauncher.run(); this.sighSound1.play(); },
+      onStart: ()=> { saliva.run(); salivaLauncher.run(); this.isSound && this.sighSound1.play(); },
       onUpdate: (p)=> {
         var skewP  = skewCurve(p);
         var handP  = handCurve(p);

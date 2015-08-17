@@ -11,6 +11,7 @@ var main = {
   mainTween:    new mojs.Timeline({ repeat: 999999, delay: 1000 }),
   delay:        0,
   cubeDuration: 3900,
+  isSound:      false,
   init() {
     this.vars();
     cube.init(this)

@@ -16,7 +16,7 @@ var door = {
       duration: 1000*this.s,
       delay: this.delay*this.s,
       onStart: () => {
-        this.doorOpenSound.play();
+        this.isSound && this.doorOpenSound.play();
       },
       onUpdate: (p) => {
         // return;

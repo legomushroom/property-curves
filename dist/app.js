@@ -72,6 +72,7 @@
 	  mainTween: new mojs.Timeline({ repeat: 999999, delay: 1000 }),
 	  delay: 0,
 	  cubeDuration: 3900,
+	  isSound: false,
 	  init: function init() {
 	    this.vars();
 	    cube.init(this);
@@ -7716,7 +7717,7 @@
 	      x: "-20%", shiftX: { 0: -300 },
 	      angle: { 0: "25" },
 	      onStart: function () {
-	        _this.fall1Sound.play();
+	        _this.isSound && _this.fall1Sound.play();
 	      }
 	    };
 	    mojs.h.extend(burst2Option, this.burstOption);
@@ -7732,7 +7733,7 @@
 	    var burst2Option = {
 	      x: "-20%", shiftX: { 0: -300 }, angle: { 0: "25" },
 	      onStart: function () {
-	        _this2.fall2Sound.play();
+	        _this2.isSound && _this2.fall2Sound.play();
 	      }
 	    };
 
@@ -7750,7 +7751,7 @@
 	    var burst2Option = {
 	      x: "-20%", shiftX: { 0: -150 }, angle: { 0: "25" },
 	      onStart: function () {
-	        _this3.fall3Sound.play();
+	        _this3.isSound && _this3.fall3Sound.play();
 	      }
 	    };
 
@@ -7768,7 +7769,7 @@
 	    var burst2Option = {
 	      x: "-20%", shiftX: { 0: -80 }, angle: { 0: "15" },
 	      onStart: function () {
-	        _this4.fall4Sound.play();
+	        _this4.isSound && _this4.fall4Sound.play();
 	      }
 	    };
 
@@ -7786,7 +7787,7 @@
 	    var burst2Option = {
 	      x: "-20%", shiftX: { 0: -60 }, angle: { 0: "10" },
 	      onStart: function () {
-	        _this5.fall5Sound.play();
+	        _this5.isSound && _this5.fall5Sound.play();
 	      }
 	    };
 
@@ -9320,7 +9321,7 @@
 	      el: [this.moleEl, this.moleHandEl, this.moleHandLeftEl, this.moleGlassesEl, this.moleGlassesLeftEl],
 	      easing: ["expo.out", "expo.out", "expo.out", "bounce.out", "bounce.out"],
 	      onStaggerStart: function () {
-	        _this.whooshSound1.play();
+	        _this.isSound && _this.whooshSound1.play();
 	      }
 	    });
 
@@ -9392,7 +9393,7 @@
 	      duration: 1000 * this.s,
 	      delay: this.delay * this.s,
 	      onStart: function () {
-	        _this.doorOpenSound.play();
+	        _this.isSound && _this.doorOpenSound.play();
 	      },
 	      onUpdate: function (p) {
 	        // return;
@@ -9528,7 +9529,7 @@
 	    var salivaLauncher = new mojs.Tween({
 	      delay: 435 * this.s,
 	      onStart: function () {
-	        _this["salivaSound" + Math.round(mojs.h.rand(1, 2))].play();
+	        _this.isSound && _this["salivaSound" + Math.round(mojs.h.rand(1, 2))].play();
 	      }
 	    });
 
@@ -9538,7 +9539,7 @@
 	      delay: this.delay * this.s,
 	      duration: this.duration * this.s,
 	      onStart: function () {
-	        saliva.run();salivaLauncher.run();_this.sighSound1.play();
+	        saliva.run();salivaLauncher.run();_this.isSound && _this.sighSound1.play();
 	      },
 	      onUpdate: function (p) {
 	        var skewP = skewCurve(p);
@@ -9614,7 +9615,7 @@
 	      delay: 500 * this.s,
 	      duration: this.handRantingDuration * this.s,
 	      onStart: function () {
-	        _this["rantSound" + Math.round(mojs.h.rand(1, 3))].play();
+	        _this.isSound && _this["rantSound" + Math.round(mojs.h.rand(1, 3))].play();
 	      },
 	      onUpdate: function (p) {
 	        var handP = handAngleCurve(p);
@@ -9686,21 +9687,21 @@
 	    var doorSound1Tween = new mojs.Tween({
 	      delay: 510 * this.s,
 	      onStart: function () {
-	        _this.doorOpenSoundSmall.play();
+	        _this.isSound && _this.doorOpenSoundSmall.play();
 	      }
 	    });
 
 	    var wehSound1Tween = new mojs.Tween({
 	      delay: 120 * this.s,
 	      onStart: function () {
-	        _this.wehSound1.play();
+	        _this.isSound && _this.wehSound1.play();
 	      }
 	    });
 
 	    var wehSound2Tween = new mojs.Tween({
 	      delay: 400 * this.s,
 	      onStart: function () {
-	        _this.wehSound2.play();
+	        _this.isSound && _this.wehSound2.play();
 	      }
 	    });
 
@@ -9800,7 +9801,7 @@
 	      duration: 50,
 	      delay: 150 * this.s,
 	      onStart: function () {
-	        _this.doorCloseSound.play();_this.fallingSound.play();
+	        _this.isSound && _this.doorCloseSound.play();_this.isSound && _this.fallingSound.play();
 	      }
 	    });
 
@@ -9887,7 +9888,7 @@
 	    var noiseTween = new mojs.Tween({
 	      duration: 200 * this.s,
 	      onStart: function () {
-	        _this.boomSound.play();
+	        _this.isSound && _this.boomSound.play();
 	      },
 	      onUpdate: function (p) {
 	        mojs.h.style(_this.sceneEl, "transform", "translate(" + noiseCurve(p) * 40 + "px, " + -noiseCurve(p) * 20 + "px) " + _this.zHack);
