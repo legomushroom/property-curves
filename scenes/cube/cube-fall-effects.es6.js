@@ -31,7 +31,7 @@ var cubeFallEffects = {
       isRunLess:        true,
       opacity:          .75
     };
-    var soundUrl   = './sounds/fall-kick-1.wav';
+    var soundUrl   = `./sounds/fall-kick-1.${this.soundFileType}`;
     this.fall1Sound = new Howl({ urls: [ soundUrl ] });
     this.fall2Sound = new Howl({ urls: [ soundUrl ], rate: .9, volume: .8 });
     this.fall3Sound = new Howl({ urls: [ soundUrl ], rate: .8, volume: .5 });

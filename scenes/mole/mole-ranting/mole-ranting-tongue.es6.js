@@ -11,9 +11,9 @@ var moleRantingTongue = {
   },
   vars: function () {
     this.delay = this.handRantingDuration+275; this.duration = 1800;
-    this.salivaSound1 = new Howl({ urls: [ 'sounds/saliva-1.wav' ] });
-    this.salivaSound2 = new Howl({ urls: [ 'sounds/saliva-2.wav' ] });
-    this.sighSound1   = new Howl({ urls: [ 'sounds/sigh-1.wav' ], rate: 1.8 });
+    this.salivaSound1 = new Howl({ urls: [ `sounds/saliva-1.${this.soundFileType}` ] });
+    this.salivaSound2 = new Howl({ urls: [ `sounds/saliva-2.${this.soundFileType}` ] });
+    this.sighSound1   = new Howl({ urls: [ `sounds/sigh-1.${this.soundFileType}` ], rate: 1.8 });
   },
   createTween: function () {
     var skewCurve  = mojs.easing.path('M0,100 C0,100 18.1450901,69.0663515 24.0949898,99.9609384 C30.0448895,130.855525 100,100 100,100');
@@ -62,17 +62,18 @@ var moleRantingTongue = {
         var mouthP = mouthCurve(p);
         var noizeP = noizeCurve(p);
 
-        mojs.h.style(this.moleEl,           'transform', `skewX(${(75*skewP)-(5*noizeP)}deg) skewY(${15*noizeP}deg)`);
-        mojs.h.style(this.moleHandEl,       'transform', `rotate(${(this.handAngle*handP)+(30*noizeP)}deg)`);
-        mojs.h.style(this.moleHandLeftEl,   'transform', `rotate(${(100*skewP)-(15*noizeP)}deg) translateY(${(-100*skewP)}px)`);
-        mojs.h.style(this.moleMouthEl,      'transform', `scale(${mouthP+(3*noizeP)}) translate(${-30*skewP}px, 0)`);
-        mojs.h.style(this.moleGlassesEl,    'transform', `translateY(${20*noizeP}px)`);
-        mojs.h.style(this.moleGlassesLeftEl,'transform', `translateY(${10*noizeP}px)`);
+        mojs.h.style(this.moleEl,           'transform', `skewX(${(75*skewP)-(5*noizeP)}deg) skewY(${15*noizeP}deg) ${this.zHack}`);
+        mojs.h.style(this.moleHandEl,       'transform', `rotate(${(this.handAngle*handP)+(30*noizeP)}deg) ${this.zHack}`);
+        mojs.h.style(this.moleHandLeftEl,   'transform', `rotate(${(100*skewP)-(15*noizeP)}deg) translateY(${(-100*skewP)}px) ${this.zHack}`);
+        mojs.h.style(this.moleMouthEl,      'transform', `scale(${mouthP+(3*noizeP)}) translate(${-30*skewP}px, 0) ${this.zHack}`);
+        mojs.h.style(this.moleGlassesEl,    'transform', `translateY(${20*noizeP}px) ${this.zHack}`);
+        mojs.h.style(this.moleGlassesLeftEl,'transform', `translateY(${10*noizeP}px) ${this.zHack}`);
 
         mojs.h.style(this.moleEyeEl, 'transform', ``);
 
-        mojs.h.style(this.moleConeEl, 'transform', `rotateZ(${20*noizeP}deg)`);
-        mojs.h.style(this.moleTongueEl, 'transform', `translate(${-140*skewP}px, 0)`);
+        mojs.h.style(this.moleConeEl, 'transform', `rotateZ(${20*noizeP}deg) ${this.zHack}`);
+        
+        mojs.h.style(this.moleTongueEl, 'transform', `translate(${-140*skewP}px, 0) ${this.zHack}`);
         this.moleTonguePath.setAttribute('d', `M0 30 Q 20 ${10+(550*noizeP)}, 30 25 T 50 30`);
 
         // SQUINT
@@ -80,7 +81,7 @@ var moleRantingTongue = {
         var n_squintP = mojs.easing.inverse(squintP);
         this.moleEyeLashEl.setAttribute('d', `M0,0 Q 6.5 ${10*squintP}, 13 0`);
         this.moleEyeLashEl.setAttribute('stroke-width', 2 + 1.5*n_squintP);
-        mojs.h.style(this.moleEyeEl, 'transform', `rotate(${37*n_squintP}deg) translate(${7*n_squintP}px, ${-4*n_squintP}px) scaleX(${1-.4*n_squintP})`);
+        mojs.h.style(this.moleEyeEl, 'transform', `rotate(${37*n_squintP}deg) translate(${7*n_squintP}px, ${-4*n_squintP}px) scaleX(${1-.4*n_squintP}) ${this.zHack}`);
       }
     });
     // tween.start();

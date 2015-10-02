@@ -1,17 +1,25 @@
 var mojs = require('mo-js');
 require('./css/styles.styl');
 
+/*
+  TODO:
+    add mp3s
+    add mojs logo with link
+    make pen
+*/
+
 // SCENES
 var cube        = require('./scenes/cube/cube.es6.js');
 var mole        = require('./scenes/mole/mole.es6.js');
 
 var main = {
-  s:            1, // global time coefficient
-  zHack:        ' translateZ(0) ',
-  mainTween:    new mojs.Timeline({ repeat: 999999, delay: 1000 }),
-  delay:        0,
-  cubeDuration: 3900,
-  isSound:      false,
+  s:              1, // global time coefficient
+  zHack:          ' translateZ(0) ',
+  mainTween:      new mojs.Timeline({ repeat: 999999, delay: 1000 }),
+  delay:          0,
+  cubeDuration:   3900,
+  isSound:        true,
+  soundFileType:  'wav',
   init() {
     this.vars();
     cube.init(this)

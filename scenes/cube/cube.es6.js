@@ -18,9 +18,11 @@ var cube = {
     this.cubeSquashEl       = document.querySelector('#js-cube-squash');
     this.shadowEl           = document.querySelector('#js-shadow');
     this.cubeSceneEl        = document.querySelector('#js-cube-scene');
-    this.translateY         = 700;
+    this.translateY         = window.innerHeight;
     this.fallDuration       = 2000;
     this.delay              = 0;
+
+    window.addEventListener('resize', ()=> { this.translateY = window.innerHeight; });
   },
   createTween: function () { this.cubeMainTween = new mojs.Timeline; },
 

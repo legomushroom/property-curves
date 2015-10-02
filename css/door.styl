@@ -1,13 +1,3 @@
-// /* /!\ You need to add vendor prefixes in order to render the CSS properly (or simply use http://leaverou.github.io/prefixfree/) /!\ */ #tridiv {
-//   perspective: 800px;
-//   position: absolute;
-//   overflow: hidden;
-//   width: 100%;
-//   height: 100%;
-//   background: transparent;
-//   font-size: 100%;
-//   z-index: 2;
-// }
 
 bgColor = #F5A623
 bgColorDark = darken(#F5A623, 8)
@@ -15,13 +5,7 @@ bgColorDark = darken(#F5A623, 8)
   position: absolute;
   transform-style: preserve-3d;
 }
-// .scene {
-//   width: 80em;
-//   height: 80em;
-//   top: 50%;
-//   left: 50%;
-//   margin: -40em 0 0 -40em;
-// }
+
 .shape {
   top: 50%;
   left: 50%;
@@ -92,18 +76,20 @@ coverSize = 20;
     content:      '';
     position:     absolute;
     background:   inherit;
-    // outline:      PX solid deeppink;
   }
   &:before {
     height:       (coverSize)px;
     width:        110%;
     top:         -(.8*coverSize)px;
-    left:        -(coverSize)px;
+    left:        -(coverSize)px;    
   }
   &:after {
     width:        (coverSize)px;
     height:       100%;
     left:        -(coverSize)px;
+    top: 0;
+    transform: translateX(1px)
+    
   }
 }
 

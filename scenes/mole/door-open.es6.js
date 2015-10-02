@@ -9,7 +9,7 @@ var door = {
     // this.cubeMainTween.start();
   },
   vars: function () {
-    this.doorOpenSound = new Howl({ urls: ['sounds/door-open-1.wav'], rate: 2.5 });
+    this.doorOpenSound = new Howl({ urls: [`sounds/door-open-1.${this.soundFileType}`], rate: 2.5 });
   },
   createTween: function () {
     var tween = new mojs.Tween({

@@ -7,15 +7,14 @@
   </head>
   <body>
 
-    <!-- <div class="square" id="js-square"></div> -->
     <div class="mole-scene" id="js-mole-scene">
 
       <div id="js-cube-scene" class="cube-wrapper">
         <div class="cube-shadow-wrapper" id="js-shadow-wrapper">
           <div class="cube-shadow" id="js-shadow"></div>
         </div>
-        
-        <div id="js-cube">
+
+        <div id="js-cube" style="opacity: 0;">
           <div id="js-cube-squash" class="cube__squash">
             <div class="cube">
               <div class="cube__side cube__side--front"><!-- front --></div>
@@ -28,8 +27,6 @@
           </div>
         </div>
       </div>
-
-
 
       <div class="mole mole-scene__mole" id="js-mole">
         <div class="mole__inner" id="js-mole-inner">
@@ -106,11 +103,6 @@
               <div class="face side s1"></div>
               <div class="face side s2"></div>
             </div>
-            <!-- <div class="cr cr-2">
-              <div class="face side s0"></div>
-              <div class="face side s1"></div>
-              <div class="face side s2"></div>
-            </div> -->
             <div class="cr cr-3">
               <div class="face side s0"></div>
               <div class="face side s1"></div>
@@ -120,12 +112,6 @@
           </div>
         </div>
       </div>
-
-        <!-- <div class="mole-door__inner">
-          <div class="mole-door__face"></div>
-          <div class="mole-door__face mole-door__face--cyan"></div>
-          <div class="mole-door__back"></div>
-        </div> -->
       <div class="mole-scene__ground"></div>
       <div class="mole-scene__door-wave-wrapper">
         <div class="mole-scene__door-wave" id="js-door-wave"></div>
@@ -133,9 +119,16 @@
       <div class="mole-scene__mask"></div>
     </div>
 
-    <!-- <div class="shadow-wrapper" id="js-shadow">
-      <div class="shadow"></div>
-    </div> -->
+    <a href="#/[todo]place-link-to-tutorial" class="tutorial-link">
+      tutorial
+      <div class="tutorial-link__logo">
+        <svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+            <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+                <path d="M8,0 C12.418278,0 16,3.581722 16,8 C16,12.418278 12.418278,16 8,16 C3.581722,16 0,12.418278 0,8 C0,3.581722 3.581722,0 8,0 L8,0 Z M7.99952276,4.06943864 C10.1705754,4.06943864 11.9305614,5.82942457 11.9305614,8.00047724 C11.9305614,10.1715299 10.1705754,11.9315158 7.99952276,11.9315158 C5.82847009,11.9315158 4.06848416,10.1715299 4.06848416,8.00047724 C4.06848416,5.82942457 5.82847009,4.06943864 7.99952276,4.06943864 L7.99952276,4.06943864 Z" id="Oval-22" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+            </g>
+        </svg>
+      </div>
+    </a>
 
     <script src="dist/app.js"></script>
   </body>

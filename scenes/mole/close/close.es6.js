@@ -10,9 +10,9 @@ var close = {
   },
   vars() {
     this.moleInnerEl = document.querySelector('#js-mole-inner');
-    this.doorCloseSound = new Howl({ urls: ['sounds/door-close-1.wav'], rate: 1.5, volume: .65 });
-    this.boomSound = new Howl({ urls: [ './sounds/fall-kick-1.wav' ], rate: .5 });
-    this.fallingSound = new Howl({ urls: [ './sounds/falling-1.wav' ], rate: 4.5, volume: .05 });
+    this.doorCloseSound = new Howl({ urls: [`sounds/door-close-1.${this.soundFileType}`], rate: 1.5, volume: .65 });
+    this.boomSound = new Howl({ urls: [ `./sounds/fall-kick-1.${this.soundFileType}` ], rate: .5 });
+    this.fallingSound = new Howl({ urls: [ `./sounds/falling-1.${this.soundFileType}` ], rate: 4.5, volume: .05 });
   },
 
   resetParts() {
@@ -51,30 +51,29 @@ var close = {
         var quadInP  = e.quad.in(p);
         var expoInP  = e.expo.in(p);
 
-        h.style( this.moleEl, 'transform', `translate(${25}px, ${-240 + 360*cubicInP}px)` );
+        h.style( this.moleEl, 'transform', `translate(${25}px, ${-240 + 360*cubicInP}px) ${this.zHack}` );
         // (p === 1) && (this.moleEl.style['z-index'] = 0);
 
-        h.style( this.moleInnerEl, 'transform', `skewX(${9*(1-p)}deg) scale(${ 1 - .2*cubicInP }, ${ 1 + .2*cubicInP })` );
+        h.style( this.moleInnerEl, 'transform', `skewX(${9*(1-p)}deg) scale(${ 1 - .2*cubicInP }, ${ 1 + .2*cubicInP }) ${this.zHack}` );
         
-        h.style( this.moleHandEl, 'transform', `rotate(${94.5 + 100.5*quadInP}deg) scaleY(${1.1 - .1*quadInP}) translateY(${70*quadInP}px)` );
-        h.style( this.moleHandLeftEl, 'transform', `rotate(${20 - 20*quadInP}deg) translate(${30 - 35*quadInP}px, ${-10 - 70*quadInP}px)` );
+        h.style( this.moleHandEl, 'transform', `rotate(${94.5 + 100.5*quadInP}deg) scaleY(${1.1 - .1*quadInP}) translateY(${70*quadInP}px) ${this.zHack}` );
+        h.style( this.moleHandLeftEl, 'transform', `rotate(${20 - 20*quadInP}deg) translate(${30 - 35*quadInP}px, ${-10 - 70*quadInP}px) ${this.zHack}` );
 
-        h.style( this.doorEl, 'transform', `rotateY(${ -125 + 125*cubicInP }deg) scaleX(${.75 + .25*expoInP}) translate(${8*expoInP}px, ${8*expoInP}px)` );
-        h.style( this.doorShadowEl, 'transform', `scaleX(${1 - 1.65*cubicInP})` );
+        h.style( this.doorEl, 'transform', `rotateY(${ -125 + 125*cubicInP }deg) scaleX(${.75 + .25*expoInP}) translate(${8*expoInP}px, ${8*expoInP}px) ${this.zHack}` );
+        h.style( this.doorShadowEl, 'transform', `scaleX(${1 - 1.65*cubicInP}) ${this.zHack}` );
 
-        h.style( this.moleConeEl, 'transform', `rotateX(${150*quadInP}deg) rotateY(${-14*quadInP}deg) translateY(${-5*quadInP}px)` );
+        h.style( this.moleConeEl, 'transform', `rotateX(${150*quadInP}deg) rotateY(${-14*quadInP}deg) translateY(${-5*quadInP}px) ${this.zHack}` );
         this.moleConeShadowEl.style.opacity = 1-p;
-        h.style( this.moleHatEl, 'transform', `translateY(${-35*expoInP}px)` );
+        h.style( this.moleHatEl, 'transform', `translateY(${-35*expoInP}px) ${this.zHack}` );
         this.moleHatEl.style['z-index'] = Math.round(12 - 12*p);
 
-        h.style( this.moleGlassesEl,     'transform', `translateY(${-85*expoInP}px)` );
-        h.style( this.moleGlassesLeftEl, 'transform', `translateY(${-85*expoInP}px)` );
+        h.style( this.moleGlassesEl,     'transform', `translateY(${-85*expoInP}px) ${this.zHack}` );
+        h.style( this.moleGlassesLeftEl, 'transform', `translateY(${-85*expoInP}px) ${this.zHack}` );
 
         this.moleEyeLashEl.setAttribute('d', `M0,0 Q 6.5 ${10*p}, 13 0`);
         this.moleEyeLashEl.setAttribute('stroke-width', 2 + 1.5*p);
-        mojs.h.style(this.moleEyeEl, 'transform', `translate(${7*p}px, ${-5*p}px) scaleX(${1-.4*p})`);
-
-        mojs.h.style(this.moleMouthInnerEl, 'transform', `scale(${.3 - .3*p})`);
+        mojs.h.style(this.moleEyeEl, 'transform', `translate(${7*p}px, ${-5*p}px) scaleX(${1-.4*p}) ${this.zHack}`);
+        mojs.h.style(this.moleMouthInnerEl, 'transform', `scale(${.3 - .3*p}) ${this.zHack}`);
 
       }
     });
