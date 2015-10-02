@@ -4,7 +4,8 @@ require('./css/styles.styl');
 /*
   TODO:
     add mp3s
-    add mojs logo with link
+    remove the first part delay
+    add tutorial link
     make pen
 */
 
@@ -19,7 +20,6 @@ var main = {
   delay:          0,
   cubeDuration:   3900,
   isSound:        true,
-  soundFileType:  'wav',
   init() {
     this.vars();
     cube.init(this)
@@ -47,6 +47,11 @@ var main = {
     this.moleEyeLashEl      = document.querySelector('#js-mole-eye-lash');
     this.moleSceneEl        = document.querySelector('#js-mole-scene');
     this.doorWaveEl         = document.querySelector('#js-door-wave');
+    this.soundFileType      = (this.isOpera()) ? 'wav' : 'mp3';
+  },
+  isOpera: function () {
+    var userAgent = navigator.userAgent;
+    return /^Opera\//.test(userAgent) || /\x20OPR\//.test(userAgent);
   }
 }
 
