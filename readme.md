@@ -1,6 +1,6 @@
 ## Mole
 
-Property Curves Demo. Was made with [mo · js](https://github.com/legomushroom/mojs)(v 0.147.3) for [path easing tutorial](#).
+Property Curves Demo. Was made with [mo · js](https://github.com/legomushroom/mojs) (v0.147.3) for [path easing tutorial](#).
 
 ## Installation
 
