@@ -1,6 +1,6 @@
 mojs = require('mo-js');
 
-var cubeFall = {
+var cubeAnticipation = {
   init: function (proto) {
     this.proto = proto;
     // set prototype to cube object
@@ -44,4 +44,4 @@ var cubeFall = {
   }
 }
 
-module.exports = cubeFall;
+module.exports = cubeAnticipation;

@@ -10,9 +10,6 @@ var close = {
   },
   vars() {
     this.moleInnerEl = document.querySelector('#js-mole-inner');
-    this.doorCloseSound = new Howl({ urls: [`sounds/door-close-1.${this.soundFileType}`], rate: 1.5, volume: .65 });
-    this.boomSound = new Howl({ urls: [ `./sounds/fall-kick-1.${this.soundFileType}` ], rate: .5 });
-    this.fallingSound = new Howl({ urls: [ `./sounds/falling-1.${this.soundFileType}` ], rate: 4.5, volume: .05 });
   },
 
   resetParts() {

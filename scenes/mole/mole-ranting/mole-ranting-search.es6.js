@@ -1,5 +1,4 @@
 var mojs     = require('mo-js');
-var {Howl}   = require('howler');
 
 // SCENES
 var moleRantingSearch = {
@@ -13,9 +12,6 @@ var moleRantingSearch = {
     this.doorEl             = document.querySelector('#js-door');
     this.doorShadowEl       = document.querySelector('#js-door-shadow');
     this.doorHandleShadowEl = document.querySelector('#js-door-handle-shadow');
-    this.doorOpenSoundSmall = new Howl({ urls: [`sounds/door-open-small-1.${this.soundFileType}`], rate: 1.9, volume: .6 });
-    this.wehSound1 = new Howl({ urls: [`sounds/ugh-2.${this.soundFileType}`], volume: .35, rate: 1.25 });
-    this.wehSound2 = new Howl({ urls: [`sounds/ugh-1.${this.soundFileType}`], volume: .35, rate: 1.35 });
   },
   createTween: function () {
     var timeLine = new mojs.Timeline;

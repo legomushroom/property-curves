@@ -1,5 +1,4 @@
 var mojs     = require('mo-js');
-var {Howl}   = require('howler');
 
 var moleOpen = {
   init: function (proto) {
@@ -14,7 +13,7 @@ var moleOpen = {
     this.moleInnerEl    = document.querySelector('#js-mole-inner');
     mojs.h.style(this.moleMouthEl, 'transform', 'scale(0.25)');
 
-    this.whooshSound1 = new Howl({ urls: [`sounds/whoosh-1.${this.soundFileType}`], volume: .4, rate: 1.4 });
+
   },
   createTween: function () {
 

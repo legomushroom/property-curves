@@ -62,6 +62,13 @@
 	var mojs = __webpack_require__(3);
 	__webpack_require__(30);
 
+	/*
+	  TODO:
+	    add tutorial link
+	    make pen
+	     - add sounds loader
+	*/
+
 	// SCENES
 	var cube = __webpack_require__(45);
 	var mole = __webpack_require__(50);
@@ -73,7 +80,6 @@
 	  delay: 0,
 	  cubeDuration: 3900,
 	  isSound: true,
-	  soundFileType: "wav",
 	  init: function init() {
 	    this.vars();
 	    cube.init(this);
@@ -101,6 +107,11 @@
 	    this.moleEyeLashEl = document.querySelector("#js-mole-eye-lash");
 	    this.moleSceneEl = document.querySelector("#js-mole-scene");
 	    this.doorWaveEl = document.querySelector("#js-door-wave");
+	    this.soundFileType = this.isOpera() ? "wav" : "mp3";
+	  },
+	  isOpera: function () {
+	    var userAgent = navigator.userAgent;
+	    return /^Opera\//.test(userAgent) || /\x20OPR\//.test(userAgent);
 	  }
 	};
 
@@ -2308,10 +2319,8 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function() {
-	  var mojs;
-
-	  mojs = {
-	    revision: '0.146.9',
+	  window.mojs = {
+	    revision: '0.147.3',
 	    isDebug: true,
 	    helpers: __webpack_require__(4),
 	    Bit: __webpack_require__(5),
@@ -2355,11 +2364,6 @@
 	    module.exports = mojs;
 	  }
 
-
-	  /* istanbul ignore next */
-
-	  return typeof window !== "undefined" && window !== null ? window.mojs = mojs : void 0;
-
 	}).call(this);
 
 
@@ -2377,6 +2381,7 @@
 
 	    Helpers.prototype.shortColors = {
 	      transparent: 'rgba(0,0,0,0)',
+	      none: 'rgba(0,0,0,0)',
 	      aqua: 'rgb(0,255,255)',
 	      black: 'rgb(0,0,0)',
 	      blue: 'rgb(0,0,255)',
@@ -2512,11 +2517,13 @@
 	      }
 	    };
 
-	    Helpers.prototype.setPrefixedStyle = function(el, name, value) {
-	      var prefixedName, prefixedStyle;
-	      prefixedName = "" + this.prefix.css + name;
-	      prefixedStyle = el.style[prefixedName] != null ? prefixedName : name;
-	      return el.style[prefixedStyle] = value;
+	    Helpers.prototype.setPrefixedStyle = function(el, name, value, isIt) {
+	      if (name.match(/transform/gim)) {
+	        el.style["" + name] = value;
+	        return el.style["" + this.prefix.css + name] = value;
+	      } else {
+	        return el.style[name] = value;
+	      }
 	    };
 
 	    Helpers.prototype.style = function(el, name, value) {
@@ -4765,7 +4772,7 @@
 	        }
 	        if (isGrow) {
 	          this._complete();
-	        } else if (!this.isOnReverseComplete && this.isFirstUpdate) {
+	        } else if (!this.isOnReverseComplete) {
 	          this.isOnReverseComplete = true;
 	          this.setProgress(0, !this.props.isChained);
 	          if ((_ref4 = this.props.onReverseComplete) != null) {
@@ -5277,14 +5284,19 @@
 	    };
 
 	    Easing.prototype.parseEasing = function(easing) {
-	      var type;
+	      var easingParent, type;
 	      type = typeof easing;
 	      if (type === 'string') {
 	        if (easing.charAt(0).toLowerCase() === 'm') {
 	          return this.path(easing);
 	        } else {
 	          easing = this._splitEasing(easing);
-	          return this[easing[0]][easing[1]];
+	          easingParent = this[easing[0]];
+	          if (!easingParent) {
+	            h.error("Easing with name \"" + easing[0] + "\" was not found, fallback to \"linear.none\" instead");
+	            return this['linear']['none'];
+	          }
+	          return easingParent[easing[1]];
 	        }
 	      }
 	      if (h.isArray(easing)) {
@@ -5460,10 +5472,10 @@
 	        var _precomputed;
 	        _precomputed = true;
 	        if (mX1 !== mY1 || mX2 !== mY2) {
-	          calcSampleValues();
+	          return calcSampleValues();
 	        }
 	      };
-	      mSampleValues = float32ArraySupported ? new Float32Array(kSplineTableSize) : new Array(kSplineTableSize);
+	      mSampleValues = !float32ArraySupported ? new Array(kSplineTableSize) : new Float32Array(kSplineTableSize);
 	      _precomputed = false;
 	      f = function(aX) {
 	        if (!_precomputed) {
@@ -5514,11 +5526,11 @@
 
 	  PathEasing = (function() {
 	    PathEasing.prototype._vars = function() {
-	      this._precompute = h.clamp(this.o.precompute || 140, 100, 10000);
+	      this._precompute = h.clamp(this.o.precompute || 1450, 100, 10000);
 	      this._step = 1 / this._precompute;
 	      this._rect = this.o.rect || 100;
 	      this._approximateMax = this.o.approximateMax || 5;
-	      this._eps = this.o.eps || 0.01;
+	      this._eps = this.o.eps || 0.001;
 	      return this._boundsPrevProgress = -1;
 	    };
 
@@ -5531,11 +5543,11 @@
 	      if (this.path == null) {
 	        return h.error('Error while parsing the path');
 	      }
+	      this._vars();
 	      this.path.setAttribute('d', this._normalizePath(this.path.getAttribute('d')));
 	      this.pathLength = this.path.getTotalLength();
 	      this.sample = h.bind(this.sample, this);
 	      this._hardSample = h.bind(this._hardSample, this);
-	      this._vars();
 	      this._preSample();
 	      this;
 	    }
@@ -5634,7 +5646,7 @@
 	    PathEasing.prototype._approximate = function(start, end, p) {
 	      var deltaP, percentP;
 	      deltaP = end.point.x - start.point.x;
-	      percentP = (p - (start.point.x / 100)) / (deltaP / 100);
+	      percentP = (p - (start.point.x / this._rect)) / (deltaP / this._rect);
 	      return start.length + percentP * (end.length - start.length);
 	    };
 
@@ -5645,7 +5657,7 @@
 	      }
 	      approximation = this._approximate(start, end, p);
 	      point = this.path.getPointAtLength(approximation);
-	      x = point.x / 100;
+	      x = point.x / this._rect;
 	      if (h.closeEnough(p, x, this._eps)) {
 	        return this._resolveY(point);
 	      } else {
@@ -5976,6 +5988,9 @@
 	      if (time > this.props.endTime) {
 	        time = this.props.endTime;
 	      }
+	      if (time === this.props.endTime && this.isCompleted) {
+	        return true;
+	      }
 	      this._updateTimelines(time, isGrow);
 	      return this._checkCallbacks(time);
 	    };
@@ -6252,6 +6267,9 @@
 	      if (props + '' === '[object NodeList]') {
 	        props = Array.prototype.slice.call(props, 0);
 	      }
+	      if (props + '' === '[object HTMLCollection]') {
+	        props = Array.prototype.slice.call(props, 0);
+	      }
 	      value = h.isArray(props) ? props[i % props.length] : props;
 	      return h.parseIfStagger(value, i);
 	    };
@@ -6267,7 +6285,7 @@
 	    };
 
 	    Stagger.prototype._getChildQuantity = function(name, store) {
-	      var quantifier;
+	      var ary, quantifier;
 	      if (typeof name === 'number') {
 	        return name;
 	      }
@@ -6276,6 +6294,9 @@
 	        return quantifier.length;
 	      } else if (quantifier + '' === '[object NodeList]') {
 	        return quantifier.length;
+	      } else if (quantifier + '' === '[object HTMLCollection]') {
+	        ary = Array.prototype.slice.call(quantifier, 0);
+	        return ary.length;
 	      } else if (quantifier instanceof HTMLElement) {
 	        return 1;
 	      } else if (typeof quantifier === 'string') {
@@ -7260,7 +7281,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(33)();
-	exports.push([module.id, "body {\n  paddding: 0;\n  margin: 0;\n  background: #50e3c2;\n  font-size: 16px;\n}\n.square {\n  width: 100px;\n  height: 100px;\n  background: #0ff;\n  position: absolute;\n  left: 50%;\n  margin-left: -50px;\n  top: 50px;\n  z-index: 1;\n}\n.shadow-wrapper {\n  -webkit-transform: rotateX(70deg);\n          transform: rotateX(70deg);\n  width: 100px;\n  height: 100px;\n  position: absolute;\n  z-index: 0;\n  margin-left: 100px;\n}\n.shadow {\n  width: 100%;\n  height: 100%;\n  background: rgba(0,0,0,0.5);\n}\n.cube-wrapper {\n  z-index: 10;\n  position: absolute;\n  width: 100px;\n  height: 100px;\n  left: 50%;\n  margin-left: 100px;\n  top: -100px;\n}\n.cube {\n  -webkit-transform-style: preserve-3d;\n          transform-style: preserve-3d;\n  -webkit-transform: rotateY(45deg) rotateX(-15deg) rotateZ(-15deg);\n          transform: rotateY(45deg) rotateX(-15deg) rotateZ(-15deg);\n  z-index: 1;\n  font-size: 0;\n}\n.cube__squash {\n  -webkit-transform-origin: center 100px;\n      -ms-transform-origin: center 100px;\n          transform-origin: center 100px;\n}\n.cube__side {\n  position: absolute;\n  width: 100px;\n  height: 100px;\n  background: #fff;\n  border-radius: 10px;\n}\n.cube__side:after {\n  content: '';\n  position: absolute;\n  left: 0;\n  top: 0;\n  width: 100%;\n  height: 100%;\n  border-radius: inherit;\n}\n.cube__side--back {\n  -webkit-transform: translateZ(-50px) rotateY(180deg);\n          transform: translateZ(-50px) rotateY(180deg);\n}\n.cube__side--right {\n  -webkit-transform: rotateY(-270deg) translateX(50px);\n          transform: rotateY(-270deg) translateX(50px);\n  -webkit-transform-origin: top right;\n      -ms-transform-origin: top right;\n          transform-origin: top right;\n}\n.cube__side--left {\n  -webkit-transform: rotateY(270deg) translateX(-50px);\n          transform: rotateY(270deg) translateX(-50px);\n  -webkit-transform-origin: center left;\n      -ms-transform-origin: center left;\n          transform-origin: center left;\n}\n.cube__side--top {\n  -webkit-transform: rotateX(-90deg) translateY(-50px);\n          transform: rotateX(-90deg) translateY(-50px);\n  -webkit-transform-origin: top center;\n      -ms-transform-origin: top center;\n          transform-origin: top center;\n}\n.cube__side--top:after {\n  background: rgba(0,0,0,0.02);\n}\n.cube__side--bottom {\n  -webkit-transform: rotateX(90deg) translateY(50px);\n          transform: rotateX(90deg) translateY(50px);\n  -webkit-transform-origin: bottom center;\n      -ms-transform-origin: bottom center;\n          transform-origin: bottom center;\n}\n.cube__side--front {\n  -webkit-transform: translateZ(50px);\n          transform: translateZ(50px);\n}\n.cube__side--front:after {\n  background: rgba(0,0,0,0.05);\n}\n.cube-shadow-wrapper {\n  -webkit-transform-style: preserve-3d;\n          transform-style: preserve-3d;\n  width: 107px;\n  height: 107px;\n  position: absolute;\n  left: 50%;\n  margin-left: -53.5px;\n  top: 42px;\n  z-index: 0;\n  -webkit-transform: rotateX(112deg) rotateZ(45deg);\n          transform: rotateX(112deg) rotateZ(45deg);\n}\n.transit {\n  -webkit-transform: rotateX(127.5deg) rotateZ(46deg) !important;\n          transform: rotateX(127.5deg) rotateZ(46deg) !important;\n}\n.cube-shadow {\n  background: rgba(0,0,0,0.25);\n  width: 100%;\n  height: 100%;\n  border-radius: 10px;\n  opacity: 0;\n}\n.scene,\n.shape,\n.face,\n.face-wrapper,\n.cr {\n  position: absolute;\n  -webkit-transform-style: preserve-3d;\n          transform-style: preserve-3d;\n}\n.shape {\n  top: 50%;\n  left: 50%;\n  width: 0;\n  height: 0;\n  -webkit-transform: rotateZ(90deg);\n          transform: rotateZ(90deg);\n  -webkit-transform-origin: 50%;\n      -ms-transform-origin: 50%;\n          transform-origin: 50%;\n}\n.face,\n.face-wrapper {\n  overflow: hidden;\n  -webkit-transform-origin: 0 0;\n      -ms-transform-origin: 0 0;\n          transform-origin: 0 0;\n  -webkit-backface-visibility: hidden;\n          backface-visibility: hidden;\n/* hidden by default, prevent blinking and other weird rendering glitchs */\n}\n.face {\n  background-size: 100% 100% !important;\n  background-position: center;\n}\n.face-wrapper .face {\n  left: 100%;\n  width: 100%;\n  height: 100%;\n}\n.photon-shader {\n  position: absolute;\n  left: 0;\n  top: 0;\n  width: 100%;\n  height: 100%;\n}\n.side {\n  left: 50%;\n}\n.cr,\n.cr .side {\n  height: 100%;\n}\n[class*=\"cuboid\"] .ft,\n[class*=\"cuboid\"] .bk {\n  width: 100%;\n  height: 100%;\n}\n[class*=\"cuboid\"] .bk {\n  left: 100%;\n}\n[class*=\"cuboid\"] .rt {\n  -webkit-transform: rotateY(-90deg) translateX(-50%);\n          transform: rotateY(-90deg) translateX(-50%);\n}\n[class*=\"cuboid\"] .lt {\n  -webkit-transform: rotateY(90deg) translateX(-50%);\n          transform: rotateY(90deg) translateX(-50%);\n}\n[class*=\"cuboid\"] .tp {\n  -webkit-transform: rotateX(90deg) translateY(-50%);\n          transform: rotateX(90deg) translateY(-50%);\n}\n[class*=\"cuboid\"] .bm {\n  -webkit-transform: rotateX(-90deg) translateY(-50%);\n          transform: rotateX(-90deg) translateY(-50%);\n}\n[class*=\"cuboid\"] .lt {\n  left: 100%;\n}\n[class*=\"cuboid\"] .bm {\n  top: 100%;\n}\n.door .bm {\n  overflow: visible;\n}\n.door .bm:before,\n.door .bm:after {\n  content: '';\n  position: absolute;\n  background: inherit;\n}\n.door .bm:before {\n  height: 20px;\n  width: 110%;\n  top: -16px;\n  left: -20px;\n}\n.door .bm:after {\n  width: 20px;\n  height: 100%;\n  left: -20px;\n  top: 0;\n  -webkit-transform: translateX(1px);\n      -ms-transform: translateX(1px);\n          transform: translateX(1px);\n}\n.cub-1 {\n  -webkit-transform: translate3D(0em, 0em, 0em) rotateX(90deg) rotateY(0deg) rotateZ(0deg);\n          transform: translate3D(0em, 0em, 0em) rotateX(90deg) rotateY(0deg) rotateZ(0deg);\n  opacity: 1;\n  width: 13em;\n  height: 0.3em;\n  margin: -0.15em 0 0 -6.5em;\n}\n.cub-1 .ft {\n  -webkit-transform: translateZ(6.5em);\n          transform: translateZ(6.5em);\n}\n.cub-1 .bk {\n  -webkit-transform: translateZ(-6.5em) rotateY(180deg);\n          transform: translateZ(-6.5em) rotateY(180deg);\n}\n.cub-1 .rt,\n.cub-1 .lt {\n  width: 13em;\n  height: 0.3em;\n}\n.cub-1 .tp,\n.cub-1 .bm {\n  width: 13em;\n  height: 13em;\n}\n.cub-1 .face {\n  background-color: #f5a623;\n}\n.cub-1 .bm {\n  background-color: #50e3c2;\n}\n.cub-1 .tp {\n  background: #f5a623 url("+__webpack_require__(34)+");\n}\n.cub-1 .ft {\n  width: 12em;\n  margin-left: 0.5em;\n}\n.cub-1 .bk {\n  width: 12.5em;\n  margin-left: -0.5em;\n  background-color: #e5930a;\n}\n.cub-1 .rt,\n.cub-1 .lt {\n  width: 12em;\n  background-color: #e5930a;\n}\n.cub-1 .rt {\n  width: 13em;\n}\n.cub-1 .tp,\n.cub-1 .bm,\n.cub-1 .tp .photon-shader,\n.cub-1 .bm .photon-shader {\n  border-radius: 0.5em;\n  border-top-left-radius: 0;\n  border-bottom-left-radius: 0;\n}\n.cub-1 .cr {\n  width: 0.5em;\n  left: 0.25em;\n}\n.cub-1 .cr-0 {\n  -webkit-transform: translate3D(12em, 0, 6em);\n      -ms-transform: translate3D(12em, 0, 6em);\n          transform: translate3D(12em, 0, 6em);\n}\n.cub-1 .cr-1 {\n  -webkit-transform: translate3D(12em, 0, -6em);\n      -ms-transform: translate3D(12em, 0, -6em);\n          transform: translate3D(12em, 0, -6em);\n}\n.cub-1 .cr-2 {\n  -webkit-transform: translate3D(0, 0, -6em);\n      -ms-transform: translate3D(0, 0, -6em);\n          transform: translate3D(0, 0, -6em);\n}\n.cub-1 .cr-3 {\n  -webkit-transform: translate3D(0, 0, 6em);\n      -ms-transform: translate3D(0, 0, 6em);\n          transform: translate3D(0, 0, 6em);\n}\n.cub-1 .cr-0 .s0 {\n  -webkit-transform: rotateY(15deg) translate3D(-50%, 0, 0.475em);\n          transform: rotateY(15deg) translate3D(-50%, 0, 0.475em);\n}\n.cub-1 .cr-0 .s1 {\n  -webkit-transform: rotateY(45deg) translate3D(-50%, 0, 0.475em);\n          transform: rotateY(45deg) translate3D(-50%, 0, 0.475em);\n}\n.cub-1 .cr-0 .s2 {\n  -webkit-transform: rotateY(75deg) translate3D(-50%, 0, 0.475em);\n          transform: rotateY(75deg) translate3D(-50%, 0, 0.475em);\n}\n.cub-1 .cr-1 .s0 {\n  -webkit-transform: rotateY(105deg) translate3D(-50%, 0, 0.475em);\n          transform: rotateY(105deg) translate3D(-50%, 0, 0.475em);\n}\n.cub-1 .cr-1 .s1 {\n  -webkit-transform: rotateY(135deg) translate3D(-50%, 0, 0.475em);\n          transform: rotateY(135deg) translate3D(-50%, 0, 0.475em);\n}\n.cub-1 .cr-1 .s2 {\n  -webkit-transform: rotateY(165deg) translate3D(-50%, 0, 0.475em);\n          transform: rotateY(165deg) translate3D(-50%, 0, 0.475em);\n}\n.cub-1 .cr-2 .s0 {\n  -webkit-transform: rotateY(195deg) translate3D(-50%, 0, 0.475em);\n          transform: rotateY(195deg) translate3D(-50%, 0, 0.475em);\n}\n.cub-1 .cr-2 .s1 {\n  -webkit-transform: rotateY(225deg) translate3D(-50%, 0, 0.475em);\n          transform: rotateY(225deg) translate3D(-50%, 0, 0.475em);\n}\n.cub-1 .cr-2 .s2 {\n  -webkit-transform: rotateY(255deg) translate3D(-50%, 0, 0.475em);\n          transform: rotateY(255deg) translate3D(-50%, 0, 0.475em);\n}\n.cub-1 .cr-3 .s0 {\n  -webkit-transform: rotateY(285deg) translate3D(-50%, 0, 0.475em);\n          transform: rotateY(285deg) translate3D(-50%, 0, 0.475em);\n}\n.cub-1 .cr-3 .s1 {\n  -webkit-transform: rotateY(315deg) translate3D(-50%, 0, 0.475em);\n          transform: rotateY(315deg) translate3D(-50%, 0, 0.475em);\n}\n.cub-1 .cr-3 .s2 {\n  -webkit-transform: rotateY(345deg) translate3D(-50%, 0, 0.475em);\n          transform: rotateY(345deg) translate3D(-50%, 0, 0.475em);\n}\n.cub-1 .side {\n  width: 0.292949192431123em;\n  background-color: #e5930a;\n}\n.door-shadow {\n  width: 4.6875rem;\n  height: 99.5%;\n  position: absolute;\n  -webkit-transform: translateX(-4.625rem) translateY(-50%);\n      -ms-transform: translateX(-4.625rem) translateY(-50%);\n          transform: translateX(-4.625rem) translateY(-50%);\n}\n.door-shadow__el {\n  background: rgba(0,0,0,0.15);\n  position: absolute;\n  -webkit-transform: scaleX(0);\n      -ms-transform: scaleX(0);\n          transform: scaleX(0);\n  -webkit-transform-origin: 100% center;\n      -ms-transform-origin: 100% center;\n          transform-origin: 100% center;\n  width: 100%;\n  height: 100%;\n  border-bottom-left-radius: 0.5rem;\n}\n.door-handle {\n  position: absolute;\n  top: 7%;\n  right: 50%;\n  margin-right: -0.625rem;\n  width: 0.8125rem;\n  height: 0.8125rem;\n}\n.door-handle__part {\n  position: absolute;\n  z-index: 1;\n  border-radius: 50%;\n  width: 100%;\n  height: 100%;\n}\n.door-handle__part--bottom {\n  background-color: #ededed;\n}\n.door-handle__part--top {\n  background-color: #fff;\n  left: 0.0625rem;\n  top: 0.125rem;\n}\n.door-handle__shadow {\n  position: absolute;\n  left: 0.625rem;\n  top: 0;\n  width: 100%;\n  height: 2.5rem;\n  opacity: 0.1;\n  z-index: 0;\n  -webkit-transform: rotate(105deg);\n      -ms-transform: rotate(105deg);\n          transform: rotate(105deg);\n  -webkit-transform-origin: 0% 0%;\n      -ms-transform-origin: 0% 0%;\n          transform-origin: 0% 0%;\n}\n.door-handle__shadow-inner {\n  position: absolute;\n  z-index: 0;\n  left: 0;\n  top: 0;\n  background: -webkit-linear-gradient(top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0) 100%);\n  background: linear-gradient(to bottom, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0) 100%);\n  -webkit-transform-origin: inherit;\n      -ms-transform-origin: inherit;\n          transform-origin: inherit;\n  width: 100%;\n  height: 100%;\n}\n.mole {\n  width: 12.75rem;\n  height: 17.125rem;\n}\n.mole__head {\n  width: 10.75rem;\n  height: 7.25rem;\n  background: url("+__webpack_require__(35)+");\n  position: absolute;\n  top: 1.25rem;\n  left: 0.25rem;\n  z-index: 1;\n}\n.mole__glasses {\n  width: 7.375rem;\n  height: 3.4375rem;\n  position: absolute;\n  top: 1.4375rem;\n  left: 1.625rem;\n  background: url("+__webpack_require__(36)+");\n  z-index: 3;\n}\n.mole__glasses-left {\n  width: 1.0625rem;\n  height: 1.6875rem;\n  background: url("+__webpack_require__(37)+");\n  position: absolute;\n  z-index: -1;\n  right: 2.9375rem;\n  top: 1.5rem;\n}\n.mole__eye {\n  width: 0.6875rem;\n  height: 0.28125rem;\n  position: absolute;\n  left: 5.375rem;\n  top: 2.9375rem;\n  z-index: 4;\n}\n.mole__body {\n  width: 10.25rem;\n  height: 11.375rem;\n  position: absolute;\n  bottom: 0;\n  background: url("+__webpack_require__(38)+");\n  -webkit-transform-origin: left top;\n      -ms-transform-origin: left top;\n          transform-origin: left top;\n}\n.mole__inner {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  -webkit-transform-origin: center bottom;\n      -ms-transform-origin: center bottom;\n          transform-origin: center bottom;\n}\n.mole__mouth-wrapper {\n  position: absolute;\n  right: 2rem;\n  top: 4.625rem;\n  border-radius: 50%;\n  width: 1.25rem;\n  height: 1.25rem;\n}\n.mole__mouth {\n  position: absolute;\n  background: #3a3535;\n  border-radius: 50%;\n  width: 1.25rem;\n  height: 1.25rem;\n  border-top-right-radius: 0;\n  overflow: hidden;\n  -webkit-transform: rotate(20deg);\n      -ms-transform: rotate(20deg);\n          transform: rotate(20deg);\n}\n.mole__mouth-inner {\n  background: #c9544a;\n  position: absolute;\n  left: -0.1875rem;\n  top: 0.625rem;\n  border-radius: 50%;\n  width: 0.9375rem;\n  height: 0.9375rem;\n}\n.mole__hat {\n  position: absolute;\n  z-index: 4;\n}\n.mole__hat-base {\n  width: 2.25rem;\n  height: 1.5625rem;\n  position: absolute;\n  z-index: 2;\n  left: 3.625rem;\n  top: 0.0625rem;\n  background: url("+__webpack_require__(32)+");\n}\n.mole__hat-cone {\n  width: 1.6875rem;\n  height: 4.9375rem;\n  position: absolute;\n  z-index: 2;\n  left: -0.75rem;\n  top: -0.25rem;\n  background: url("+__webpack_require__(39)+") no-repeat;\n  -webkit-transform: rotateX(40deg) rotateY(-28deg) rotateZ(16deg) translateX(4px);\n          transform: rotateX(40deg) rotateY(-28deg) rotateZ(16deg) translateX(4px);\n}\n.mole__hat-cone-wrapper {\n  position: absolute;\n  z-index: 5;\n  width: 2.25rem;\n  height: 1.5625rem;\n  left: 3.625rem;\n  top: 0.0625rem;\n}\n.mole__hat-cone-rotator {\n  -webkit-transform-origin: center top 2px;\n      -ms-transform-origin: center top 2px;\n          transform-origin: center top 2px;\n}\n.mole__hat-shadow {\n  width: 1.375rem;\n  height: 1.4375rem;\n  position: absolute;\n  z-index: 0;\n  left: 0.0625rem;\n  top: 0.125rem;\n  opacity: 1;\n  background: url("+__webpack_require__(40)+");\n  -webkit-transform-origin: left center;\n      -ms-transform-origin: left center;\n          transform-origin: left center;\n  -webkit-transform: translateX(4px) translateY(4px);\n      -ms-transform: translateX(4px) translateY(4px);\n          transform: translateX(4px) translateY(4px);\n}\n.mole__hand {\n  width: 3.375rem;\n  height: 6.375rem;\n  background: url("+__webpack_require__(41)+");\n  position: absolute;\n  z-index: 5;\n  top: 6.625rem;\n  left: 1rem;\n  -webkit-transform-origin: top center;\n      -ms-transform-origin: top center;\n          transform-origin: top center;\n}\n.mole__hand-circle {\n  content: '';\n  width: 2.5rem;\n  height: 3.75rem;\n  background: #4b4040;\n  border-radius: 50%;\n  border-bottom-right-radius: 0;\n  position: absolute;\n  right: 0.25rem;\n  top: -3.125rem;\n  opacity: 0;\n  z-index: -1;\n}\n.mole__hand-left {\n  width: 7.5rem;\n  height: 6.6875rem;\n  background: url("+__webpack_require__(42)+");\n  position: absolute;\n  z-index: -1;\n  left: 5.3125rem;\n  top: 4.375rem;\n}\n.mole-mouth {\n  position: absolute;\n  width: 1.5625rem;\n  height: 1.5625rem;\n  right: 0.9375rem;\n  top: 4.25rem;\n  z-index: 2;\n  border-radius: 50%;\n  overflow: hidden;\n}\n.mole-mouth__inner {\n  position: absolute;\n  width: 0.9375rem;\n  left: -1rem;\n  top: 0.625rem;\n}\n.mole-scene {\n  position: absolute;\n  left: 50%;\n  top: 50%;\n  margin-left: -6.625rem;\n}\n.mole-scene__ground {\n  background: #664001;\n  position: absolute;\n  z-index: 0;\n  width: 13.1875rem;\n  height: 13.1875rem;\n  border-top-right-radius: 0.8rem;\n  border-bottom-right-radius: 0.5rem;\n  -webkit-transform: rotateX(68deg) rotateZ(48deg) translateX(-5.1875rem) translateY(-8.5rem);\n          transform: rotateX(68deg) rotateZ(48deg) translateX(-5.1875rem) translateY(-8.5rem);\n  top: -2.5rem;\n}\n.mole-scene__door {\n  top: -2.225rem;\n  -webkit-transform: rotateX(68deg) rotateZ(48deg) translateX(-7.625rem) translateY(-7.25rem);\n          transform: rotateX(68deg) rotateZ(48deg) translateX(-7.625rem) translateY(-7.25rem);\n  -webkit-transform-origin: 0% 50%;\n      -ms-transform-origin: 0% 50%;\n          transform-origin: 0% 50%;\n  position: absolute;\n  z-index: 1;\n  -webkit-transform-style: preserve-3d;\n          transform-style: preserve-3d;\n  width: 13.0625rem;\n  height: 13.0625rem;\n}\n.mole-scene__door-wave {\n  width: 120px;\n  height: 120px;\n  position: absolute;\n  z-index: 12;\n  left: 0;\n  top: 0;\n  border-radius: 20px;\n  opacity: 0;\n  background: #fff;\n  -webkit-transform: scale(0) translateZ(0);\n          transform: scale(0) translateZ(0);\n}\n.mole-scene__door-wave-wrapper {\n  position: absolute;\n  -webkit-transform: rotateX(70deg) rotateZ(48deg) translate(35px, -180px);\n          transform: rotateX(70deg) rotateZ(48deg) translate(35px, -180px);\n  z-index: 6;\n  opacity: 0.75;\n}\n.mole-scene__door-rotation {\n  -webkit-transform: translateX(8px) translateY(8px);\n      -ms-transform: translateX(8px) translateY(8px);\n          transform: translateX(8px) translateY(8px);\n  -webkit-transform-origin: 0% 50%;\n      -ms-transform-origin: 0% 50%;\n          transform-origin: 0% 50%;\n  -webkit-transform-style: preserve-3d;\n          transform-style: preserve-3d;\n}\n.mole-scene__mask {\n  position: absolute;\n  top: 0rem;\n  left: -0.375rem;\n  width: 19.125rem;\n  height: 42.0625rem;\n  background: url("+__webpack_require__(43)+");\n  z-index: 2;\n}\n.mole-scene__mole {\n  position: absolute;\n  z-index: 2;\n  top: 3.75rem;\n  left: 3.125rem;\n}\n", ""]);
+	exports.push([module.id, ".tutorial-link {\n  position: fixed;\n  color: #fff;\n  bottom: 1.25rem;\n  right: 1.25rem;\n  font-size: 0.625rem;\n  font-family: sans-serif;\n  text-decoration: none;\n  padding-left: 1.875rem;\n  letter-spacing: 0.09375rem;\n}\n.tutorial-link:hover {\n  opacity: 0.85;\n}\n.tutorial-link:hover .tutorial-link__logo path {\n  fill: #f34246;\n}\n.tutorial-link__logo {\n  width: 1.5rem;\n  height: 1.5rem;\n  position: absolute;\n  right: 0.625rem;\n  top: -2rem;\n}\n.tutorial-link__logo svg {\n  width: 100%;\n  height: 100%;\n}\n.tutorial-link__logo path {\n  fill: #f35d5c;\n}\nbody {\n  paddding: 0;\n  margin: 0;\n  background: #50e3c2;\n  font-size: 16px;\n  height: 100%;\n  overflow: hidden;\n}\n.square {\n  width: 100px;\n  height: 100px;\n  background: #0ff;\n  position: absolute;\n  left: 50%;\n  margin-left: -50px;\n  top: 50px;\n  z-index: 1;\n}\n.shadow-wrapper {\n  -webkit-transform: rotateX(70deg);\n          transform: rotateX(70deg);\n  width: 100px;\n  height: 100px;\n  position: absolute;\n  z-index: 0;\n  margin-left: 100px;\n}\n.shadow {\n  width: 100%;\n  height: 100%;\n  background: rgba(0,0,0,0.5);\n}\n.cube-wrapper {\n  z-index: 10;\n  position: absolute;\n  width: 100px;\n  height: 100px;\n  left: 50%;\n  margin-left: 100px;\n  top: -100px;\n}\n.cube {\n  -webkit-transform-style: preserve-3d;\n          transform-style: preserve-3d;\n  -webkit-transform: rotateY(45deg) rotateX(-15deg) rotateZ(-15deg);\n          transform: rotateY(45deg) rotateX(-15deg) rotateZ(-15deg);\n  z-index: 1;\n  font-size: 0;\n}\n.cube__squash {\n  -webkit-transform-origin: center 100px;\n      -ms-transform-origin: center 100px;\n          transform-origin: center 100px;\n}\n.cube__side {\n  position: absolute;\n  width: 100px;\n  height: 100px;\n  background: #fff;\n  border-radius: 10px;\n}\n.cube__side:after {\n  content: '';\n  position: absolute;\n  left: 0;\n  top: 0;\n  width: 100%;\n  height: 100%;\n  border-radius: inherit;\n}\n.cube__side--back {\n  -webkit-transform: translateZ(-50px) rotateY(180deg);\n          transform: translateZ(-50px) rotateY(180deg);\n}\n.cube__side--right {\n  -webkit-transform: rotateY(-270deg) translateX(50px);\n          transform: rotateY(-270deg) translateX(50px);\n  -webkit-transform-origin: top right;\n      -ms-transform-origin: top right;\n          transform-origin: top right;\n}\n.cube__side--left {\n  -webkit-transform: rotateY(270deg) translateX(-50px);\n          transform: rotateY(270deg) translateX(-50px);\n  -webkit-transform-origin: center left;\n      -ms-transform-origin: center left;\n          transform-origin: center left;\n}\n.cube__side--top {\n  -webkit-transform: rotateX(-90deg) translateY(-50px);\n          transform: rotateX(-90deg) translateY(-50px);\n  -webkit-transform-origin: top center;\n      -ms-transform-origin: top center;\n          transform-origin: top center;\n}\n.cube__side--top:after {\n  background: rgba(0,0,0,0.02);\n}\n.cube__side--bottom {\n  -webkit-transform: rotateX(90deg) translateY(50px);\n          transform: rotateX(90deg) translateY(50px);\n  -webkit-transform-origin: bottom center;\n      -ms-transform-origin: bottom center;\n          transform-origin: bottom center;\n}\n.cube__side--front {\n  -webkit-transform: translateZ(50px);\n          transform: translateZ(50px);\n}\n.cube__side--front:after {\n  background: rgba(0,0,0,0.05);\n}\n.cube-shadow-wrapper {\n  -webkit-transform-style: preserve-3d;\n          transform-style: preserve-3d;\n  width: 107px;\n  height: 107px;\n  position: absolute;\n  left: 50%;\n  margin-left: -53.5px;\n  top: 42px;\n  z-index: 0;\n  -webkit-transform: rotateX(112deg) rotateZ(45deg);\n          transform: rotateX(112deg) rotateZ(45deg);\n}\n.transit {\n  -webkit-transform: rotateX(127.5deg) rotateZ(46deg) !important;\n          transform: rotateX(127.5deg) rotateZ(46deg) !important;\n}\n.cube-shadow {\n  background: rgba(0,0,0,0.25);\n  width: 100%;\n  height: 100%;\n  border-radius: 10px;\n  opacity: 0;\n}\n.scene,\n.shape,\n.face,\n.face-wrapper,\n.cr {\n  position: absolute;\n  -webkit-transform-style: preserve-3d;\n          transform-style: preserve-3d;\n}\n.shape {\n  top: 50%;\n  left: 50%;\n  width: 0;\n  height: 0;\n  -webkit-transform: rotateZ(90deg);\n          transform: rotateZ(90deg);\n  -webkit-transform-origin: 50%;\n      -ms-transform-origin: 50%;\n          transform-origin: 50%;\n}\n.face,\n.face-wrapper {\n  overflow: hidden;\n  -webkit-transform-origin: 0 0;\n      -ms-transform-origin: 0 0;\n          transform-origin: 0 0;\n  -webkit-backface-visibility: hidden;\n          backface-visibility: hidden;\n/* hidden by default, prevent blinking and other weird rendering glitchs */\n}\n.face {\n  background-size: 100% 100%;\n  background-position: center;\n}\n.face-wrapper .face {\n  left: 100%;\n  width: 100%;\n  height: 100%;\n}\n.photon-shader {\n  position: absolute;\n  left: 0;\n  top: 0;\n  width: 100%;\n  height: 100%;\n}\n.side {\n  left: 50%;\n}\n.cr,\n.cr .side {\n  height: 100%;\n}\n[class*=\"cuboid\"] .ft,\n[class*=\"cuboid\"] .bk {\n  width: 100%;\n  height: 100%;\n}\n[class*=\"cuboid\"] .bk {\n  left: 100%;\n}\n[class*=\"cuboid\"] .rt {\n  -webkit-transform: rotateY(-90deg) translateX(-50%);\n          transform: rotateY(-90deg) translateX(-50%);\n}\n[class*=\"cuboid\"] .lt {\n  -webkit-transform: rotateY(90deg) translateX(-50%);\n          transform: rotateY(90deg) translateX(-50%);\n}\n[class*=\"cuboid\"] .tp {\n  -webkit-transform: rotateX(90deg) translateY(-50%);\n          transform: rotateX(90deg) translateY(-50%);\n}\n[class*=\"cuboid\"] .bm {\n  -webkit-transform: rotateX(-90deg) translateY(-50%);\n          transform: rotateX(-90deg) translateY(-50%);\n}\n[class*=\"cuboid\"] .lt {\n  left: 100%;\n}\n[class*=\"cuboid\"] .bm {\n  top: 100%;\n}\n.door .bm {\n  overflow: visible;\n}\n.door .bm:before,\n.door .bm:after {\n  content: '';\n  position: absolute;\n  background: inherit;\n}\n.door .bm:before {\n  height: 20px;\n  width: 110%;\n  top: -16px;\n  left: -20px;\n}\n.door .bm:after {\n  width: 20px;\n  height: 100%;\n  left: -20px;\n  top: 0;\n  -webkit-transform: translateX(1px);\n      -ms-transform: translateX(1px);\n          transform: translateX(1px);\n}\n.cub-1 {\n  -webkit-transform: translate3D(0em, 0em, 0em) rotateX(90deg) rotateY(0deg) rotateZ(0deg);\n          transform: translate3D(0em, 0em, 0em) rotateX(90deg) rotateY(0deg) rotateZ(0deg);\n  opacity: 1;\n  width: 13em;\n  height: 0.3em;\n  margin: -0.15em 0 0 -6.5em;\n}\n.cub-1 .ft {\n  -webkit-transform: translateZ(6.5em);\n          transform: translateZ(6.5em);\n}\n.cub-1 .bk {\n  -webkit-transform: translateZ(-6.5em) rotateY(180deg);\n          transform: translateZ(-6.5em) rotateY(180deg);\n}\n.cub-1 .rt,\n.cub-1 .lt {\n  width: 13em;\n  height: 0.3em;\n}\n.cub-1 .tp,\n.cub-1 .bm {\n  width: 13em;\n  height: 13em;\n}\n.cub-1 .face {\n  background-color: #f5a623;\n}\n.cub-1 .bm {\n  background-color: #50e3c2;\n}\n.cub-1 .tp {\n  background: #f5a623 url("+__webpack_require__(34)+");\n}\n.cub-1 .ft {\n  width: 12em;\n  margin-left: 0.5em;\n}\n.cub-1 .bk {\n  width: 12.5em;\n  margin-left: -0.5em;\n  background-color: #e5930a;\n}\n.cub-1 .rt,\n.cub-1 .lt {\n  width: 12em;\n  background-color: #e5930a;\n}\n.cub-1 .rt {\n  width: 13em;\n}\n.cub-1 .tp,\n.cub-1 .bm,\n.cub-1 .tp .photon-shader,\n.cub-1 .bm .photon-shader {\n  border-radius: 0.5em;\n  border-top-left-radius: 0;\n  border-bottom-left-radius: 0;\n}\n.cub-1 .cr {\n  width: 0.5em;\n  left: 0.25em;\n}\n.cub-1 .cr-0 {\n  -webkit-transform: translate3D(12em, 0, 6em);\n      -ms-transform: translate3D(12em, 0, 6em);\n          transform: translate3D(12em, 0, 6em);\n}\n.cub-1 .cr-1 {\n  -webkit-transform: translate3D(12em, 0, -6em);\n      -ms-transform: translate3D(12em, 0, -6em);\n          transform: translate3D(12em, 0, -6em);\n}\n.cub-1 .cr-2 {\n  -webkit-transform: translate3D(0, 0, -6em);\n      -ms-transform: translate3D(0, 0, -6em);\n          transform: translate3D(0, 0, -6em);\n}\n.cub-1 .cr-3 {\n  -webkit-transform: translate3D(0, 0, 6em);\n      -ms-transform: translate3D(0, 0, 6em);\n          transform: translate3D(0, 0, 6em);\n}\n.cub-1 .cr-0 .s0 {\n  -webkit-transform: rotateY(15deg) translate3D(-50%, 0, 0.475em);\n          transform: rotateY(15deg) translate3D(-50%, 0, 0.475em);\n}\n.cub-1 .cr-0 .s1 {\n  -webkit-transform: rotateY(45deg) translate3D(-50%, 0, 0.475em);\n          transform: rotateY(45deg) translate3D(-50%, 0, 0.475em);\n}\n.cub-1 .cr-0 .s2 {\n  -webkit-transform: rotateY(75deg) translate3D(-50%, 0, 0.475em);\n          transform: rotateY(75deg) translate3D(-50%, 0, 0.475em);\n}\n.cub-1 .cr-1 .s0 {\n  -webkit-transform: rotateY(105deg) translate3D(-50%, 0, 0.475em);\n          transform: rotateY(105deg) translate3D(-50%, 0, 0.475em);\n}\n.cub-1 .cr-1 .s1 {\n  -webkit-transform: rotateY(135deg) translate3D(-50%, 0, 0.475em);\n          transform: rotateY(135deg) translate3D(-50%, 0, 0.475em);\n}\n.cub-1 .cr-1 .s2 {\n  -webkit-transform: rotateY(165deg) translate3D(-50%, 0, 0.475em);\n          transform: rotateY(165deg) translate3D(-50%, 0, 0.475em);\n}\n.cub-1 .cr-2 .s0 {\n  -webkit-transform: rotateY(195deg) translate3D(-50%, 0, 0.475em);\n          transform: rotateY(195deg) translate3D(-50%, 0, 0.475em);\n}\n.cub-1 .cr-2 .s1 {\n  -webkit-transform: rotateY(225deg) translate3D(-50%, 0, 0.475em);\n          transform: rotateY(225deg) translate3D(-50%, 0, 0.475em);\n}\n.cub-1 .cr-2 .s2 {\n  -webkit-transform: rotateY(255deg) translate3D(-50%, 0, 0.475em);\n          transform: rotateY(255deg) translate3D(-50%, 0, 0.475em);\n}\n.cub-1 .cr-3 .s0 {\n  -webkit-transform: rotateY(285deg) translate3D(-50%, 0, 0.475em);\n          transform: rotateY(285deg) translate3D(-50%, 0, 0.475em);\n}\n.cub-1 .cr-3 .s1 {\n  -webkit-transform: rotateY(315deg) translate3D(-50%, 0, 0.475em);\n          transform: rotateY(315deg) translate3D(-50%, 0, 0.475em);\n}\n.cub-1 .cr-3 .s2 {\n  -webkit-transform: rotateY(345deg) translate3D(-50%, 0, 0.475em);\n          transform: rotateY(345deg) translate3D(-50%, 0, 0.475em);\n}\n.cub-1 .side {\n  width: 0.292949192431123em;\n  background-color: #e5930a;\n}\n.door-shadow {\n  width: 4.6875rem;\n  height: 99.5%;\n  position: absolute;\n  -webkit-transform: translateX(-4.625rem) translateY(-50%);\n      -ms-transform: translateX(-4.625rem) translateY(-50%);\n          transform: translateX(-4.625rem) translateY(-50%);\n}\n.door-shadow__el {\n  background: rgba(0,0,0,0.15);\n  position: absolute;\n  -webkit-transform: scaleX(0);\n      -ms-transform: scaleX(0);\n          transform: scaleX(0);\n  -webkit-transform-origin: 100% center;\n      -ms-transform-origin: 100% center;\n          transform-origin: 100% center;\n  width: 100%;\n  height: 100%;\n  border-bottom-left-radius: 0.5rem;\n}\n.door-handle {\n  position: absolute;\n  top: 7%;\n  right: 50%;\n  margin-right: -0.625rem;\n  width: 0.8125rem;\n  height: 0.8125rem;\n}\n.door-handle__part {\n  position: absolute;\n  z-index: 1;\n  border-radius: 50%;\n  width: 100%;\n  height: 100%;\n}\n.door-handle__part--bottom {\n  background-color: #ededed;\n}\n.door-handle__part--top {\n  background-color: #fff;\n  left: 0.0625rem;\n  top: 0.125rem;\n}\n.door-handle__shadow {\n  position: absolute;\n  left: 0.625rem;\n  top: 0;\n  width: 100%;\n  height: 2.5rem;\n  opacity: 0.1;\n  z-index: 0;\n  -webkit-transform: rotate(105deg);\n      -ms-transform: rotate(105deg);\n          transform: rotate(105deg);\n  -webkit-transform-origin: 0% 0%;\n      -ms-transform-origin: 0% 0%;\n          transform-origin: 0% 0%;\n}\n.door-handle__shadow-inner {\n  position: absolute;\n  z-index: 0;\n  left: 0;\n  top: 0;\n  background: -webkit-linear-gradient(top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0) 100%);\n  background: linear-gradient(to bottom, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0) 100%);\n  -webkit-transform-origin: inherit;\n      -ms-transform-origin: inherit;\n          transform-origin: inherit;\n  width: 100%;\n  height: 100%;\n}\n.mole {\n  width: 12.75rem;\n  height: 17.125rem;\n}\n.mole__head {\n  width: 10.75rem;\n  height: 7.25rem;\n  background: url("+__webpack_require__(35)+");\n  position: absolute;\n  top: 1.25rem;\n  left: 0.25rem;\n  z-index: 1;\n}\n.mole__glasses {\n  width: 7.375rem;\n  height: 3.4375rem;\n  position: absolute;\n  top: 1.4375rem;\n  left: 1.625rem;\n  background: url("+__webpack_require__(36)+");\n  z-index: 3;\n}\n.mole__glasses-left {\n  width: 1.0625rem;\n  height: 1.6875rem;\n  background: url("+__webpack_require__(37)+");\n  position: absolute;\n  z-index: -1;\n  right: 2.9375rem;\n  top: 1.5rem;\n}\n.mole__eye {\n  width: 0.6875rem;\n  height: 0.28125rem;\n  position: absolute;\n  left: 5.375rem;\n  top: 2.9375rem;\n  z-index: 4;\n}\n.mole__body {\n  width: 10.25rem;\n  height: 11.375rem;\n  position: absolute;\n  bottom: 0;\n  background: url("+__webpack_require__(38)+");\n  -webkit-transform-origin: left top;\n      -ms-transform-origin: left top;\n          transform-origin: left top;\n}\n.mole__inner {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  -webkit-transform-origin: center bottom;\n      -ms-transform-origin: center bottom;\n          transform-origin: center bottom;\n}\n.mole__mouth-wrapper {\n  position: absolute;\n  right: 2rem;\n  top: 4.625rem;\n  border-radius: 50%;\n  width: 1.25rem;\n  height: 1.25rem;\n}\n.mole__mouth {\n  position: absolute;\n  background: #3a3535;\n  border-radius: 50%;\n  width: 1.25rem;\n  height: 1.25rem;\n  border-top-right-radius: 0;\n  overflow: hidden;\n  -webkit-transform: rotate(20deg);\n      -ms-transform: rotate(20deg);\n          transform: rotate(20deg);\n}\n.mole__mouth-inner {\n  background: #c9544a;\n  position: absolute;\n  left: -0.1875rem;\n  top: 0.625rem;\n  border-radius: 50%;\n  width: 0.9375rem;\n  height: 0.9375rem;\n}\n.mole__hat {\n  position: absolute;\n  z-index: 4;\n}\n.mole__hat-base {\n  width: 2.25rem;\n  height: 1.5625rem;\n  position: absolute;\n  z-index: 2;\n  left: 3.625rem;\n  top: 0.0625rem;\n  background: url("+__webpack_require__(32)+");\n}\n.mole__hat-cone {\n  width: 1.6875rem;\n  height: 4.9375rem;\n  position: absolute;\n  z-index: 2;\n  left: -0.75rem;\n  top: -0.25rem;\n  background: url("+__webpack_require__(39)+") no-repeat;\n  -webkit-transform: rotateX(40deg) rotateY(-28deg) rotateZ(16deg) translateX(4px);\n          transform: rotateX(40deg) rotateY(-28deg) rotateZ(16deg) translateX(4px);\n}\n.mole__hat-cone-wrapper {\n  position: absolute;\n  z-index: 5;\n  width: 2.25rem;\n  height: 1.5625rem;\n  left: 3.625rem;\n  top: 0.0625rem;\n}\n.mole__hat-cone-rotator {\n  -webkit-transform-origin: center top 2px;\n      -ms-transform-origin: center top 2px;\n          transform-origin: center top 2px;\n}\n.mole__hat-shadow {\n  width: 1.375rem;\n  height: 1.4375rem;\n  position: absolute;\n  z-index: 0;\n  left: 0.0625rem;\n  top: 0.125rem;\n  opacity: 1;\n  background: url("+__webpack_require__(40)+");\n  -webkit-transform-origin: left center;\n      -ms-transform-origin: left center;\n          transform-origin: left center;\n  -webkit-transform: translateX(4px) translateY(4px);\n      -ms-transform: translateX(4px) translateY(4px);\n          transform: translateX(4px) translateY(4px);\n}\n.mole__hand {\n  width: 3.375rem;\n  height: 6.375rem;\n  background: url("+__webpack_require__(41)+");\n  position: absolute;\n  z-index: 5;\n  top: 6.625rem;\n  left: 1rem;\n  -webkit-transform-origin: top center;\n      -ms-transform-origin: top center;\n          transform-origin: top center;\n}\n.mole__hand-circle {\n  content: '';\n  width: 2.5rem;\n  height: 3.75rem;\n  background: #4b4040;\n  border-radius: 50%;\n  border-bottom-right-radius: 0;\n  position: absolute;\n  right: 0.25rem;\n  top: -3.125rem;\n  opacity: 0;\n  z-index: -1;\n}\n.mole__hand-left {\n  width: 7.5rem;\n  height: 6.6875rem;\n  background: url("+__webpack_require__(42)+");\n  position: absolute;\n  z-index: -1;\n  left: 5.3125rem;\n  top: 4.375rem;\n}\n.mole-mouth {\n  position: absolute;\n  width: 1.5625rem;\n  height: 1.5625rem;\n  right: 0.9375rem;\n  top: 4.25rem;\n  z-index: 2;\n  border-radius: 50%;\n  overflow: hidden;\n}\n.mole-mouth__inner {\n  position: absolute;\n  width: 0.9375rem;\n  left: -1rem;\n  top: 0.625rem;\n}\n.mole-scene {\n  position: absolute;\n  left: 50%;\n  top: 50%;\n  margin-left: -6.625rem;\n}\n.mole-scene__ground {\n  background: #664001;\n  position: absolute;\n  z-index: 0;\n  width: 13.1875rem;\n  height: 13.1875rem;\n  border-top-right-radius: 0.8rem;\n  border-bottom-right-radius: 0.5rem;\n  -webkit-transform: rotateX(68deg) rotateZ(48deg) translateX(-5.1875rem) translateY(-8.5rem);\n          transform: rotateX(68deg) rotateZ(48deg) translateX(-5.1875rem) translateY(-8.5rem);\n  top: -2.5rem;\n}\n.mole-scene__door {\n  top: -2.225rem;\n  -webkit-transform: rotateX(68deg) rotateZ(48deg) translateX(-7.625rem) translateY(-7.25rem);\n          transform: rotateX(68deg) rotateZ(48deg) translateX(-7.625rem) translateY(-7.25rem);\n  -webkit-transform-origin: 0% 50%;\n      -ms-transform-origin: 0% 50%;\n          transform-origin: 0% 50%;\n  position: absolute;\n  z-index: 1;\n  -webkit-transform-style: preserve-3d;\n          transform-style: preserve-3d;\n  width: 13.0625rem;\n  height: 13.0625rem;\n}\n.mole-scene__door-wave {\n  width: 120px;\n  height: 120px;\n  position: absolute;\n  z-index: 12;\n  left: 0;\n  top: 0;\n  border-radius: 20px;\n  opacity: 0;\n  background: #fff;\n  -webkit-transform: scale(0) translateZ(0);\n          transform: scale(0) translateZ(0);\n}\n.mole-scene__door-wave-wrapper {\n  position: absolute;\n  -webkit-transform: rotateX(70deg) rotateZ(48deg) translate(35px, -180px);\n          transform: rotateX(70deg) rotateZ(48deg) translate(35px, -180px);\n  z-index: 6;\n  opacity: 0.75;\n}\n.mole-scene__door-rotation {\n  -webkit-transform: translateX(8px) translateY(8px);\n      -ms-transform: translateX(8px) translateY(8px);\n          transform: translateX(8px) translateY(8px);\n  -webkit-transform-origin: 0% 50%;\n      -ms-transform-origin: 0% 50%;\n          transform-origin: 0% 50%;\n  -webkit-transform-style: preserve-3d;\n          transform-style: preserve-3d;\n}\n.mole-scene__mask {\n  position: absolute;\n  top: 0rem;\n  left: -0.375rem;\n  width: 19.125rem;\n  height: 42.0625rem;\n  background: url("+__webpack_require__(43)+");\n  z-index: 2;\n}\n.mole-scene__mole {\n  position: absolute;\n  z-index: 2;\n  top: 3.75rem;\n  left: 3.125rem;\n}\n", ""]);
 
 /***/ },
 /* 32 */
@@ -7579,7 +7600,7 @@
 	    this.shadowEl = document.querySelector("#js-shadow");
 	    this.cubeSceneEl = document.querySelector("#js-cube-scene");
 	    this.translateY = window.innerHeight;
-	    this.fallDuration = 3000;
+	    this.fallDuration = 2000;
 	    this.delay = 0;
 
 	    window.addEventListener("resize", function () {
@@ -7625,9 +7646,9 @@
 	    effects.init(this);
 	  },
 	  vars: function () {
-	    this.bouncyEasing = mojs.easing.path("M0,100 C4.00577744,92.3519448 8.46993511,63.9895504 13.1512887,0.0901667719 L21.3497674,0 C21.3497674,-1.77229627 30.5883328,115.057627 42.9949846,0 L48.1345723,0 C48.1345723,-0.774700647 54.5357691,56.4124428 63.0607938,0 L66.17434,0 C66.17434,-0.960124778 70.5072591,29.23993 76.7835754,0 L78.6555388,0 C78.6555388,0.000360393587 81.8632425,16.4914595 86.0928122,0 L87.2894428,0 C87.2894428,-0.761743229 89.1622181,9.6571475 92.2144672,0 L93.1382971,0 C93.1382971,-0.227841855 94.7579743,4.40567189 96.9144218,0 L97.5682773,0 C97.5682773,-0.227841855 98.9774879,1.86613741 100,0", { precompute: 2500, eps: 0.01 });
-	    this.scaleEasing = mojs.easing.path("M0,0 C4.00577744,7.64805524 8.46993511,36.0104496 13.1512887,99.9098332 L21.3497674,100 C21.3497674,101.772296 30.5883328,-15.0576272 42.9949846,100 L48.1345723,100 C48.1345723,100.774701 54.5357691,43.5875572 63.0607938,100 L66.17434,100 C66.17434,100.960125 70.5072591,70.76007 76.7835754,100 L78.6555388,100 C78.6555388,99.9996396 81.8632425,83.5085405 86.0928122,100 L87.2894428,100 C87.2894428,100.761743 89.1622181,90.3428525 92.2144672,100 L93.1382971,100 C93.1382971,100.227842 94.7579743,95.5943281 96.9144218,100 L97.5682773,100 C97.5682773,100.227842 98.9774879,98.1338626 100,100");
-	    this.squashEasing = mojs.easing.path("M0,100 C0,100 4.50292969,98.5458979 13.1655083,129.599609 C13.1655083,125.550292 14.5922587,111.423982 14.9775391,100 C18.3436489,0.118817967 21.3763133,100 21.3763133,100 C21.3763133,100 24.1020114,143.589313 31.182035,100.498105 C31.328125,99.3914616 32.96875,99.9925683 32.96875,99.9925683 C32.96875,99.9925683 37.7038574,101.822997 43.1033936,119.37915 C43.4711914,114.650634 44.145598,101.943658 44.3303223,99.9925683 C46.303074,64.0298992 48.1256605,100 48.1256605,100 C48.1199951,99.9868613 49.9071233,128.571455 54.5492038,100.31832 C54.644989,99.5927399 55.7206794,99.9868608 55.7206794,99.9868608 C55.7206794,99.9868608 59.6297405,101.239014 63.1699944,112.749862 C63.4111443,109.649569 64.0730787,101.271818 64.1941948,99.9925683 C65.7125677,79.1142212 66.3750221,100 66.3750221,100 C66.3750221,100 75.6449112,100 76.9499613,100 C77.9891495,90.3360533 78.7952818,100 78.7952818,100 C78.7952818,100 85.3866104,100 86.163329,100 C86.7355255,95.6422743 87.4229688,100 87.4229688,100 C87.4229688,100 91.4811997,100 92.0937284,100 C92.6703705,97.8777651 93.2507552,100 93.2507552,100 C93.2507552,100 96.5008682,100 97.0045401,100 C97.4574799,98.8978552 97.8392386,100 97.8392386,100 L100,100");
+	    this.bouncyEasing = mojs.easing.path("M0,100 C4.00577744,92.3519448 8.46993511,63.9895504 13.1512887,0.0901667719 L21.3497674,0 C21.3497674,-1.77229627 30.0509472,116.705669 42.9949846,0 L48.1345723,0 C48.1345723,-0.774700647 55,56.7834546 63.0607938,0 L66.17434,0 C66.17434,-0.960124778 70.5072591,29.23993 76.7835754,0 L78.6555388,0 C78.6555388,0.000360393587 81.8632425,16.4914595 86.0928122,0 L87.2894428,0 C87.2894428,-0.761743229 89.7692184,9.63462033 92.2144672,0 L93.1382971,0 C93.1382971,-0.227841855 94.7579743,4.40567189 96.9144218,0 L97.5682773,0 C97.5682773,-0.227841855 98.9774879,1.86613741 100,0", { precompute: 5500, eps: 0.00001 });
+	    this.scaleEasing = mojs.easing.path("M0,0 C4.00577744,7.64805524 8.46993511,36.0104496 13.1512887,99.9098332 L21.3497674,100 C21.3497674,101.772296 30.5883328,-15.0576272 42.9949846,100 L48.1345723,100 C48.1345723,100.774701 54.5357691,43.5875572 63.0607938,100 L66.17434,100 C66.17434,100.960125 70.5072591,70.76007 76.7835754,100 L78.6555388,100 C78.6555388,99.9996396 81.8632425,83.5085405 86.0928122,100 L87.2894428,100 C87.2894428,100.761743 89.1622181,90.3428525 92.2144672,100 L93.1382971,100 C93.1382971,100.227842 94.7579743,95.5943281 96.9144218,100 L97.5682773,100 C97.5682773,100.227842 98.9774879,98.1338626 100,100", { precompute: 5500, eps: 0.00001 });
+	    this.squashEasing = mojs.easing.path("M0,100 C0,100 4.50292969,98.5458979 13.1655083,129.599609 C13.1655083,125.550292 14.5922587,111.423982 14.9775391,100 C18.3436489,0.118817967 21.3763133,100 21.3763133,100 C21.3763133,100 24.1020114,143.589313 31.182035,100.498105 C31.328125,99.3914616 32.96875,99.9925683 32.96875,99.9925683 C32.96875,99.9925683 37.7038574,101.822997 43.1033936,119.37915 C43.4711914,114.650634 44.145598,101.943658 44.3303223,99.9925683 C46.303074,64.0298992 48.1256605,100 48.1256605,100 C48.1199951,99.9868613 49.9071233,128.571455 54.5492038,100.31832 C54.644989,99.5927399 55.7206794,99.9868608 55.7206794,99.9868608 C55.7206794,99.9868608 59.6297405,101.239014 63.1699944,112.749862 C63.4111443,109.649569 64.0730787,101.271818 64.1941948,99.9925683 C65.7125677,79.1142212 66.3750221,100 66.3750221,100 C66.3750221,100 75.6449112,100 76.9499613,100 C77.9891495,90.3360533 78.7952818,100 78.7952818,100 C78.7952818,100 85.3866104,100 86.163329,100 C86.7355255,95.6422743 87.4229688,100 87.4229688,100 C87.4229688,100 91.4811997,100 92.0937284,100 C92.6703705,97.8777651 93.2507552,100 93.2507552,100 C93.2507552,100 96.5008682,100 97.0045401,100 C97.4574799,98.8978552 97.8392386,100 97.8392386,100 L100,100", { precompute: 5500, eps: 0.00001 });
 	    // bouncy easing without pauses
 	    // this.bouncyEasing = mojs.easing.path('M1.55708779e-14,100 C5.07689534,92.3484969 10.7347387,63.9733163 16.6678547,0.045125884 C16.6678547,-1.79459817 28.3767503,115.087994 44.1008572,0.045125884 C44.1008572,-0.762447191 52.2136908,56.4504771 63.0182497,0.045125884 C63.0182497,-0.96434046 68.5097621,29.249329 76.4643231,0.045125884 C76.4643231,0.045125884 80.5297451,16.5436594 85.8902733,0.045125884 C85.8902733,-0.762447191 88.2638161,9.66114053 92.132216,0.045125884 C92.132216,-0.156767385 94.1849839,4.47883522 96.918051,0.045125884 C96.918051,-0.156767385 98.7040751,1.93815588 100,0.045125884');
 	    // this.scaleEasing  = mojs.easing.path('M0,0 C5.07689534,7.65150309 10.7347387,36.0266837 16.6678547,100 C16.6678547,101.794598 28.3767503,-15.0879941 44.1008572,100 C44.1008572,100.762447 52.2136908,43.5495229 63.0182497,100 C63.0182497,100.96434 68.5097621,70.750671 76.4643231,100 C76.4643231,100 80.5297451,83.4563406 85.8902733,100 C85.8902733,100.762447 88.2638161,90.3388595 92.132216,100 C92.132216,100.156767 94.1849839,95.5211648 96.918051,100 C96.918051,100.156767 98.7040751,98.0618441 100,100');
@@ -9383,7 +9404,7 @@
 	var Howl = _require.Howl;
 
 
-	var door = {
+	var doorOpen = {
 	  init: function (proto) {
 	    _core.Object.setPrototypeOf(this, proto);
 	    this.vars();
@@ -9420,7 +9441,7 @@
 	};
 
 
-	module.exports = door;
+	module.exports = doorOpen;
 
 /***/ },
 /* 53 */
@@ -9563,6 +9584,7 @@
 	        mojs.h.style(_this.moleEyeEl, "transform", "");
 
 	        mojs.h.style(_this.moleConeEl, "transform", "rotateZ(" + 20 * noizeP + "deg) " + _this.zHack);
+
 	        mojs.h.style(_this.moleTongueEl, "transform", "translate(" + -140 * skewP + "px, 0) " + _this.zHack);
 	        _this.moleTonguePath.setAttribute("d", "M0 30 Q 20 " + (10 + 550 * noizeP) + ", 30 25 T 50 30");
 
@@ -9789,9 +9811,6 @@
 	  },
 	  vars: function vars() {
 	    this.moleInnerEl = document.querySelector("#js-mole-inner");
-	    this.doorCloseSound = new Howl({ urls: ["sounds/door-close-1." + this.soundFileType], rate: 1.5, volume: 0.65 });
-	    this.boomSound = new Howl({ urls: ["./sounds/fall-kick-1." + this.soundFileType], rate: 0.5 });
-	    this.fallingSound = new Howl({ urls: ["./sounds/falling-1." + this.soundFileType], rate: 4.5, volume: 0.05 });
 	  },
 
 	  resetParts: function resetParts() {},

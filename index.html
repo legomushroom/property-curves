@@ -4,10 +4,65 @@
     <meta charset="UTF-8">
     <title> mo · js - Property curves </title>
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
-  </head>
-  <body>
+    <style>
+      .spinner {
+        width: 40px;
+        height: 40px;
+        /*margin-left: -20px;*/
+        margin-top: -20px;
+        position: absolute;
+        z-index: 20;
+        top: 50%;
+        left: 50%;
+        
+        text-align: center;
+        
+        -webkit-animation: sk-rotate 2.0s infinite linear;
+        animation: sk-rotate 2.0s infinite linear;
+      }
 
-    <div class="mole-scene" id="js-mole-scene">
+      .dot1, .dot2 {
+        width: 60%;
+        height: 60%;
+        display: inline-block;
+        position: absolute;
+        top: 0;
+        background-color: white;
+        border-radius: 100%;
+        
+        -webkit-animation: sk-bounce 2.0s infinite ease-in-out;
+        animation: sk-bounce 2.0s infinite ease-in-out;
+      }
+
+      .dot2 {
+        top: auto;
+        bottom: 0;
+        -webkit-animation-delay: -1.0s;
+        animation-delay: -1.0s;
+      }
+
+      @-webkit-keyframes sk-rotate { 100% { -webkit-transform: rotate(360deg) }}
+      @keyframes sk-rotate { 100% { transform: rotate(360deg); -webkit-transform: rotate(360deg) }}
+
+      @-webkit-keyframes sk-bounce {
+        0%, 100% { -webkit-transform: scale(0.0) }
+        50% { -webkit-transform: scale(1.0) }
+      }
+
+      @keyframes sk-bounce {
+        0%, 100% { 
+          transform: scale(0.0);
+          -webkit-transform: scale(0.0);
+        } 50% { 
+          transform: scale(1.0);
+          -webkit-transform: scale(1.0);
+        }
+      }
+    </style>
+  </head>
+  <body style="background-color: #50E3C2;">
+
+    <div class="mole-scene" id="js-mole-scene" style="opacity: 0;">
 
       <div id="js-cube-scene" class="cube-wrapper">
         <div class="cube-shadow-wrapper" id="js-shadow-wrapper">
@@ -119,15 +174,20 @@
       <div class="mole-scene__mask"></div>
     </div>
 
-    <a href="#/[todo]place-link-to-tutorial" class="tutorial-link">
+    <div class="spinner" id="js-spinner">
+      <div class="dot1"></div>
+      <div class="dot2"></div>
+    </div>
+
+    <a href="#/[todo]place-link-to-tutorial" class="tutorial-link" id="js-tutorials-link" style="opacity: 0;">
       tutorial
-      <div class="tutorial-link__logo">
+      <span class="tutorial-link__logo">
         <svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
             <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
                 <path d="M8,0 C12.418278,0 16,3.581722 16,8 C16,12.418278 12.418278,16 8,16 C3.581722,16 0,12.418278 0,8 C0,3.581722 3.581722,0 8,0 L8,0 Z M7.99952276,4.06943864 C10.1705754,4.06943864 11.9305614,5.82942457 11.9305614,8.00047724 C11.9305614,10.1715299 10.1705754,11.9315158 7.99952276,11.9315158 C5.82847009,11.9315158 4.06848416,10.1715299 4.06848416,8.00047724 C4.06848416,5.82942457 5.82847009,4.06943864 7.99952276,4.06943864 L7.99952276,4.06943864 Z" id="Oval-22" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
             </g>
         </svg>
-      </div>
+      </span>
     </a>
 
     <script src="dist/app.js"></script>

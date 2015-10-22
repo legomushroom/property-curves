@@ -1,7 +1,6 @@
 var mojs     = require('mo-js');
-var {Howl}   = require('howler')
 
-var door = {
+var doorOpen = {
   init: function (proto) {
     Object.setPrototypeOf(this, proto);
     this.vars();
@@ -9,7 +8,7 @@ var door = {
     // this.cubeMainTween.start();
   },
   vars: function () {
-    this.doorOpenSound = new Howl({ urls: [`sounds/door-open-1.${this.soundFileType}`], rate: 2.5 });
+
   },
   createTween: function () {
     var tween = new mojs.Tween({
@@ -39,4 +38,4 @@ var door = {
 }
 
 
-module.exports = door;
+module.exports = doorOpen;

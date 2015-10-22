@@ -1,5 +1,4 @@
 var mojs     = require('mo-js');
-var {Howl}   = require('howler');
 
 // SCENES
 var moleRantingTongue = {
@@ -11,9 +10,6 @@ var moleRantingTongue = {
   },
   vars: function () {
     this.delay = this.handRantingDuration+275; this.duration = 1800;
-    this.salivaSound1 = new Howl({ urls: [ `sounds/saliva-1.${this.soundFileType}` ] });
-    this.salivaSound2 = new Howl({ urls: [ `sounds/saliva-2.${this.soundFileType}` ] });
-    this.sighSound1   = new Howl({ urls: [ `sounds/sigh-1.${this.soundFileType}` ], rate: 1.8 });
   },
   createTween: function () {
     var skewCurve  = mojs.easing.path('M0,100 C0,100 18.1450901,69.0663515 24.0949898,99.9609384 C30.0448895,130.855525 100,100 100,100');
