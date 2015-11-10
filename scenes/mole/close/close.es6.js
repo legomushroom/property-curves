@@ -48,7 +48,7 @@ var close = {
         var quadInP  = e.quad.in(p);
         var expoInP  = e.expo.in(p);
 
-        h.style( this.moleEl, 'transform', `translate(${25}px, ${-240 + 360*cubicInP}px) ${this.zHack}` );
+        h.style( this.moleEl, 'transform', `translate(${25}px, ${-240 + 360*cubicInP}px) translateZ(-1px)` );
         // (p === 1) && (this.moleEl.style['z-index'] = 0);
 
         h.style( this.moleInnerEl, 'transform', `skewX(${9*(1-p)}deg) scale(${ 1 - .2*cubicInP }, ${ 1 + .2*cubicInP }) ${this.zHack}` );
@@ -111,9 +111,12 @@ var close = {
       }
     });
 
+    var staggerAddTween = (this.isMobile() ? new mojs.Timeline : burstStagger.timeline);
+    var doorWaveAddTween = (this.isMobile() ? new mojs.Timeline : doorWaveTween);
+    
     this.closeTimeline
       .add(moveDownTween, closeSoundLauncher)
-      .append([burstStagger.timeline, doorWaveTween, noiseTween]);
+      .append([ staggerAddTween, doorWaveAddTween, noiseTween]);
     this.moleTimeline.add(this.closeTimeline);
 
   },

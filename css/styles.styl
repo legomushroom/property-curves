@@ -2,6 +2,23 @@ PX = (1/16)rem
 GS = 10*PX
 BRADIUS = 8*PX
 
+startButtonSize = 32
+.start-button
+  position absolute
+  cursor pointer
+  left 50%
+  top 50%
+  // background-color #FFF 
+  width startButtonSize*PX
+  height startButtonSize*PX
+  margin-left -(startButtonSize/2)*PX
+  margin-top  -(startButtonSize/2)*PX
+  z-index 10
+  &:hover
+    opacity .85 
+  &__icon
+    transform scale(0)
+
 {el = '.tutorial-link'}
   position fixed
   color white

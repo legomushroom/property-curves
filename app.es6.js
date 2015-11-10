@@ -5,7 +5,6 @@ require('./css/styles.styl');
   TODO:
     add tutorial link
     make pen
-     - add sounds loader
 */
 
 // SCENES
@@ -61,11 +60,47 @@ var main = {
 
   tryToLaunch() {
     this.soundsLoadedCnt++;
-    if (this.soundsLoadedCnt >= 19 && !this.isLaunched ) { this.isLaunched = true; this.onSoundsLoaded(); }
+    if (this.soundsLoadedCnt >= 19 && !this.isLaunched ) { this.onSoundsLoaded(); }
+  },
+
+  showStartButton () {
+    var startButtonEl = document.querySelector('#js-start-button');
+    var startButtonIcon = startButtonEl.querySelector('#js-start-button-icon');
+    this.spinnerEl.style.display = 'none';
+    startButtonEl.style.display = 'block';
+
+    var tm = new mojs.Timeline({ delay: 2500 });
+    var showBurst = new mojs.Burst({
+      parent: startButtonEl,
+      duration: 300,
+      type:   'line',
+      stroke: 'white',
+      strokeWidth: 3,
+      x: '38%', y: '60%',
+      radius: {25: 50},
+      isRunLess: true,
+      onUpdate (p) {
+        mojs.h.style(startButtonIcon, 'transform', `scale(${p}) translateZ(0)`);
+      }
+    });
+
+    var transit = new mojs.Transit({
+      parent: startButtonEl,
+      x: '38%', y: '60%',
+      type: 'circle',
+      fill: 'none',
+      stroke: 'white',
+      isRunLess: true,
+      strokeWidth: { 10: 0 },
+    });
+    tm.add(showBurst, transit).start();
+
+    // this.isLaunched = true; this.onSoundsLoaded();
   },
 
   onSoundsLoaded() {
-    this.spinnerEl.style.opacity = 0;
+    this.isLaunched = true;
+    this.spinnerEl.style.display = 'none';
     cube.init(this)
     mole.init(this);
     this.mainTween.start();
@@ -96,6 +131,9 @@ var main = {
     this.spinnerEl          = document.querySelector('#js-spinner');
     this.soundFileType      = (this.isOpera()) ? 'wav' : 'mp3';
     this.soundsLoadedCnt    = 0;
+  },
+  isMobile: function () {
+    return !!(navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i) || navigator.userAgent.match(/BlackBerry/i) || navigator.userAgent.match(/Windows Phone/i));
   },
   isOpera: function () {
     var userAgent = navigator.userAgent;

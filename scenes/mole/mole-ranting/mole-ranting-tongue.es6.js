@@ -51,7 +51,7 @@ var moleRantingTongue = {
     var tween = new mojs.Tween({
       delay:    this.delay*this.s,
       duration: this.duration*this.s,
-      onStart: ()=> { saliva.run(); salivaLauncher.run(); this.isSound && this.sighSound1.play(); },
+      onStart: ()=> { if (!this.isMobile()) { saliva.run(); }; salivaLauncher.run(); this.isSound && this.sighSound1.play(); },
       onUpdate: (p)=> {
         var skewP  = skewCurve(p);
         var handP  = handCurve(p);

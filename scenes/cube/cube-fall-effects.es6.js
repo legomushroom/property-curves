@@ -40,6 +40,7 @@ var cubeFallEffects = {
                             ] );
   },
   createFall1: function () {
+    if (this.isMobile()) { return new mojs.Timeline; }
     var timeline  = new mojs.Timeline;
     var burst2Option = {
         x: '-20%',   shiftX: {0: -300},
@@ -53,6 +54,7 @@ var cubeFallEffects = {
     return timeline;
   },
   createFall2: function () {
+    if (this.isMobile()) { return new mojs.Timeline; }
     var timeline  = new mojs.Timeline;
     var burst1Option = {delay: (this.delay+850)*this.s, radius: {30: 60}, count: 3}
     var burst2Option = {
@@ -68,6 +70,7 @@ var cubeFallEffects = {
     return timeline;
   },
   createFall3: function () {
+    if (this.isMobile()) { return new mojs.Timeline; }
     var timeline  = new mojs.Timeline;
     var burst1Option = {delay: (this.delay+1275)*this.s, radius: {15: 30}, count: 2, shiftX: {0: 150}, shiftY: {0: '-25'}}
     var burst2Option = {
@@ -83,6 +86,7 @@ var cubeFallEffects = {
     return timeline;
   },
   createFall4: function () {
+    if (this.isMobile()) { return new mojs.Timeline; }
     var timeline  = new mojs.Timeline;
     var burst1Option = {delay: (this.delay+1550)*this.s, radius: {5: 12}, count: 1, shiftX: {0: 80}, shiftY: {0: '-15'}}
     var burst2Option = {
@@ -98,6 +102,7 @@ var cubeFallEffects = {
     return timeline;
   },
   createFall5: function () {
+    if (this.isMobile()) { return new mojs.Timeline; }
     var timeline  = new mojs.Timeline;
     var burst1Option = {delay: (this.delay+1725)*this.s, radius: {5: 12}, count: 1, shiftX: {0: 60}, shiftY: {0: '-10'}, childOptions: {radius: {3:0}} }
     var burst2Option = {
